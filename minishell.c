@@ -1,20 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   built-ins.c                                        :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 20:02:32 by afonso            #+#    #+#             */
-/*   Updated: 2022/12/09 10:12:22 by afonso           ###   ########.fr       */
+/*   Created: 2022/12/09 12:00:04 by afonso            #+#    #+#             */
+/*   Updated: 2022/12/10 11:27:24 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_echo(int argc, char **argv, char **envp)
+#include "minishell.h"
+
+
+int main(int argc, char **argv, char **envp)
 {
-	//child process = fork();
-	//if (child_process == 1)
-		//if (char[1] == "echo")
-		//	execve(child, echo_print());
-		
+	int		*exit_status;
+	pid_t	pid;
+	char	*line;
+	int		command_num;
+
+	exit_status = 0; // Isto é o "$?"
+	while (1)
+	{
+		while (!line || line[0] == 0)
+		{
+			line = readline("minishell:");
+			free(line);
+			printf("\n");
+		}
+		add_history(line);
+	}
+	return (0);
 }

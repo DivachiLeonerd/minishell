@@ -41,11 +41,11 @@ pid_t fork(): Cria um novo processo (child process) que é uma cópia exata do p
 pid_t wait(int *wstatus): Espera pela mudança de estado do child process da calling
 function. A mudança pode ser a terminação, a paragem e o recomeço do child process através de signals.
 No caso da terminação do child process, o wait() permite libertar os recursos do processo. Se 
-wait() não fôr chamado, o processo fica num estado zombie.
+wait() não fôr chamado, o processo fica num estado "zombie".
 
 pid_t waitpid(pid_t pid, int *wstatus, int options):Wait() suspende a execução da thread até um dos seus
 child processes terminar. Fazer a chamada a wait(&wstatus) é equivalente a: waitpid(-1, &wstatus, 0);
-Waitpid() suspende a execução da thread até um child process especificado pelo pid termine.
+Waitpid() suspende a execução da thread até um child process especificado pelo pid terminar.
 
 int sigaction(int signum, const struct sigaction *restrict act,
 	struct sigaction *restrict oldact): Precisa da estrutura struct sigaction.
