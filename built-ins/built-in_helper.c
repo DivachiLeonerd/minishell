@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 10:24:14 by afonso            #+#    #+#             */
-/*   Updated: 2022/12/26 16:16:55 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/03 11:18:25 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ char	**build_envp(char **envp)
 	myenvp = malloc(72 * sizeof(char **));
 	if (myenvp == NULL)
 		return (NULL);
-	myenvp[71] = NULL;
-	while (envp[i])
+	while (i < 71)
 	{
 		myenvp[i] = malloc(ft_strlen(envp[i] + 1) * sizeof(char *));
 		if (myenvp[i] == 0)
@@ -44,6 +43,7 @@ char	**build_envp(char **envp)
 		ft_strlcpy(myenvp[i], envp[i], ft_strlen(envp[i]) + 1);
 		i++;
 	}
+	myenvp[71] = NULL;
 	return (myenvp);
 }
 

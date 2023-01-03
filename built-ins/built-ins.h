@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:18:23 by afonso            #+#    #+#             */
-/*   Updated: 2022/12/22 16:32:30 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/03 10:21:34 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,3 +28,6 @@ void	free_env(char **envp);
 int		add_var_to_env(char **new_env, char **old_env, char *var);
 int		replace_env_var(char **new_env, char **old_env, char *var);
 int		delete_var_from_env(char **new_env, char **old_env, char *var);
+int		is_builtin(char *command);
+void	execute_non_builtin(char *command_name, char **myenvp, char **argv);
+int		is_builtin(char *command);
