@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 11:45:50 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/03 15:44:45 by afonso           ###   ########.fr       */
+/*   Created: 2021/10/28 16:17:04 by atereso-          #+#    #+#             */
+/*   Updated: 2021/12/21 13:17:07 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "built-ins.h"
+#include "libft.h"
 
-int	env(char **envp)
+void	*ft_calloc(size_t count, size_t size)
 {
-	int	i;
-	int	j;
+	char	*allocator;
+	size_t	i;
 
 	i = 0;
-	while (envp[i])
+	allocator = malloc(count * size);
+	if (!allocator)
+		return (NULL);
+	while (i < (count * size))
 	{
-		j = 0;
-		while (envp[i][j])
-		{
-			write(1, &(envp[i][j]), 1);
-			j++;
-		}
-		if (envp[i][j] == 0)
-			write(1, "\n", 1);
+		allocator[i] = 0;
 		i++;
 	}
-	return (0);
+	return ((void *)allocator);
 }

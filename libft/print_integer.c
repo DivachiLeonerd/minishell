@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   print_integer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 11:21:44 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/04 15:06:24 by afonso           ###   ########.fr       */
+/*   Created: 2022/01/11 17:39:13 by afonso            #+#    #+#             */
+/*   Updated: 2022/03/02 16:09:08 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "built-ins.h"
+#include"ft_printf.h"
 
-int main(int argc, char **argv, char **envp)
+int	print_integer(int i, char format)
 {
-	char	**myenvp;
+	char	*s;
+	int		counter;
 
-	myenvp = build_envp(envp);
-	env(myenvp);
-	cd(argv[1]);
-	printf("So para ver se ta bem\n");
-	ft_pwd(argv, myenvp);
-	free_env(myenvp);
-	return (0);
+	if (format == 'c')
+	{
+		ft_putchar_fd(i, 1);
+		return (1);
+	}
+	s = ft_itoa(i);
+	counter = ft_strlen(s);
+	ft_putstr_fd(s, 1);
+	free(s);
+	return (counter);
 }

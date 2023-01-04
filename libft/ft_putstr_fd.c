@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 11:21:44 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/04 15:06:24 by afonso           ###   ########.fr       */
+/*   Created: 2021/11/04 17:54:23 by afonso            #+#    #+#             */
+/*   Updated: 2021/12/10 17:34:29 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "built-ins.h"
+#include"libft.h"
 
-int main(int argc, char **argv, char **envp)
+void	ft_putstr_fd(char *s, int fd)
 {
-	char	**myenvp;
+	int		i;
 
-	myenvp = build_envp(envp);
-	env(myenvp);
-	cd(argv[1]);
-	printf("So para ver se ta bem\n");
-	ft_pwd(argv, myenvp);
-	free_env(myenvp);
-	return (0);
+	if (!s)
+		return ;
+	i = 0;
+	while (s[i])
+	{
+		i++;
+	}
+	write(fd, s, i);
 }

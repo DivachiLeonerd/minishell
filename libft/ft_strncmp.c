@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/12 18:23:07 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/03 15:04:59 by afonso           ###   ########.fr       */
+/*   Created: 2021/10/28 16:27:20 by atereso-          #+#    #+#             */
+/*   Updated: 2021/12/19 12:23:52 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../built-ins.h"
+#include "libft.h"
 
-int	ft_pwd(char **argv, char **myenvp)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	char	*pwd;
-	char	*str;
-
-
-	pwd = getcwd(NULL, 0);
-	printf("%s\n", pwd);
-	str = ft_strjoin("PWD=", pwd);
-	free(pwd);
-	myenvp = export(str, myenvp);
-	free(str);//se calhar e isto
+	while (n)
+	{
+		if (*s1 != *s2)
+			return ((unsigned char)*s1 - *s2);
+		if (!(*s1) || !(*s2))
+			return (0);
+		s1++;
+		s2++;
+		n--;
+	}
 	return (0);
 }

@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 11:21:44 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/04 15:06:24 by afonso           ###   ########.fr       */
+/*   Created: 2021/10/28 16:25:09 by atereso-          #+#    #+#             */
+/*   Updated: 2021/11/26 18:12:57 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "built-ins.h"
+#include "libft.h"
 
-int main(int argc, char **argv, char **envp)
+char	*ft_strchr(const char *s, int c)
 {
-	char	**myenvp;
+	unsigned int	i;
 
-	myenvp = build_envp(envp);
-	env(myenvp);
-	cd(argv[1]);
-	printf("So para ver se ta bem\n");
-	ft_pwd(argv, myenvp);
-	free_env(myenvp);
-	return (0);
+	i = 0;
+	while (s[i])
+		i++;
+	if (ft_memchr((const void *)s, c, ++i))
+		return (ft_memchr((const void *)s, c, ++i));
+	return (NULL);
 }

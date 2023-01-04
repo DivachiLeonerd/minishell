@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 11:21:44 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/04 15:06:24 by afonso           ###   ########.fr       */
+/*   Created: 2021/10/28 16:19:13 by atereso-          #+#    #+#             */
+/*   Updated: 2021/10/28 16:19:14 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "built-ins.h"
-
-int main(int argc, char **argv, char **envp)
+int	ft_isdigit(int c)
 {
-	char	**myenvp;
-
-	myenvp = build_envp(envp);
-	env(myenvp);
-	cd(argv[1]);
-	printf("So para ver se ta bem\n");
-	ft_pwd(argv, myenvp);
-	free_env(myenvp);
-	return (0);
+	if (c >= 48 && c <= 57)
+	{
+		return (c);
+	}
+	else
+		return (0);
 }

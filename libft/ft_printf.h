@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/12 18:23:07 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/03 15:04:59 by afonso           ###   ########.fr       */
+/*   Created: 2022/01/18 16:07:15 by afonso            #+#    #+#             */
+/*   Updated: 2022/03/03 13:25:24 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../built-ins.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-int	ft_pwd(char **argv, char **myenvp)
-{
-	char	*pwd;
-	char	*str;
+# include<stdlib.h>
+# include"libft.h"
+# include <stdarg.h>
 
+int			ft_printf(const char *string, ...);
+int			print_pointer(void *ptr_x);
+int			print_integer(int integer, char format);
+int			print_hexa(va_list ap, char format, int counter);
+int			print_unsigned_int(unsigned int u);
+int			print_string(char *string);
+char		*ft_utoa(unsigned int u);
 
-	pwd = getcwd(NULL, 0);
-	printf("%s\n", pwd);
-	str = ft_strjoin("PWD=", pwd);
-	free(pwd);
-	myenvp = export(str, myenvp);
-	free(str);//se calhar e isto
-	return (0);
-}
+#endif

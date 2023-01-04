@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 11:21:44 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/04 15:06:24 by afonso           ###   ########.fr       */
+/*   Created: 2021/10/18 16:24:55 by atereso-          #+#    #+#             */
+/*   Updated: 2021/11/16 20:16:33 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "built-ins.h"
+#include "libft.h"
 
-int main(int argc, char **argv, char **envp)
+int	ft_isalpha(int c)
 {
-	char	**myenvp;
-
-	myenvp = build_envp(envp);
-	env(myenvp);
-	cd(argv[1]);
-	printf("So para ver se ta bem\n");
-	ft_pwd(argv, myenvp);
-	free_env(myenvp);
-	return (0);
+	if (c >= 65 && c <= 90)
+	{
+		return (c);
+	}
+	if (c >= 97 && c <= 122)
+	{
+		return (c);
+	}
+	else
+		return (0);
 }

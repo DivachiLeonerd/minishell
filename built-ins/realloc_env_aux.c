@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:58:53 by afonso            #+#    #+#             */
-/*   Updated: 2022/12/26 16:17:00 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/03 15:10:34 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	replace_env_var(char **new_env, char **old_env, char *var)
 		i++;
 		j++;
 	}
-	new_env[j] = NULL;
 	free(new_name);
 	return (0);
 }

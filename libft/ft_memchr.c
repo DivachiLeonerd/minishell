@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 11:45:50 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/03 15:44:45 by afonso           ###   ########.fr       */
+/*   Created: 2021/10/28 16:19:32 by atereso-          #+#    #+#             */
+/*   Updated: 2021/12/19 15:06:18 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "built-ins.h"
+#include "libft.h"
 
-int	env(char **envp)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int	i;
-	int	j;
+	unsigned int	i;
+	unsigned char	*array;
 
+	array = (unsigned char *)s;
 	i = 0;
-	while (envp[i])
+	while (n > i)
 	{
-		j = 0;
-		while (envp[i][j])
-		{
-			write(1, &(envp[i][j]), 1);
-			j++;
-		}
-		if (envp[i][j] == 0)
-			write(1, "\n", 1);
+		if (array[i] == (unsigned char)c)
+			return ((char *)&array[i]);
 		i++;
 	}
-	return (0);
+	return (NULL);
 }

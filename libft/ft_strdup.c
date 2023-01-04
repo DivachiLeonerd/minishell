@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 11:45:50 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/03 15:44:45 by afonso           ###   ########.fr       */
+/*   Created: 2021/10/28 15:56:05 by atereso-          #+#    #+#             */
+/*   Updated: 2021/12/19 14:57:48 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "built-ins.h"
+#include "libft.h"
 
-int	env(char **envp)
+char	*ft_strdup(const char *s1)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	char	*alloc;
 
 	i = 0;
-	while (envp[i])
+	alloc = malloc((ft_strlen(s1) + 1) * sizeof(char));
+	if (!alloc)
+		return (NULL);
+	while (i <= ft_strlen(s1))
 	{
-		j = 0;
-		while (envp[i][j])
-		{
-			write(1, &(envp[i][j]), 1);
-			j++;
-		}
-		if (envp[i][j] == 0)
-			write(1, "\n", 1);
+		alloc[i] = ((char *)s1)[i];
 		i++;
 	}
-	return (0);
+	return (alloc);
 }

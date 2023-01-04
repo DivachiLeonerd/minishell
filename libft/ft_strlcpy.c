@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 11:45:50 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/03 15:44:45 by afonso           ###   ########.fr       */
+/*   Created: 2021/10/28 16:49:57 by atereso-          #+#    #+#             */
+/*   Updated: 2021/11/29 18:15:34 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "built-ins.h"
+#include"libft.h"
 
-int	env(char **envp)
+size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize)
 {
-	int	i;
-	int	j;
+	size_t	i;
 
+	if (!dstsize)
+		return (ft_strlen(src));
 	i = 0;
-	while (envp[i])
+	while (src[i] && i < dstsize - 1)
 	{
-		j = 0;
-		while (envp[i][j])
-		{
-			write(1, &(envp[i][j]), 1);
-			j++;
-		}
-		if (envp[i][j] == 0)
-			write(1, "\n", 1);
+		dest[i] = src[i];
 		i++;
 	}
-	return (0);
+	dest[i] = '\0';
+	return (ft_strlen(src));
 }

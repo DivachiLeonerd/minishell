@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   print_unsigned_int.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/12 18:23:07 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/03 15:04:59 by afonso           ###   ########.fr       */
+/*   Created: 2022/01/11 17:38:51 by afonso            #+#    #+#             */
+/*   Updated: 2022/03/03 13:26:13 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../built-ins.h"
+#include"ft_printf.h"
 
-int	ft_pwd(char **argv, char **myenvp)
+int	print_unsigned_int(unsigned int u)
 {
-	char	*pwd;
-	char	*str;
+	char	*s;
+	int		counter;
 
-
-	pwd = getcwd(NULL, 0);
-	printf("%s\n", pwd);
-	str = ft_strjoin("PWD=", pwd);
-	free(pwd);
-	myenvp = export(str, myenvp);
-	free(str);//se calhar e isto
-	return (0);
+	s = ft_utoa(u);
+	counter = ft_strlen(s);
+	ft_putstr_fd(s, 1);
+	free(s);
+	return (counter);
 }
