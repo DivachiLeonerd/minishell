@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:25:59 by afonso            #+#    #+#             */
-/*   Updated: 2022/12/23 15:57:38 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/03 14:18:19 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char **find_env_full_var(char *message, char **envp)
 	return (&(envp[i]));
 }
 
-int	ft_echo(char *message, char **envp)// falta implementar a flag -n mas preciso de esclarecimentos
+int	ft_echo(char *message, char **envp, int flag)// falta implementar a flag -n mas preciso de esclarecimentos
 {
 	int i;
 	char **var_value;
@@ -68,7 +68,7 @@ int	ft_echo(char *message, char **envp)// falta implementar a flag -n mas precis
 	i = 0;
 	if (!message || message[i] == 0)
 	{
-		printf("\n");// doesn't work with normal shell but will work on our own
+		IF_FLAG_ACTIVE// doesn't work with normal shell but will work on our own
 		return (0);
 	}
 	while (message[i] != '$' && message[i])
@@ -86,6 +86,6 @@ int	ft_echo(char *message, char **envp)// falta implementar a flag -n mas precis
 		while (message[i] != ' ' && message[i] != 0)
 			i++;
 	}
-		ft_echo(&(message[i]), envp);
+		ft_echo(&(message[i]), envp, flag);
 	return (0);
 }

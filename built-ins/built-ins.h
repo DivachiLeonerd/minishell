@@ -6,13 +6,16 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:18:23 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/03 10:21:34 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/03 14:17:47 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../minishell.h"
 
-int		ft_echo(char *message, char **envp);
+#define IF_FLAG_ACTIVE if (flag == 0){printf("\n");}
+
+
+int		ft_echo(char *message, char **envp, int flag);
 char	**find_env_full_var(char *var_name, char **envp);
 char 	*get_variable_name(char *message);
 int		ft_pwd(char **argv, char **envp);
