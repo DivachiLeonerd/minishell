@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   not_builtin_test.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 19:19:15 by afonso            #+#    #+#             */
-/*   Updated: 2022/12/12 15:00:42 by afonso           ###   ########.fr       */
+/*   Created: 2023/01/03 10:04:42 by afonso            #+#    #+#             */
+/*   Updated: 2023/01/03 11:50:18 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <curses.h>
-#include <term.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <signal.h>
-#include <fcntl.h>
-#include <string.h>
-#include <errno.h>
-#include <dirent.h>
-#include <sys/stat.h>
-#include <sys/ioctl.h>
-#include <termios.h>
-#include <termcap.h>
-#include "libft.h"
+#include "built-ins.h"
 
+int	main(int argc, char **argv, char **envp)
+{
+	char	**myenvp;
+	int		i;
+
+	myenvp = build_envp(envp);
+	execute_non_builtin("mv", myenvp, argv);// when testing only put arguments in command line
+	free_env(myenvp);						//e.g: ./executable ../apontamento.txt ./
+	printf("nice\n");
+	return (0);
+}

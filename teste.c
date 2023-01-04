@@ -6,29 +6,26 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2022/12/04 18:38:09 by afonso           ###   ########.fr       */
+/*   Updated: 2022/12/09 20:04:07 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
-#include <fcntl.h>
+#include "minishell.h"
 
 int main(void)
 {
-	char *line;
-	while (1)
+	char	*line;
+	int		exit_status;
+	pid_t 	pid;
+
+	pid  = fork();
+	line = 0;
+	if (pid == 0)
+		exit (20);
+	else
 	{
-		line = rl_on_new_line("minishell$ ");
-		add_history(line);
-		if (line[0] == 48)
-		{
-			free(line);
-			break ;
-		}
-		free(line);
+		waitpid(pid, &errno, WEXITSTATUS(errno));
+		printf("errno:%d\n", errno >> 8);
+		return (errno >> 8);
 	}
-	return (0);
 }
