@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:18:23 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/03 14:17:47 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/05 15:05:43 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 int		ft_echo(char *message, char **envp, int flag);
 char	**find_env_full_var(char *var_name, char **envp);
 char 	*get_variable_name(char *message);
-int		ft_pwd(char **argv, char **envp);
+char	**ft_pwd(char **argv, char **envp);
 int		cd(char *pathname);
 int		env(char **envp);
 char	**export(char *variable, char **envp);
