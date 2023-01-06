@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:05:47 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/05 15:10:16 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/05 15:52:06 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,12 @@
 char	**export(char *variable, char **myenvp)
 {
 	//variable == "NAME=VALUE"
-	int 	i;
-	int		j;
 	char	**var;
 	char	*new_var;
 	char	**new_env;
 
-	i = 0;
 	var = find_env_full_var(variable, myenvp);
 	new_var = ft_strdup(variable);
-	i = how_many_arrays(myenvp);
 	if (var == NULL)//if var not found
 		new_env = env_realloc(myenvp, 1, variable);
 	else

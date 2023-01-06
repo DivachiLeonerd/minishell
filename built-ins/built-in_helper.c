@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 10:24:14 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/05 15:06:29 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/05 16:20:19 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,9 @@ char	**build_envp(char **envp)
 {
 	char	**myenvp;
 	int		i;
-	int		j;
 	int		len;
 
 	i = 0;
-	j = 0;
 	len = how_many_arrays(envp);
 	myenvp = malloc((len + 1) * sizeof(char *));
 	if (myenvp == NULL)
@@ -49,11 +47,9 @@ char	**build_envp(char **envp)
 
 char	**env_realloc(char **envp, int	numof_new_arrays, char *var)
 {
-	int		i;
-	int		j;
 	char	**new_env;
 	int		len;
-	i = 0;
+
 	len = how_many_arrays(envp);
 	new_env = malloc(((len + 1) + numof_new_arrays) * sizeof(char *));
 	if (numof_new_arrays > 0)
