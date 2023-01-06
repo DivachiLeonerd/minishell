@@ -6,11 +6,21 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:18:23 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/05 15:51:36 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/06 15:25:14 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../minishell.h"
+
+#ifndef MINISHELL_H
+#define MINISHELL_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <string.h>
+#include <errno.h>
+#include "libft.h"
 
 #define IF_FLAG_ACTIVE if (flag == 0){printf("\n");}
 
@@ -34,3 +44,6 @@ int		delete_var_from_env(char **new_env, char **old_env, char *var);
 int		is_builtin(char *command);
 void	execute_non_builtin(char *command_name, char **myenvp, char **argv);
 int		is_builtin(char *command);
+
+
+#endif

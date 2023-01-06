@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:19:15 by afonso            #+#    #+#             */
-/*   Updated: 2022/12/12 15:00:42 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/06 16:05:14 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,11 @@
 #include <sys/ioctl.h>
 #include <termios.h>
 #include <termcap.h>
-#include "libft.h"
+#include "./libft.h"
+#include "built-ins/built-ins.h"
 
+**************SIGNAL HANDLING****************
+
+#define CTRL_C  SIGINT
+#define CTRL_D	'^D' // This isn't a signal, itś a EOF but I don't how to handle it yet
+#define CTRL_BS	SIGQUIT
