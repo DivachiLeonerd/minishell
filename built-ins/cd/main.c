@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:21:44 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/04 15:06:24 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/05 15:11:51 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ int main(int argc, char **argv, char **envp)
 	myenvp = build_envp(envp);
 	env(myenvp);
 	cd(argv[1]);
-	printf("So para ver se ta bem\n");
-	ft_pwd(argv, myenvp);
+	printf("\n\nnew_PWD:");
+	myenvp = ft_pwd(argv, myenvp);
+	printf("\n\nCheck new PWD in env:\n\n");
+	env(myenvp);
 	free_env(myenvp);
 	return (0);
 }

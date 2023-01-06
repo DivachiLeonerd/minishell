@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:25:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/03 14:18:19 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/05 15:32:02 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char **find_env_full_var(char *message, char **envp)
 
 	char	*var_name;
 	int		i;
-	char	*value;
 
 	i = 0;
 	var_name = get_variable_name(message);

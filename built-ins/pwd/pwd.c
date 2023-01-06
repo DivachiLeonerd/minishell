@@ -6,13 +6,13 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 18:23:07 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/03 15:04:59 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/05 15:51:30 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../built-ins.h"
 
-int	ft_pwd(char **argv, char **myenvp)
+char	**ft_pwd(char **myenvp)
 {
 	char	*pwd;
 	char	*str;
@@ -23,6 +23,6 @@ int	ft_pwd(char **argv, char **myenvp)
 	str = ft_strjoin("PWD=", pwd);
 	free(pwd);
 	myenvp = export(str, myenvp);
-	free(str);//se calhar e isto
-	return (0);
+	free(str);
+	return (myenvp);
 }
