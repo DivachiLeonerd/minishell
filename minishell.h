@@ -30,3 +30,9 @@
 #include <termcap.h>
 #include "libft.h"
 
+typedef struct s_tree
+{
+    void *token;
+    int type;
+    
+}

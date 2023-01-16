@@ -9,30 +9,16 @@
 /*************************************************************************/
 
 #include "parser.h"
-#include <string.h>
-#include <stdio.h>
 
-
-t_tree *parser_init(char *s, t_list *env)
+size_t ft_strlen(const char *s)
 {
-    t_tree *tree;
-    int what_is_token;
-    char *token;
+    size_t i;
 
-    while (1)
-    {
-        token = ;//future get_token func
-        if (!token)
-            break;
-        if ()//token der erro
-        {
-            //free token
-            return (NULL);
-        }
-        what_is_token = get_token_type(token); //figure out what the token is
-        if (what_is_token == word)
-            token = //func to handle token if it is a werd
-        //tree building function
-    }
-    return tree
+    i = 0;
+    if (!s)
+        return (0);
+    while (s[i] != '\0')
+        i++;
+    return (i);
 }
+
