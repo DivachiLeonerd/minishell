@@ -8,7 +8,7 @@
 /*                                                             42        */
 /*************************************************************************/
 
-#include parser.h
+#include "parser.h"
 
 char    *deal_with_operators(char *s, int *i)
 {

@@ -19,9 +19,10 @@ t_tree *parser_init(char *s, t_list *env)
     int what_is_token;
     char *token;
 
+    token = NULL;
     while (1)
     {
-        token = ;//future get_token func
+        token = token_getter();//future get_token func
         if (!token)
             break;
         if ()//token der erro

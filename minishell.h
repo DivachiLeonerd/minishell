@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:19:15 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/16 20:57:25 by jbuny-fe         ###   ########.fr       */
+/*   Updated: 2023/01/17 14:58:12 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 typedef struct s_tree
 {
 int		tokenType;
-char		**args
-struct s_tree	*leftBranch
-struct s_tree	*rightBranch
-struct s_tree	*back
+char	**args;
+t_tree	*left_branch;
+t_tree	*right_branch;
+t_tree	*back;
 }		t_tree;
