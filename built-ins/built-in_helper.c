@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 10:24:14 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/05 16:20:19 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/15 17:14:38 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ char	**build_envp(char **envp)
 	{
 		myenvp[i] = ft_strdup(envp[i]);
 		if (myenvp[i] == 0)
-			return (NULL);//no futuro fazer funcao free dinamica
+		{
+			free_bad_env_build(myenvp, i);
+			return (NULL);
+		}
 		i++;
 	}
 	return (myenvp);
@@ -74,5 +77,12 @@ void	free_env(char **envp)
 		free(envp[j]);
 		j++;
 	}
+	free(envp);
+}
+
+void	free_bad_env_build(char **envp, int failed_index)
+{
+	while (failed_index >= 0)
+		free(envp[failed_index--]);
 	free(envp);
 }

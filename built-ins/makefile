@@ -6,7 +6,7 @@
 #    By: afonso <afonso@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 10:45:02 by afonso            #+#    #+#              #
-#    Updated: 2023/01/06 15:04:08 by afonso           ###   ########.fr        #
+#    Updated: 2023/01/13 18:17:58 by afonso           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ ${NAME}: ftecho ftcd ftpwd ftexport ftunset ftenv  fthelper all #ftexit
 	cd built-in_objs && ar rcs ${NAME} ${ALL_OBJS} ${HELPER_OBJS}
 
 testb: all
-	${CC} ${CFLAGS} tester.c ${HEADER} ${LIB} -o tester
+	${CC}  tester.c -g -fsanitize=address ${HEADER} ${LIB} -o tester
 
 ftecho:
 	${CC} ${CFLAGS} echo/echo.c ${HEADER} ${LIB} -c

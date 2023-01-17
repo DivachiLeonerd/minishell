@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:10:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/03 11:39:20 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/15 16:39:15 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,24 +59,16 @@ static char *find_command_path(char **myenvp, char *command)
 	return (command_path);
 }
 
-void execute_non_builtin(char *command_name, char **myenvp, char **argv)
+void execute_non_builtin(char *command_name, char **myenvp, char **args)
 {
-	pid_t	child;
 	char	*pathname;
 
 	if (is_builtin(command_name))
 		return ;
-	child = fork();
-	if (child == -1)
-		perror("Couldn't fork process in execute_non_builtin function");
-	if (child == 0)
-	{
-		pathname = find_command_path(myenvp, command_name);
-		printf("pathname:%s\n", pathname);
-		if (pathname != NULL)
-			execve(pathname, argv, myenvp);//execve should free all memory from process after running
-		perror("Couldn't find command");
-	}
-	waitpid(child, 0,0);
+	pathname = find_command_path(myenvp, command_name);
+	printf("pathname:%s\n", pathname);
+	if (pathname != NULL)
+		execve(pathname, args, myenvp);//execve should free all memory from process after running
+	perror("Couldn't find command");
 	return ;
 }
