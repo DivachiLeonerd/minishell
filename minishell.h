@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:19:15 by afonso            #+#    #+#             */
-/*   Updated: 2022/12/12 15:00:42 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/17 14:58:12 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,3 +30,11 @@
 #include <termcap.h>
 #include "libft.h"
 
+typedef struct s_tree
+{
+int		tokenType;
+char	**args;
+t_tree	*left_branch;
+t_tree	*right_branch;
+t_tree	*back;
+}		t_tree;
