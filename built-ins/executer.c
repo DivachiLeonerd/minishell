@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:44:37 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/17 15:43:37 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/24 11:43:20 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,20 @@ int	is_builtin(char *command)
 	return (0);
 }
 
-
+void	execute_builtin(char *command, char **myenvp, char **args)
+{
+	if (ft_strncmp("echo", command, ft_strlen("echo")) == 0)
+		echo();
+	if (ft_strncmp("env", command, ft_strlen("env")) == 0)
+		env();
+	if (ft_strncmp("exit", command, ft_strlen("exit")) == 0)
+		exit();
+	if (ft_strncmp("export", command, ft_strlen("export")) == 0)
+		export();
+	if (ft_strncmp("cd", command, ft_strlen("cd")) == 0)
+		cd();
+	if (ft_strncmp("pwd", command, ft_strlen("pwd")) == 0)
+		pwd();
+	if (ft_strncmp("unset", command, ft_strlen("unset")) == 0)
+		unset();
+}

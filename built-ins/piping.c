@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:43:55 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/23 17:12:15 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/24 11:36:54 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,42 @@ int	piping(int *pid, int **pipe_fd, int num_of_pipes, int index)
 	return (0);
 }
 
-void	initialize_forking_processes(int *pid, int numof_processes)
+t_tree	*find_command_node(int index, t_tree *bintree)
 {
-	int i;
+	int 	i;
+	t_tree	*node;
+
+	i = 0;
+	while (node != bintree && i < index)
+	{
+		if (node->tokenid == COMMAND)
+			i++;
+		else if (node->tokenid == PIPE)
+		{
+			if (node->rightbranch->tokenid == COMMAND)
+			{
+				i++;
+				if (i == index)
+					return (node->rightbranch);
+			}
+		}
+		node = node->back;
+	}
+	return (node);
+}
+
+void	initialize_forking_processes(int *pid, int numof_processes, t_tree *bintree)
+{
+	int 	i;
+	t_tree	*command_node;
 
 	i = 0;
 	while (i < numof_processes)
 	{
 		if ((pid[i] = fork()) == -1)
 			perror("A problem has occured during fork process\n");
+		if (pid[i] == 0)
+			command_node = find_command_node(i, bintree);//command index is the position of each command in command line
 		i++;
 	}
 	return ;

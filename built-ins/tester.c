@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 10:04:42 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/23 17:32:55 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/24 11:59:31 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	make_and_run_pipes(t_tree *bintree, char **myenvp)
 	{
 		if (pid[i] == 0)
 		{
-			if (has_redirection(node) == 1)
+			if (has_redirection(node) == REDIR)//vou transformar todos os redirects numa execute_built-in()
 				output_redirection(STDOUT_FILENO, node);//bintree has to be substituted for another t_tree*node
 			if (is_builtin(node))
 				execute_builtin((node->args)[0], myenvp, node->args);
