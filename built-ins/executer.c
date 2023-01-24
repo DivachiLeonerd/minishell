@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:44:37 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/16 14:40:36 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/17 15:43:37 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,4 @@ int	is_builtin(char *command)
 	return (0);
 }
 
-void	*execute_builtin(char *command)
-{
-	char	**builtins;
-	int		i;
-	
-	i = 0;
-	
-}
+
