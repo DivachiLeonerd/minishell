@@ -22,12 +22,12 @@ t_tree *parser_init(char *s, t_list *env)
     token = NULL;
     while (1)
     {
-        token = token_getter();//future get_token func
+        token = token_getter(s);//future get_token func
         if (!token)
             break;
-        if ()//token der erro
+        if (syntax_checker(token) != 0)
         {
-            //free token
+            free(token);
             return (NULL);
         }
         what_is_token = get_token_type(token); //figure out what the token is
