@@ -9,6 +9,9 @@ int get_token_type(char *token)
         return (0);
     if (token_size ==1)
     {
-        if (token[0] == '')
+        if (token[0] == ' ')
+        {
+
+        }
     }
 }
