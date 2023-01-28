@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:05:47 by afonso            #+#    #+#             */
-/*   Updated: 2022/12/23 15:57:21 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/05 15:52:06 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,20 @@
 // 	return (fd);
 // }
 
-char	**export(char *variable, char **envp)
+char	**export(char *variable, char **myenvp)
 {
 	//variable == "NAME=VALUE"
-	int 	i;
-	int		j;
 	char	**var;
 	char	*new_var;
 	char	**new_env;
 
-	i = 0;
-	var = find_env_full_var(variable, envp);
-	new_var = malloc(ft_strlen((variable) + 1) * sizeof(char));
-	ft_strlcpy(new_var, variable, ft_strlen(variable) + 1);
-	i = how_many_arrays(envp);
+	var = find_env_full_var(variable, myenvp);
+	new_var = ft_strdup(variable);
 	if (var == NULL)//if var not found
-		new_env = env_realloc(envp, 1, variable);
+		new_env = env_realloc(myenvp, 1, variable);
 	else
-		new_env = env_realloc(envp, 0, variable);
-	free_env(envp);
+		new_env = env_realloc(myenvp, 0, variable);
+	free_env(myenvp);
 	free(new_var);
 	return (new_env);
 }

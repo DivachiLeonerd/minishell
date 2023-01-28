@@ -156,3 +156,9 @@ Usa tputs para retirar o output da string retornada.
 Mais info.:https://man7.org/linux/man-pages/man3/curs_termcap.3x.html
 
 char *tgoto(const char *cap, int col, int row): ver aqui: https://man7.org/linux/man-pages/man3/curs_termcap.3x.html
+
+
+redirection de um grep para filename: depois de um fork fazemos com que o stdout do grep seja agora o fd do filename,
+fazendo com que o grep escreva por mim para o ficheiro. Nota: N é preciso saber quantos bytes são pq n tens que fazer read nunca!!!!!
+
+

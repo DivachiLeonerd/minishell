@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 11:21:44 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/05 15:11:51 by afonso           ###   ########.fr       */
+/*   Created: 2023/01/24 11:48:03 by afonso            #+#    #+#             */
+/*   Updated: 2023/01/24 12:14:20 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "built-ins.h"
+#include "minishell.h"
 
-int main(int argc, char **argv, char **envp)
+int	return_tokenid(t_tree *command_node)
 {
-	char	**myenvp;
+	if (command_node->rightbranch == NULL)
+		return (0);
+	else
+		return (command_node->rightbranch->tokenid);
+}
 
-	myenvp = build_envp(envp);
-	env(myenvp);
-	cd(argv[1]);
-	printf("\n\nnew_PWD:");
-	myenvp = ft_pwd(argv, myenvp);
-	printf("\n\nCheck new PWD in env:\n\n");
-	env(myenvp);
-	free_env(myenvp);
-	return (0);
+t_tree	*find_first_command(t_tree *bintree)
+{
+	t_tree	*node;
+
+	node = bintree;
+	while (node->leftbranch != NULL)
+		node = node->leftbranch;
+	return (node);
 }
