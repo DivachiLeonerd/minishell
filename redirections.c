@@ -6,13 +6,13 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:48:03 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/24 12:14:20 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/27 19:50:27 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	return_tokenid(t_tree *command_node)
+int	return_righttokenid(t_tree *command_node)
 {
 	if (command_node->rightbranch == NULL)
 		return (0);
