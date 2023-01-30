@@ -31,8 +31,8 @@ t_tree *parser_init(char *s, t_list *env)
             return (NULL);
         }
         what_is_token = get_token_type(token); //figure out what the token is
-        if (what_is_token == word)
-            token = //func to handle token if it is a werd
+        if (what_is_token == 6) //token isn't <, >, |, >>, <<
+            token = token_manager(token, env);
         //tree building function
     }
     return tree

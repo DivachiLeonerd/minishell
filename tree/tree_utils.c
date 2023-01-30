@@ -1,3 +1,13 @@
+/*************************************************************************/
+/*                                                                       */
+/*                                                                       */
+/*     HEADER FUCKING FILE FUCK YEAH MOTHERFUCKER                        */
+/*                                                                       */
+/*     Created: 69/420 who:fucking:cares by: me                          */
+/*     Updated: 69/421 who:fucking:cares by: me                          */
+/*                                                             42        */
+/*************************************************************************/
+
 #include "parser.h"
 
 t_tree *node_creator(int id)
