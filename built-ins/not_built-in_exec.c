@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:10:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/19 19:53:45 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/28 10:55:04 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static char *find_command_path(char **myenvp, char *command)
 	return (command_path);
 }
 
-void execute_non_builtin(char *command_name, char **myenvp, char **args)
+int execute_non_builtin(char *command_name, char **myenvp, char **args)
 {
 	char	*pathname;
 

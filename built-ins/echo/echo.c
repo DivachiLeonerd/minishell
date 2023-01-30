@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:25:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/05 15:32:02 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/28 17:23:24 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,32 +59,45 @@ char **find_env_full_var(char *message, char **envp)
 	return (&(envp[i]));
 }
 
-int	ft_echo(char *message, char **envp, int flag)// falta implementar a flag -n mas preciso de esclarecimentos
+int	ft_echo(char **args, char **envp)
 {
 	int i;
+	static int	j;
 	char **var_value;
+	int	numberof_args;
 
-	i = 0;
-	if (!message || message[i] == 0)
+	numberof_args = how_many_arrays(args);
+	i = numberof_args - 1;
+	if (numberof_args > 3 || numberof_args < 1)
 	{
-		IF_FLAG_ACTIVE// doesn't work with normal shell but will work on our own
+		printf("\n");
+		return (-1);
+	}
+	if (numberof_args == 1)
+	{
+		printf("\n");
 		return (0);
 	}
-	while (message[i] != '$' && message[i])
+	if (numberof_args == 2)
 	{
-		printf("%c", (message[i]));
-		i++;
+		if (ft_strncmp(args[1], "-n", ft_strlen(args[1])) == 0)
+			return (0);
 	}
-	if (message[i] == '$')
+	while (args[i][j] && args[i][j] != '$')
+		printf("%c", args[i][j++]);
+	if (args[i][j] == '$')
 	{
-		i++;
-		var_value = find_env_full_var(&(message[i]), envp);
+		j++;
+		var_value = find_env_full_var(&(args[i][j]), envp);
 		if (var_value[0] == NULL)
 			write(1, "$", 1);
 		printf("%s", var_value[0]);
-		while (message[i] != ' ' && message[i] != 0)
-			i++;
+		while (args[i][j] != ' ' && args[i][j] != 0)
+			j++;
 	}
-		ft_echo(&(message[i]), envp, flag);
+	if (args[i][j])
+		ft_echo(&(args[i]), envp);
+	if (ft_strncmp(args[1], "-n", ft_strlen(args[1])) != 0)
+		printf("\n");
 	return (0);
 }

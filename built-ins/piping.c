@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:43:55 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/24 11:36:54 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/25 13:36:20 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	**pipe_creation(int how_many_pipes)
 	}
 	return (pipe_fd);
 }
-
 
 int	output_redirection(int fd1, t_tree *node)
 {
