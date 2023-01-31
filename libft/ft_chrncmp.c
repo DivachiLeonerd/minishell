@@ -8,32 +8,18 @@
 /*                                                             42        */
 /*************************************************************************/
 
-#include "parser.h"
-#include <string.h>
-#include <stdio.h>
+#include "libft.h"
 
-
-t_tree *parser_init(char *s, t_list *env)
+int	chrncmp(char c, char *s)
 {
-    t_tree *tree;
-    int what_is_token;
-    char *token;
+	int	i;
 
-    token = NULL;
-    while (1)
-    {
-        token = token_getter(s);//future get_token func
-        if (!token)
-            break;
-        if (syntax_checker(token) != 0)
-        {
-            free(token);
-            return (NULL);
-        }
-        what_is_token = get_token_type(token); //figure out what the token is
-        if (what_is_token == 6) //token isn't <, >, |, >>, <<
-            token = do_something_with_the_token(token, env);
-        //tree building function
-    }
-    return tree
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
 }

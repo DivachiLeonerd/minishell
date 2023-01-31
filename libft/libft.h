@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 16:06:29 by atereso-          #+#    #+#             */
-/*   Updated: 2021/12/19 15:04:43 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/01/31 18:42:01 by jbuny-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int			ft_isdigit(int c);
 int			ft_isalnum(int c);
 int			ft_isascii(int ch);
 int			ft_isprint(int ch);
+int			ft_chrncmp(char c, char *s);
 size_t		ft_strlen(const char *str);
 void		*ft_memset(void *mem_loc, int c, size_t n);
 void		ft_bzero(void *s, size_t n);

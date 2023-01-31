@@ -35,24 +35,26 @@ int    *token_manager(char *token)
     }
     if (single_quote > 1 || double_quote > 1 || dollar_sign > 0)
         return (1);
+    else if (single_quote == 1 || double_quote == 1)
+        return (2);
     return (0);
 }
 
-/*Outra função qualquer que vai chamar a token_manager
 char      *do_something_with_the_token(char *token, t_list *env)
 {
     int i;
     char    new_token;
+
     i = 0;
     if (!token_manager)
         return token;
     new_token = NULL;
     while (token[i])
     {
-        new_token = token_updater(token, new_token, ?????); //stupid name up for debate
+        new_token = token_updater(token, new_token, i, env); //stupid name up for debate
         i++;
     }
     free(token);
-    return (new_token)
+    return (new_token);
 }
-*/
+
