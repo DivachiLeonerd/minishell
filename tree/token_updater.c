@@ -35,6 +35,6 @@ char    *token_updater(char *token, char *new_token, int *index,  t_list *env)
         *index += size -1;
     }
     else
-        new_token = add_char_to_str(new_token, token[i]);
+        new_token = add_char_to_str(new_token, token[i]); //have to make add_char_to_str func
     return (new_token);
 }
