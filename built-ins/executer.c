@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:44:37 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/28 10:59:15 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/30 15:41:42 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void	execute_builtin(char *command, char **myenvp, char **args)
 	// if (ft_strncmp("exit", command, ft_strlen("exit")) == 0)
 	// 	exit();
 	if (ft_strncmp("export", command, ft_strlen("export")) == 0)
-		export(args[1], myenvp);
+		export(args, myenvp);
 	if (ft_strncmp("cd", command, ft_strlen("cd")) == 0)
 		cd(args[1]);
 	if (ft_strncmp("pwd", command, ft_strlen("pwd")) == 0)
 		ft_pwd(myenvp);
 	if (ft_strncmp("unset", command, ft_strlen("unset")) == 0)
-		unset(args[1], myenvp);
+		unset(args, myenvp);
 }

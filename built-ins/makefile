@@ -6,7 +6,7 @@
 #    By: afonso <afonso@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 10:45:02 by afonso            #+#    #+#              #
-#    Updated: 2023/01/13 18:17:58 by afonso           ###   ########.fr        #
+#    Updated: 2023/02/01 16:59:05 by afonso           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ FTEXPORT_OBJS:=./export/export.o
 UNSET_OBJS:=./unset/unset.o
 ENV_OBJS:=./env/env.o
 EXIT_OBJS:=./exit/exit.o
-HELPER_OBJS:= built-in_helper.o executer.o not_built-in_exec.o realloc_env_aux.o
+HELPER_OBJS:= built-in_helper.o executer.o not_built-in_exec.o realloc_env_aux.o piping.o piping_aux.o redirections.o redirectto_mypipe.o
 CC := cc
 CFLAGS := -g -Wall -Wextra -Werror #-fsanitize=address
 RM := rm -f
@@ -66,17 +66,15 @@ ftexit:
 	mv exit/exit.o ./built-in_objs
 
 fthelper: 
-	${CC} ${CFLAGS} not_built-in_exec.c realloc_env_aux.c executer.c built-in_helper.c ${HEADER} ${LIB} -c
-	mv not_built-in_exec.o ./built-in_objs
-	mv realloc_env_aux.o ./built-in_objs
-	mv executer.o ./built-in_objs
-	mv built-in_helper.o ./built-in_objs
+	${CC} ${CFLAGS} not_built-in_exec.c realloc_env_aux.c executer.c built-in_helper.c piping.c piping_aux.c redirections.c redirectto_mypipe.c ${HEADER} ${LIB} -c
+	mv *.o ./built-in_objs
 
 clean:
 	cd built-in_objs && rm -rf *.o
+	
 
 fclean:clean
 	${RM} libbuilt-in.a
 	${RM} tester
-	${RM} %.out
+	${RM} *.out
 .PHONY: ftecho, ftpwd, ftexport, ftunset, ftenv, ftexit, clean
