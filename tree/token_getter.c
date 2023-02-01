@@ -34,8 +34,11 @@ char *token_getter(char *s)
         if (s[i] == '>' || s[i] == '<' || s[i] == '|')
             token = deal_with_operators(s, &i);
         else if (s[i] == ' ')
-            
-        
-
+            token = get_word(s, &i);
+        if (token)
+            return (token);
+        i++;            
     }
+    i = 0;
+    return (token);
 }

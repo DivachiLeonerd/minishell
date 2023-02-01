@@ -10,6 +10,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include "parser.h"
 
 int     syntax_checker(char *line)
 {
@@ -20,8 +21,7 @@ int     syntax_checker(char *line)
     j = 0;
     if (line[0] == '>' || line[0] == '<' || line[0] == '|')
     {
-        printf("linha 23\n");
-        return(0);
+        return(1);
     }
     while(line[i] && j < 3)
     {
@@ -34,24 +34,12 @@ int     syntax_checker(char *line)
         }
         if (j == 2 && line[i] != line[i -1])
         {
-            printf("linha 37\n");
-            return (0);
+            return (2);
         }
     }
     if (line[i] == NULL)
-      printf("no problem bro ;)\n");
+      return (0);
     else
-    {
-        printf("Actually theres a lil problemo bro\n");
-        return (1)
-    }
-    return(0);
-}
-
-
-int main(void)
-{
-    char *line = "asdf>>ghfd|||";
-    syntax_checker(line);
+        return (1);
     return(0);
 }

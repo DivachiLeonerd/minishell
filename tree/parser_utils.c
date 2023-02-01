@@ -9,31 +9,32 @@
 /*************************************************************************/
 
 #include "parser.h"
-#include <string.h>
-#include <stdio.h>
 
-
-t_tree *parser_init(char *s, t_list *env)
+int get_token_type(char *token)
 {
-    t_tree *tree;
-    int what_is_token;
-    char *token;
+    int token_size;
+    int token_id;
 
-    token = NULL;
-    while (1)
+    token_size = (int)ft_strlen(token);
+    if (!token)
+        return (0);
+    if (token_size == 1)
     {
-        token = token_getter(s);//future get_token func
-        if (!token)
-            break;
-        if (syntax_checker(token) != 0)
-        {
-            free(token);
-            return (NULL);
-        }
-        what_is_token = get_token_type(token); //figure out what the token is
-        if (what_is_token == 6) //token isn't <, >, |, >>, <<
-            token = do_something_with_the_token(token, env);
-        //tree building function
+        if (token[0] == '>')
+            return (1);
+        else if (token[0] == '<')
+            return (2);
+        else if (token[0] == '|')
+            return (3);
     }
-    return tree
+    else if (token_size == 2)
+    {
+        if (token[0] == '>' && token[1] == '>')
+            return (4);
+        else if (token[0] == '<' && token[1] == '<')
+            return (5);
+    }
+    else
+        return (6); //token in neither redir nor pipe
 }
+
