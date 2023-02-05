@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 10:04:42 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/01 16:56:46 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/05 17:17:25 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,27 +36,16 @@ int	main(int argc, char **argv, char **envp)
 
 	i = 0;
 	ft_echo(argv, envp);
-	//gotta test make_and_run_pipes
-
+	//make a tree with parsing
+	//run tree with make_and_run_pipes()
 	return (0);
 }
 
-void	make_and_run_pipes(t_tree *bintree, char **myenvp)
+void	run_pipes(int numof_pipes, t_tree *bintree, int *pid, char **myenvp)
 {
-	int		i;
-	int		numof_pipes;
-	int		**pipe_fd;
-	int		*pid;
-	t_tree	*node;
-	
-	node = find_first_command(bintree); //function returns first command typed in the command line
-	i = 0;
-	numof_pipes = how_many_pipes(bintree);
-	pid = malloc((numof_pipes + 1) * sizeof(int));//if there is 3 processes then we will need only 2 pipes
-	pipe_fd = pipe_creation(numof_pipes);
-	initialize_forking_processes(pid, numof_pipes + 1);
-	while (i <= numof_pipes)
-		piping(pid, pipe_fd, numof_pipes, i++);
+	int	i;
+	t_tree *node;
+
 	i = 0;
 	while (i <= numof_pipes)
 	{
@@ -72,5 +61,23 @@ void	make_and_run_pipes(t_tree *bintree, char **myenvp)
 		}
 		i++;
 	}
+}
+
+void	make_pipes(t_tree *bintree, char **myenvp)
+{
+	int		i;
+	int		numof_pipes;
+	int		**pipe_fd;
+	int		*pid;
+	
+	i = 0;
+	numof_pipes = how_many_pipes(bintree);
+	pid = malloc((numof_pipes + 1) * sizeof(int));//if there is 3 processes then we will need only 2 pipes
+	pipe_fd = pipe_creation(numof_pipes);
+	initialize_forking_processes(pid, numof_pipes + 1);
+	while (i <= numof_pipes)
+		piping(pid, pipe_fd, numof_pipes, i++);
+	run_pipes(numof_pipes, bintree, pid, myenvp);
 	free_utils(pid, pipe_fd, numof_pipes);
+	return ;
 }

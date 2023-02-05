@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:46:35 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/01 17:00:12 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/05 17:17:46 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ int		piping(int *pid, int **pipe_fd, int num_of_pipes, int index);
 t_tree	*find_command_node(int index, t_tree *bintree);
 void	initialize_forking_processes(int *pid, int numof_processes);
 int		how_many_pipes(t_tree *bintree);
+void	run_pipes(int numof_pipes, t_tree *bintree, int *pid, char **myenvp);
 
 #endif
