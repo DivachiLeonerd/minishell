@@ -40,7 +40,7 @@
 #define APPEND 4
 #define BUILTIN 5
 #define EXECUTABLE 6
-#define COMMAND (node->tokentype == 0 || node->tokentype == 1)
+#define REDIR (node->tokentype == 0 || node->tokentype == 1)
 
 typedef struct s_tree
 {
