@@ -19,7 +19,7 @@ t_tree *node_creator(int id)
     node = malloc(sizeof(t_tree));
     if (!node)
         return (1);
-    node->tokenType = id;
+    node->tokentype = id;
     node->back = NULL;
     node->left_branch = NULL;
     node->right_branch = NULL;

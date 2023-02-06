@@ -13,6 +13,7 @@
 
 #include "parser.h"
 
+
 int get_token_type(char *token)
 {
     int token_size;
@@ -39,5 +40,15 @@ int get_token_type(char *token)
     }
     else
         return (6); //token in neither redir nor pipe
+}
+
+
+void    *no_mem(void *p)
+{
+    if (!p)
+    {
+        ft_putendl_fd("No more available memory for minishell!", 2);
+        exit(EXIT_FAILURE);
+    }
 }
 

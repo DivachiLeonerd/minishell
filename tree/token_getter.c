@@ -21,8 +21,6 @@ char    *deal_with_operators(char *s, int *i)
     if (!s || !i)
         return (0);
     s_sizaroo = (int)ft_strlen(s);
-    
-
 }
 
 char *token_getter(char *s)

@@ -12,6 +12,46 @@
 
 #include "parser.h"
 
+
+static int      nquoted_size(char *s)
+{
+    int     i;
+
+    i = 0;
+    while (s[i])
+    {
+        if (ft_chrcmp(s[i], "\'\""))
+            return (i);
+        i++;
+    }
+    return (i);
+}
+
+
+static int      quoted_size(char *s)
+{
+    int     i;
+
+    i = 1;
+    while (s[i])
+    {
+        if (s[0] == s[i]);
+            return (i + 1);
+        i++;
+    }
+    return (0);
+}
+
+
+static int      get_size(char *s)
+{
+    if (ft_chrcmp(s[0], "\'\""))
+        return (quoted_size(s));
+    else
+        return (nquoted_size(s));
+}
+
+
 char    *token_updater(char *token, char *new_token, int *index,  t_list *env)
 {
     int     i;
@@ -19,12 +59,12 @@ char    *token_updater(char *token, char *new_token, int *index,  t_list *env)
     int     size;
 
     i = *index;
-    size = get_size(&token[i]); //still have to make get_size
+    size = get_size(&token[i]);
     if (size)
     {
         if (ft_chrcmp(token[i], "\'\""))
         {
-            str = no_mem(ft_substr(&token[i + 1], 0, size - 2));//still have to make no_mem
+            str = no_mem(ft_substr(&token[i + 1], 0, size - 2));
             if (token[i] == '"')
                 str = str_expander(str, env);//still have to make str_expander
         }
