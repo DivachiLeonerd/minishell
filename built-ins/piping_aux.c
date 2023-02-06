@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   piping_aux.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 18:19:46 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/28 17:31:06 by afonso           ###   ########.fr       */
+/*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
+/*   Updated: 2023/02/01 16:59:44 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../built-ins.h"
+#include "../minishell.h"
 
-char	**unset(char **args, char **envp)
+int	how_many_pipes(t_tree *bintree)
 {
-	char	**name;
-	char	**myenvp;
-	char	*variable;
+	int		numof_pipes;
+	t_tree	*node;
 
-	variable = args[1];
-	name = find_env_full_var(variable, envp);
-	if (name == 0)
-		return (0);
-	else
-		myenvp = env_realloc(envp, -1, variable);
-	free_env(envp);
-	return (myenvp);
+	numof_pipes = 0;
+	node = bintree;
+	while (node->left_branch != NULL)
+	{
+		if (node->tokentype == PIPE)
+			numof_pipes++;
+		node = node->left_branch;
+	}
+	return (numof_pipes);
 }

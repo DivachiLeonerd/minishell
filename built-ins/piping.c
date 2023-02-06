@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:43:55 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/25 13:36:20 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/05 17:18:19 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	output_redirection(int fd1, t_tree *node)
 {
 	char	buf[INT32_MAX];
 	int		fd2;
-	size_t	readbytes;
+	ssize_t	readbytes;
 
-	fd2 = open(node->filename, O_CREAT, O_WRONLY);
+	fd2 = open(node->args[0]/*filename*/, O_CREAT, O_WRONLY);
 	readbytes = read(fd1, buf, INT32_MAX);
 	if (readbytes == -1)
 	{
@@ -70,15 +70,15 @@ t_tree	*find_command_node(int index, t_tree *bintree)
 	i = 0;
 	while (node != bintree && i < index)
 	{
-		if (node->tokenid == COMMAND)
+		if (node->tokentype == COMMAND)
 			i++;
-		else if (node->tokenid == PIPE)
+		else if (node->tokentype == PIPE)
 		{
-			if (node->rightbranch->tokenid == COMMAND)
+			if (node->right_branch->tokentype == COMMAND)
 			{
 				i++;
 				if (i == index)
-					return (node->rightbranch);
+					return (node->right_branch);
 			}
 		}
 		node = node->back;
@@ -86,18 +86,15 @@ t_tree	*find_command_node(int index, t_tree *bintree)
 	return (node);
 }
 
-void	initialize_forking_processes(int *pid, int numof_processes, t_tree *bintree)
+void	initialize_forking_processes(int *pid, int numof_processes)
 {
 	int 	i;
-	t_tree	*command_node;
 
 	i = 0;
 	while (i < numof_processes)
 	{
 		if ((pid[i] = fork()) == -1)
 			perror("A problem has occured during fork process\n");
-		if (pid[i] == 0)
-			command_node = find_command_node(i, bintree);//command index is the position of each command in command line
 		i++;
 	}
 	return ;

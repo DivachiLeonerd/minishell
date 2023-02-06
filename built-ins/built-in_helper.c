@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 10:24:14 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/28 10:58:50 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/28 17:33:12 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	free_bad_env_build(char **envp, int failed_index)
 	return ;
 }
 
-//cenas para a norminette
 int	how_many_arrays(char **double_ptr)
 {
 	int		i;

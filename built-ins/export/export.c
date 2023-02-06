@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:05:47 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/05 15:52:06 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/28 17:29:57 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,15 @@
 // 	return (fd);
 // }
 
-char	**export(char *variable, char **myenvp)
+char	**export(char **args, char **myenvp)
 {
 	//variable == "NAME=VALUE"
+	char	*variable;
 	char	**var;
 	char	*new_var;
 	char	**new_env;
 
+	variable = args[1];
 	var = find_env_full_var(variable, myenvp);
 	new_var = ft_strdup(variable);
 	if (var == NULL)//if var not found

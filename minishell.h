@@ -6,9 +6,12 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:19:15 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/28 10:48:22 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/01 15:37:55 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef MINISHELL_H
+#define MINISHELL_H
 
 #include <curses.h>
 #include <term.h>
@@ -30,11 +33,22 @@
 #include <termcap.h>
 #include "libft.h"
 
+#define I_REDIR 0
+#define O_REDIR 1
+#define PIPE 2
+#define HEREDOC 3
+#define APPEND 4
+#define BUILTIN 5
+#define EXECUTABLE 6
+#define REDIR (node->tokentype == 0 || node->tokentype == 1)
+
 typedef struct s_tree
 {
-int				tokenType;
+int				tokentype;
 char			**args;
 struct s_tree	*left_branch;
 struct s_tree	*right_branch;
 struct s_tree	*back;
 }t_tree;
+
+#endif
