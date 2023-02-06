@@ -6,14 +6,18 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/06 17:20:41 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/06 17:37:37 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_tree	*build_tree(char *token, int tokentype)
+
+
+t_tree	*add_to_tree(char *token, int tokentype)
 {
+	//this function should be called repeatedly with a different token and tokentype
+	//I should add nodes 
 	t_tree	*head;
 	t_tree	*node;
 
