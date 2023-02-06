@@ -7,7 +7,8 @@
 
 
 #include "../minishell.h"
-
+#define LEFT 1
+#define RIGHT 2
 
 #endif
 
