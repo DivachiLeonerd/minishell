@@ -35,7 +35,7 @@ t_tree *parser_init(char *s, t_list *env)
         what_is_token = get_token_type(token);
         if (what_is_token == 6) //token isn't <, >, |, >>, <<
             token = do_something_with_the_token(token, env);
-        //tree building function
+        add_to_tree(char *token, int tokentype);
     }
     return tree;
 }
