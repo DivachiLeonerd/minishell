@@ -6,7 +6,11 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:43:55 by afonso            #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2023/02/06 16:38:36 by afonso           ###   ########.fr       */
+=======
+/*   Updated: 2023/02/08 17:59:54 by afonso           ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +41,7 @@ int	output_redirection(int fd1, t_tree *node)
 	int		fd2;
 	ssize_t	readbytes;
 
-	fd2 = open(node->args[0]/*filename*/, O_CREAT, O_WRONLY);
+	fd2 = open(node->args[0]/*filename*/, O_CREAT, O_WRONLY);//do i need to use access
 	readbytes = read(fd1, buf, INT32_MAX);
 	if (readbytes == -1)
 	{
