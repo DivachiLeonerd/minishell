@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/10 09:30:44 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/10 10:21:24 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,33 +24,21 @@ t_tree	*add_to_tree(int tokentype)
 
 	node = malloc(sizeof(t_tree));
 	node->tokentype = tokentype;
-	if (aux->tokentype == REDIR && tokentype != REDIR)
-	{
-		while (aux->tokentype != COMMAND)
-			aux = aux->back;
-		if (aux->back != NULL && aux->back->tokentype == PIPE)
-			aux = aux->back;
-		return (aux);
-	}
-	if (aux->tokentype == PIPE && tokentype == COMMAND)
-		aux->right_branch == node;
-	if (tokentype == PIPE)
-		aux->back = node;
-	else if (tokentype == REDIR)
-		aux->right_branch = node;
+	node = redir_cond(tokentype, aux, node);
+	node = pipes_cond(tokentype, aux, node);
 	
-	return (aux = node);
+	return (node);
 }
 
 int	check_direction(int direction, t_tree *node)
 {
 	
-	if (direction == 1)//left side
+	if (direction == LEFT)//left side
 	{
 		if (node->left_branch != NULL)
 			return (0);
 	}
-	if (direction == 2)//right side
+	if (direction == RIGHT)//right side
 	{
 		if (node->right_branch != NULL)
 			return (0);
