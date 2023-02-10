@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/06 17:37:37 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/10 09:30:44 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,32 @@
 
 
 
-t_tree	*add_to_tree(char *token, int tokentype)
+t_tree	*add_to_tree(int tokentype)
 {
 	//this function should be called repeatedly with a different token and tokentype
-	//I should add nodes 
-	t_tree	*head;
+	//I should add nodes with the tokentype and connect the nodes
+	//this is coming from the end of the tree to the beggining
 	t_tree	*node;
+	static t_tree *aux;
 
+	node = malloc(sizeof(t_tree));
+	node->tokentype = tokentype;
+	if (aux->tokentype == REDIR && tokentype != REDIR)
+	{
+		while (aux->tokentype != COMMAND)
+			aux = aux->back;
+		if (aux->back != NULL && aux->back->tokentype == PIPE)
+			aux = aux->back;
+		return (aux);
+	}
+	if (aux->tokentype == PIPE && tokentype == COMMAND)
+		aux->right_branch == node;
+	if (tokentype == PIPE)
+		aux->back = node;
+	else if (tokentype == REDIR)
+		aux->right_branch = node;
 	
+	return (aux = node);
 }
 
 int	check_direction(int direction, t_tree *node)
