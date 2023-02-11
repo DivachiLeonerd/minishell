@@ -6,57 +6,75 @@
 #    By: afonso <afonso@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 10:45:02 by afonso            #+#    #+#              #
-#    Updated: 2022/12/09 11:31:08 by afonso           ###   ########.fr        #
+#    Updated: 2023/02/01 16:59:05 by afonso           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME:= libbuilt-in.a
-HEADER := -I./ -I../
+HEADER := -I../ -I../../ -I./
+LIB:= -L./ -lbuilt-in -L../ -lft 
 OBJDIR:= ./Objects
 BIOBJDIR:= ./built-in_objs/
-ALL_OBJS:= ${ECHO_OBJS} ${CD_OBJS} ${PWD_OBJS} ${FTEXPORT_OBJS} ${UNSET_OBJS} ${ENV_OBJS} ${EXIT_OBJS}
-ECHO_OBJS:=
-PWD_OBJS:=
-CD_OBJS:=
-FTEXPORT_OBJS:=
-UNSET_OBJS:=
-ENV_OBJS:=
-EXIT_OBJS:=
-CC := gcc
+ALL_OBJS:= echo.o pwd.o cd.o export.o unset.o env.o
+ECHO_OBJS:=./echo/echo.o
+PWD_OBJS:=./pwd/pwd.o
+CD_OBJS:=./cd/cd.o
+FTEXPORT_OBJS:=./export/export.o
+UNSET_OBJS:=./unset/unset.o
+ENV_OBJS:=./env/env.o
+EXIT_OBJS:=./exit/exit.o
+HELPER_OBJS:= built-in_helper.o executer.o not_built-in_exec.o realloc_env_aux.o piping.o piping_aux.o redirections.o redirectto_mypipe.o
+CC := cc
 CFLAGS := -g -Wall -Wextra -Werror #-fsanitize=address
 RM := rm -f
 
-mv_objs: libbuilt.a
-	mv *.o ../built-in_objs/
-	mv libbuilt-in.a ../
+all: libbuilt-in.a
+	mv built-in_objs/${NAME} ./
 
-libbuilt-in.a: all
+${NAME}: ftecho ftcd ftpwd ftexport ftunset ftenv  fthelper all #ftexit
+	cd built-in_objs && ar rcs ${NAME} ${ALL_OBJS} ${HELPER_OBJS}
 
-all: echo cd pwd ftexport unset env exit
-	cd built-in_objs && ${CC} ${CFLAGS} ${ALL_OBJS} -o ${NAME}
+testb: all
+	${CC}  tester.c -g -fsanitize=address ${HEADER} ${LIB} -o tester
 
-ftecho: ${ECHO_OBJS}
-	mv *.o ../built-in_objs
+ftecho:
+	${CC} ${CFLAGS} echo/echo.c ${HEADER} ${LIB} -c
+	mv echo.o ./built-in_objs
 
-ftcd: ${CD_OBJS}
-	mv *.o ../built-in_objs
+ftcd:
+	${CC} ${CFLAGS} cd/cd.c ${HEADER} ${LIB} -c
+	mv cd.o ./built-in_objs
 
-ftpwd: ${PWD_OBJS}
-	mv *.o ../built-in_objs
+ftpwd:
+	${CC} ${CFLAGS} pwd/pwd.c ${HEADER} ${LIB} -c
+	mv pwd.o ./built-in_objs
 
-ftexport: ${FTEXPORT_OBJS}
-	mv *.o ../built-in_objs
+ftexport:
+	${CC} ${CFLAGS} export/export.c ${HEADER} ${LIB} -c
+	mv export.o ./built-in_objs
 
-ftunset: ${UNSET_OBJS}
-	mv *.o ../built-in_objs
+ftunset:
+	${CC} ${CFLAGS} unset/unset.c ${HEADER} ${LIB} -c
+	mv unset.o ./built-in_objs
 
-ftenv: ${ENV_OBJS}
-	mv *.o ../built-in_objs
+ftenv:
+	${CC} ${CFLAGS} env/env.c ${HEADER} ${LIB} -c
+	mv env.o ./built-in_objs
 
-ftexit: ${EXIT_OBJS}
-	mv *.o ../built-in_objs
+ftexit:
+	${CC} ${CFLAGS} exit/exit.c ${HEADER} ${LIB} -c
+	mv exit/exit.o ./built-in_objs
+
+fthelper: 
+	${CC} ${CFLAGS} not_built-in_exec.c realloc_env_aux.c executer.c built-in_helper.c piping.c piping_aux.c redirections.c redirectto_mypipe.c ${HEADER} ${LIB} -c
+	mv *.o ./built-in_objs
 
 clean:
 	cd built-in_objs && rm -rf *.o
+	
 
-.PHONY: ftecho, ftpwd, ftexport, ftunset, ftenv, ftexit
+fclean:clean
+	${RM} libbuilt-in.a
+	${RM} tester
+	${RM} *.out
+.PHONY: ftecho, ftpwd, ftexport, ftunset, ftenv, ftexit, clean

@@ -6,11 +6,11 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:45:50 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/03 15:44:45 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/05 15:52:41 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "built-ins.h"
+#include "../built-ins.h"
 
 int	env(char **envp)
 {

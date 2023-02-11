@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:44:37 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/03 10:33:15 by afonso           ###   ########.fr       */
+/*   Updated: 2023/01/30 15:41:42 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,20 @@ int	is_builtin(char *command)
 	return (0);
 }
 
-// void	*executer(int command, char *input, void *bin_tree, void *first_node)
-// {
-// 		if (command tem redirect)
-// 			redirect(IO, file);
-// 		if (command tem pipe)
-// 			buf = do_pipe(command A, command B);
-// 		bin_tree = get_next_node();
-// 		if (tree ainda n acabou)
-// 			return (executer(next_command, buf, bin_tree));
-// 	return (estado_de_sucesso);
-// }
+void	execute_builtin(char *command, char **myenvp, char **args)
+{
+	if (ft_strncmp("echo", command, ft_strlen("echo")) == 0)
+		ft_echo(args, myenvp);
+	if (ft_strncmp("env", command, ft_strlen("env")) == 0)
+		env(myenvp);
+	// if (ft_strncmp("exit", command, ft_strlen("exit")) == 0)
+	// 	exit();
+	if (ft_strncmp("export", command, ft_strlen("export")) == 0)
+		export(args, myenvp);
+	if (ft_strncmp("cd", command, ft_strlen("cd")) == 0)
+		cd(args[1]);
+	if (ft_strncmp("pwd", command, ft_strlen("pwd")) == 0)
+		ft_pwd(myenvp);
+	if (ft_strncmp("unset", command, ft_strlen("unset")) == 0)
+		unset(args, myenvp);
+}
