@@ -1,14 +1,18 @@
-/*************************************************************************/
-/*                                                                       */
-/*                                                                       */
-/*     HEADER FUCKING FILE FUCK YEAH MOTHERFUCKER                        */
-/*                                                                       */
-/*     Created: 69/420 who:fucking:cares by: me                          */
-/*     Updated: 69/421 who:fucking:cares by: me                          */
-/*                                                             42        */
-/*************************************************************************/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbuny-fe <jbuny-fe@student.42lisboa.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/02 11:22:59 by jbuny-fe          #+#    #+#             */
+/*   Updated: 2023/02/02 11:23:02 by jbuny-fe         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "parser.h"
+
 
 int get_token_type(char *token)
 {
@@ -36,5 +40,15 @@ int get_token_type(char *token)
     }
     else
         return (6); //token in neither redir nor pipe
+}
+
+
+void    *no_mem(void *p)
+{
+    if (!p)
+    {
+        ft_putendl_fd("No more available memory for minishell!", 2);
+        exit(EXIT_FAILURE);
+    }
 }
 

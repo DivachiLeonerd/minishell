@@ -1,12 +1,16 @@
-/*************************************************************************/
-/*                                                                       */
-/*                                                                       */
-/*     HEADER FUCKING FILE FUCK YEAH MOTHERFUCKER                        */
-/*                                                                       */
-/*     Created: 69/420 who:fucking:cares by: me                          */
-/*     Updated: 69/421 who:fucking:cares by: me                          */
-/*                                                             42        */
-/*************************************************************************/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_manager.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/02 11:23:47 by jbuny-fe          #+#    #+#             */
+/*   Updated: 2023/02/10 17:22:42 by afonso           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 
 #include "parser.h"
 
@@ -44,6 +48,7 @@ char      *do_something_with_the_token(char *token, t_list *env)
 {
     int i;
     char    new_token;
+    t_tree  *bin_tree;
 
     i = 0;
     if (!token_manager)
@@ -52,6 +57,7 @@ char      *do_something_with_the_token(char *token, t_list *env)
     while (token[i])
     {
         new_token = token_updater(token, new_token, i, env); //stupid name up for debate
+        bin_tree = add_to_tree(tokentype, args);
         i++;
     }
     free(token);

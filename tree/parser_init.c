@@ -1,12 +1,14 @@
-/*************************************************************************/
-/*                                                                       */
-/*                                                                       */
-/*     HEADER FUCKING FILE FUCK YEAH MOTHERFUCKER                        */
-/*                                                                       */
-/*     Created: 69/420 who:fucking:cares by: me                          */
-/*     Updated: 69/421 who:fucking:cares by: me                          */
-/*                                                             42        */
-/*************************************************************************/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_init.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbuny-fe <jbuny-fe@student.42lisboa.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/02 11:22:35 by jbuny-fe          #+#    #+#             */
+/*   Updated: 2023/02/02 11:22:46 by jbuny-fe         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "parser.h"
 #include <string.h>
@@ -22,7 +24,7 @@ t_tree *parser_init(char *s, t_list *env)
     token = NULL;
     while (1)
     {
-        token = token_getter(s);//future get_token func
+        token = token_getter(s);
         if (!token)
             break;
         if (syntax_checker(token) != 0)
@@ -30,10 +32,10 @@ t_tree *parser_init(char *s, t_list *env)
             free(token);
             return (NULL);
         }
-        what_is_token = get_token_type(token); //figure out what the token is
+        what_is_token = get_token_type(token);
         if (what_is_token == 6) //token isn't <, >, |, >>, <<
             token = do_something_with_the_token(token, env);
-        //tree building function
+        add_to_tree(char *token, int tokentype);
     }
-    return tree
+    return tree;
 }

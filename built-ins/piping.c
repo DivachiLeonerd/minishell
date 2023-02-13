@@ -70,11 +70,11 @@ t_tree	*find_command_node(int index, t_tree *bintree)
 	i = 0;
 	while (node != bintree && i < index)
 	{
-		if (node->tokentype == COMMAND)
+		if (node->tokentype == REDIR)
 			i++;
 		else if (node->tokentype == PIPE)
 		{
-			if (node->right_branch->tokentype == COMMAND)
+			if (node->right_branch->tokentype == REDIR)
 			{
 				i++;
 				if (i == index)

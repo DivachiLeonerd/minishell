@@ -1,12 +1,14 @@
-/*************************************************************************/
-/*                                                                       */
-/*                                                                       */
-/*     HEADER FUCKING FILE FUCK YEAH MOTHERFUCKER                        */
-/*                                                                       */
-/*     Created: 69/420 who:fucking:cares by: me                          */
-/*     Updated: 69/421 who:fucking:cares by: me                          */
-/*                                                             42        */
-/*************************************************************************/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tree_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbuny-fe <jbuny-fe@student.42lisboa.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/02 11:24:15 by jbuny-fe          #+#    #+#             */
+/*   Updated: 2023/02/02 11:24:17 by jbuny-fe         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "parser.h"
 
@@ -17,7 +19,7 @@ t_tree *node_creator(int id)
     node = malloc(sizeof(t_tree));
     if (!node)
         return (1);
-    node->tokenType = id;
+    node->tokentype = id;
     node->back = NULL;
     node->left_branch = NULL;
     node->right_branch = NULL;
