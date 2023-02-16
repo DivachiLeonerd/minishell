@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:25:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/16 11:20:29 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/16 11:49:16 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	ft_echo(char **args)
 	//se n existe nehuma non-flag presente mas como só temos
 	// q fazer uma flag.....
 	i = 1;
-	if (numberof_args == 2)
+	if (numberof_args >= 2)
 	{
 		if (args[1][0] == '-')
 		{
@@ -93,6 +93,8 @@ int	ft_echo(char **args)
 	}
 	if (args[1][i] == 0 && numberof_args == 2)
 		return (0);
+	else if (args[1][i] != 0 && numberof_args == 3)
+		printf("%s ", args[1]);
 	printf("%s", args[numberof_args - 1]);
 	if (ft_strncmp(args[1], "-n", ft_strlen(args[1])) != 0)
 		printf("\n");
