@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:25:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/28 17:23:24 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/16 11:20:29 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,11 @@ char **find_env_full_var(char *message, char **envp)
 	return (&(envp[i]));
 }
 
-int	ft_echo(char **args, char **envp)
+int	ft_echo(char **args)
 {
-	int i;
-	static int	j;
-	char **var_value;
 	int	numberof_args;
-
+	int	i;
 	numberof_args = how_many_arrays(args);
-	i = numberof_args - 1;
 	if (numberof_args > 3 || numberof_args < 1)
 	{
 		printf("\n");
@@ -78,25 +74,26 @@ int	ft_echo(char **args, char **envp)
 		printf("\n");
 		return (0);
 	}
+	// isto bem feito era ter um array com todas as flags e ver
+	//se n existe nehuma non-flag presente mas como só temos
+	// q fazer uma flag.....
+	i = 1;
 	if (numberof_args == 2)
 	{
-		if (ft_strncmp(args[1], "-n", ft_strlen(args[1])) == 0)
-			return (0);
+		if (args[1][0] == '-')
+		{
+			while (args[1][i])
+			{
+				if (args[1][i] != 'n')
+					break ;
+				else
+					i++;
+			}
+		}	
 	}
-	while (args[i][j] && args[i][j] != '$')
-		printf("%c", args[i][j++]);
-	if (args[i][j] == '$')
-	{
-		j++;
-		var_value = find_env_full_var(&(args[i][j]), envp);
-		if (var_value[0] == NULL)
-			write(1, "$", 1);
-		printf("%s", var_value[0]);
-		while (args[i][j] != ' ' && args[i][j] != 0)
-			j++;
-	}
-	if (args[i][j])
-		ft_echo(&(args[i]), envp);
+	if (args[1][i] == 0 && numberof_args == 2)
+		return (0);
+	printf("%s", args[numberof_args - 1]);
 	if (ft_strncmp(args[1], "-n", ft_strlen(args[1])) != 0)
 		printf("\n");
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 10:04:42 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/05 17:17:25 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/16 10:00:24 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **envp)
 	int i;
 
 	i = 0;
-	ft_echo(argv, envp);
+	ft_echo(argv);
 	//make a tree with parsing
 	//run tree with make_and_run_pipes()
 	return (0);

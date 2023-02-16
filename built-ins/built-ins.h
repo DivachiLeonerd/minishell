@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:18:23 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/01 15:40:16 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/16 09:59:27 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "../minishell.h"
 
-int		ft_echo(char **args, char **envp);
+int		ft_echo(char **args);
 char	**find_env_full_var(char *var_name, char **envp);
 char 	*get_variable_name(char *message);
 char	**ft_pwd(char **envp);
