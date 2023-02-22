@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:19:15 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/01 15:37:55 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/22 14:59:19 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 #define APPEND 4
 #define BUILTIN 5
 #define EXECUTABLE 6
+#define COMMAND (node->tokentype == BUILTIN || node->tokentype == EXECUTABLE)
 #define REDIR (node->tokentype == 0 || node->tokentype == 1)
 
 typedef struct s_tree
