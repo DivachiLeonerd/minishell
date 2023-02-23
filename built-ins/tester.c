@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 10:04:42 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/23 11:05:02 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/23 11:47:35 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,4 @@ void	make_pipes(t_tree *bintree, char **myenvp)
 	return ;
 }
 
-int	how_many_heredocs(t_tree *bintree)
-{
-	t_tree	*node;
-	int		numof_heredoc;
 
-	numof_heredoc = 0;
-	node = find_command_node(0, bintree);
-	
-}

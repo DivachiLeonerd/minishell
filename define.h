@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:28:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/23 11:29:58 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/23 17:00:25 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@ struct s_tree	*left_branch;
 struct s_tree	*right_branch;
 struct s_tree	*back;
 }t_tree;
+
+typedef struct s_heredoc
+{
+	int				index;//is it the first? second? last?
+	int				pipe_fd[2];
+	char			*delimiter;
+}t_heredoc;
 
 #define I_REDIR 0
 #define O_REDIR 1

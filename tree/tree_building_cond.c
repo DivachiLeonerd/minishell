@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 09:48:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/21 16:43:06 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/23 11:59:09 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,5 @@ t_tree	*redir_cond(int tokentype, t_tree *aux, t_tree *node)
 //COMMANDS
 	
 //HEREDOC
-void heredoc_initialize(int tokentype, t_tree *node, t_tree *aux)
-{
-	if (tokentype == HEREDOC)
-		aux->back = node;
-	return ;
-}
+
 //ETC...
