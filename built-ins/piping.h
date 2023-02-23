@@ -6,14 +6,14 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:46:35 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/05 17:17:46 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/23 11:30:52 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPING_H
 #define PIPING_H
 
-#include "../minishell.h"
+#include "define.h"
 
 int		return_righttokenid(t_tree *command_node);
 t_tree	*find_first_command(t_tree *bintree);
@@ -27,5 +27,5 @@ t_tree	*find_command_node(int index, t_tree *bintree);
 void	initialize_forking_processes(int *pid, int numof_processes);
 int		how_many_pipes(t_tree *bintree);
 void	run_pipes(int numof_pipes, t_tree *bintree, int *pid, char **myenvp);
-
+t_tree	*find_first_command(t_tree *bintree);
 #endif

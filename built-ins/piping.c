@@ -6,11 +6,11 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:43:55 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/16 12:11:40 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/23 11:21:32 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "./minishell.h"
 
 // I need a function that creates all pipes and returns the int**
 
@@ -67,14 +67,16 @@ t_tree *find_command_node(int index, t_tree *bintree)
 	int i;
 	t_tree *node;
 
-	i = 0;
+	i = -1;
+	node = find_first_command(bintree);
 	while (node != bintree && i < index)
 	{
-		if (node->tokentype == REDIR)
+		if (COMMAND)
 			i++;
-		else if (node->tokentype == PIPE)
+		else if (PIPE)
 		{
-			if (node->right_branch->tokentype == REDIR)
+			if (node->right_branch->tokentype == 5
+				|| node->right_branch->tokentype == 6)
 			{
 				i++;
 				if (i == index)

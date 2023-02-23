@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 10:04:42 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/16 10:00:24 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/23 11:05:02 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	make_pipes(t_tree *bintree, char **myenvp)
 	int		numof_pipes;
 	int		**pipe_fd;
 	int		*pid;
+	int		**heredoc_fd;
+	int		numof_heredocs;
 	
 	i = 0;
 	numof_pipes = how_many_pipes(bintree);
@@ -80,4 +82,14 @@ void	make_pipes(t_tree *bintree, char **myenvp)
 	run_pipes(numof_pipes, bintree, pid, myenvp);
 	free_utils(pid, pipe_fd, numof_pipes);
 	return ;
+}
+
+int	how_many_heredocs(t_tree *bintree)
+{
+	t_tree	*node;
+	int		numof_heredoc;
+
+	numof_heredoc = 0;
+	node = find_command_node(0, bintree);
+	
 }
