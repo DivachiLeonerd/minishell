@@ -17,11 +17,15 @@
 static int      nquoted_size(char *s)
 {
 	int     i;
+	int		j;
 
 	i = 0;
+	j = 0;
 	while (s[i])
 	{
 		if (ft_chrcmp(s[i], "\'") && ft_chrcmp(s[i], "\""))
+			j++;
+		if (j = 2)
 			return (i);
 		i++;
 	}
