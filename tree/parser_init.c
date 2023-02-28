@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbuny-fe <jbuny-fe@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:35 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/02/02 11:22:46 by jbuny-fe         ###   ########.fr       */
+/*   Updated: 2023/02/27 19:46:54 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 t_tree *parser_init(char *s, t_list *env)
 {
-    t_tree *tree;
-    int what_is_token;
+    t_tree *bintree;
+    int tokentype;
     char *token;
 
     token = NULL;
@@ -32,10 +32,11 @@ t_tree *parser_init(char *s, t_list *env)
             free(token);
             return (NULL);
         }
-        what_is_token = get_token_type(token);
-        if (what_is_token == 6) //token isn't <, >, |, >>, <<
+        tokentype = get_token_type(token);
+        if (tokentype == 6) //token isn't <, >, |, >>, <<
             token = do_something_with_the_token(token, env);
-        add_to_tree(char *token, int tokentype);
+        while (tokentype != -1)
+            bintree = add_to_tree(tokentype, args);
     }
     return tree;
 }

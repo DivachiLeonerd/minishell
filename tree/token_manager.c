@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:23:47 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/02/10 17:22:42 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/27 18:29:23 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ char      *do_something_with_the_token(char *token, t_list *env)
 {
     int i;
     char    new_token;
-    t_tree  *bin_tree;
+    t_tree  *bintree;
+    int     tokentype;
 
     i = 0;
     if (!token_manager)
@@ -57,7 +58,8 @@ char      *do_something_with_the_token(char *token, t_list *env)
     while (token[i])
     {
         new_token = token_updater(token, new_token, i, env); //stupid name up for debate
-        bin_tree = add_to_tree(tokentype, args);
+        tokentype = get_token_type(new_token);
+        bintree = add_to_tree(tokentype, args);
         i++;
     }
     free(token);

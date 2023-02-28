@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:59:26 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/23 17:04:28 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/27 17:13:02 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,25 @@ t_heredoc *make_heredoc(int fd_in)
 	return (new_heredoc);
 }
 
+char	*get_heredoc_input(char *buf, t_heredoc *heredoc)
+{
+	char *message;
+
+	message = buf;
+	while (message)
+	{
+		if (ft_strncmp(message, heredoc->delimiter, ft_strlen(heredoc->delimiter)) == 0)
+			break ;
+		message++;
+	}
+}
+
 char	*writeto_heredoc(t_heredoc *heredoc, ssize_t bytes_read)
 {
 	char		*buf;
 	//first I gotta check what im writing ends in the delimiter
 	//anything after the delimiter has no business being written
+	
 	write((heredoc->pipe_fd)[0], buf, ft_strlen(buf));
 }
 //close pipes

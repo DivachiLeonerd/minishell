@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 10:04:42 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/23 11:47:35 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/27 18:43:13 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,6 @@ static void	free_utils(int *pid, int **pipe_fd, int numof_pipes)
 	}
 	free(pid);
 	return ;
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	int	**pipe_fd;
-	int *pid;
-	int i;
-
-	i = 0;
-	ft_echo(argv);
-	//make a tree with parsing
-	//run tree with make_and_run_pipes()
-	return (0);
 }
 
 void	run_pipes(int numof_pipes, t_tree *bintree, int *pid, char **myenvp)
@@ -84,4 +71,16 @@ void	make_pipes(t_tree *bintree, char **myenvp)
 	return ;
 }
 
+int	main(int argc, char **argv, char **envp)
+{
+	int	**pipe_fd;
+	int *pid;
+	int i;
+	t_tree	*bintree;
 
+	i = 0;
+	bintree = build_tree(argv, envp);
+	//make a tree with parsing
+	//run tree with make_and_run_pipes()
+	return (0);
+}
