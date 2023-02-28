@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 10:04:42 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/27 18:43:13 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/28 11:36:59 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	main(int argc, char **argv, char **envp)
 	t_tree	*bintree;
 
 	i = 0;
+	
 	bintree = build_tree(argv, envp);
 	//make a tree with parsing
 	//run tree with make_and_run_pipes()

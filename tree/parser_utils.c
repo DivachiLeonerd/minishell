@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:59 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/02/27 19:40:11 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/28 18:25:48 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,8 @@ int get_token_type(char *token)
             return (5);
     }
     else
-        return (6); //token in neither redir nor pipe
+        return (6); //token is neither redir nor pipe
 }
-
 
 void    *no_mem(void *p)
 {

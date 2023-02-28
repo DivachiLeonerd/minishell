@@ -6,21 +6,21 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:23:26 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/02/06 15:34:26 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/28 12:30:15 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "parser.h"
 
-char    *deal_with_operators(char *s, int *i)
+char    *deal_with_operators(char *s, int *i)//this function isnt finished
 {
-    char *token;
-    int s_size;
+    char    *token;
+    int     size;
 
     if (!s || !i)
         return (0);
-    s_sizaroo = (int)ft_strlen(s);
+    size = ft_smol_strlen(s);
 }
 
 char *token_getter(char *s)

@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/27 18:43:46 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/28 11:38:40 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ int	check_direction(int direction, t_tree *node)
 	return (1);
 }
 
-t_tree	*build_tree(char **argv, char **envp)
+t_tree	*build_tree(char *command_line, char **envp)
 {
 	t_tree	*head;
 	t_tree	*node;
 
-	
+	parser_init(command_line, envp);
 }
 
 void	free_tree(t_tree *bintree)
