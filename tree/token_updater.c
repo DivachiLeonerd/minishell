@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:24:02 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/02/28 18:44:48 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/01 10:54:08 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char    *token_updater(char *token, t_list *env)
 			&& ft_chrcmp('\"', token))
 		{
 			str = no_mem(ft_substr(token, 1, size - 2));
-			if (token[i] == '"')
+			if (token[0] == '"')
 				str = str_expander(str, env);//still have to make str_expander
 		}
 		else
@@ -81,7 +81,7 @@ char    *token_updater(char *token, t_list *env)
 			str = str_expander(str, env);
 		}
 		new_token = join_tokens(new_token, str, 1); //have to make join_tokens func
-		*index += size -1;
+		*index += size - 1;//gotta get rid of index but cant be sure of whats happening here
 	}
 	else
 		new_token = add_char_to_str(new_token, token[i]); //have to make add_char_to_str func
