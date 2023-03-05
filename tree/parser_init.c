@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:35 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/02/28 18:06:07 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/03 19:33:15 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdio.h>
 
 //should parser init really build the tree? Maybe delegate that to other function?
-t_tree *parser_init(char *s, t_list *env)
+t_tree *parser_init(char *s, char **env)
 {
 	t_tree	*bintree;
 	int		tokentype;
@@ -23,12 +23,12 @@ t_tree *parser_init(char *s, t_list *env)
 	char	**tokens;
 
 	token = 1;
-	if (syntax_checker(s) != 0)//why is it token and not s?
+	if (syntax_checker(s) != 0)
 		return (NULL);
 	while (tokentype != -1)//this is end of line
 	{
-		token = token_getter(s);
-		token = token_updater(token, )
+		tokens = ft_split(s, ' ');
+		token = token_updater(tokens, env);
 		if (!token)
 			break;
 		tokentype = get_token_type(token);

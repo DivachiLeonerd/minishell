@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:59:26 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/27 17:13:02 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/05 19:08:04 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 //Function to initialize pipes through the structs
 //maybe while doing the tree with heredoc nodes
-t_heredoc *make_heredoc(int fd_in)
+t_heredoc *make_heredoc(void)
 {
 	static int	index;
 	t_heredoc	*new_heredoc;
-	char 		*buf;
-	ssize_t		bytes_read;
 	
 	new_heredoc = malloc (sizeof(t_heredoc));
 	if (new_heredoc == NULL)
@@ -29,35 +27,46 @@ t_heredoc *make_heredoc(int fd_in)
 	}
 	new_heredoc->index = index;
 	pipe(new_heredoc->pipe_fd);
-	bytes_read = read(0, buf, 50);
-	writeto_heredoc(new_heredoc, bytes_read);
 	index++;
 	return (new_heredoc);
 }
 
-char	*get_heredoc_input(char *buf, t_heredoc *heredoc)
+void	get_heredoc_input(t_heredoc *heredoc)
 {
-	char *message;
+	char	buf[INT32_MAX];
+	int		i;
+	char	*heredoc_input;
+	ssize_t	bytes_read;
 
-	message = buf;
-	while (message)
+	buf[INT32_MAX - 1] = 0;
+	i = 0;
+	while (1)
 	{
-		if (ft_strncmp(message, heredoc->delimiter, ft_strlen(heredoc->delimiter)) == 0)
+		//what if delimiter is divided between one read and another? gotta fix this
+		//Maybe I just put buf[INT_MAX]
+		bytes_read = read(0, buf, INT32_MAX);
+		while (buf[i] && (ft_strncmp(&(buf[i]), heredoc->delimiter,
+				ft_strlen(heredoc->delimiter)) != 0))
+			i++;
+		write(heredoc->pipe_fd[1], buf, i);
+		if (ft_strncmp(&(buf[i]), heredoc->delimiter,
+				ft_strlen(heredoc->delimiter)) == 0)
 			break ;
-		message++;
 	}
+	return ;
 }
-
-char	*writeto_heredoc(t_heredoc *heredoc, ssize_t bytes_read)
+// Do I really need to do this or do I just dup2 stdin of receiving process??
+void	fprint_heredoc(t_heredoc *heredoc, int write_fd)
 {
-	char		*buf;
-	//first I gotta check what im writing ends in the delimiter
-	//anything after the delimiter has no business being written
-	
-	write((heredoc->pipe_fd)[0], buf, ft_strlen(buf));
-}
-//close pipes
+	char	buf[INT32_MAX];
 
+	read(heredoc->pipe_fd[0], buf, INT32_MAX);
+	
+}
+
+
+
+//close pipes
 void	close_heredocs(t_heredoc **all_heredocs)
 {
 	t_heredoc	*hd;
@@ -69,5 +78,6 @@ void	close_heredocs(t_heredoc **all_heredocs)
 		close((hd->pipe_fd)[1]);
 		hd++;//I'm thinking it will go up (sizeof(t_heredoc)) and not just 1
 	}
+	//Maybe i also free them along with pipe closure
 	return ;
 }

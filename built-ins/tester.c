@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 10:04:42 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/28 11:36:59 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/01 18:28:09 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,12 @@ int	main(int argc, char **argv, char **envp)
 	int *pid;
 	int i;
 	t_tree	*bintree;
-
+	t_heredoc *heredoc;
 	i = 0;
 	
 	bintree = build_tree(argv, envp);
+	heredoc = make_heredoc();
+	get_heredoc_input(heredoc);
 	//make a tree with parsing
 	//run tree with make_and_run_pipes()
 	return (0);

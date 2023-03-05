@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:00:04 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/27 18:53:10 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/01 10:57:23 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int main(int argc, char **argv, char **envp)
 	char	*line;
 	int		command_num;
 
-	exit_status = 0; // Isto é o "$?"
+	exit_status = 0; // Isto é o "$?, provavelmente será uma global no header file"
 	line = 1;
 	while (1)
 	{

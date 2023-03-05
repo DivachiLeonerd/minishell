@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 09:48:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/27 17:56:02 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/05 19:10:49 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,8 @@ t_tree	*redir_cond(int tokentype, t_tree *aux, t_tree *node)
 //COMMANDS
 
 //HEREDOC
-
+t_tree	heredoc_cond(int tokentype, t_tree *aux, t_tree *node)
+{
+	if ()
+}
 //ETC...
