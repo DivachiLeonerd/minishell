@@ -6,7 +6,7 @@
 #    By: afonso <afonso@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/15 15:45:01 by afonso            #+#    #+#              #
-#    Updated: 2022/12/09 11:38:45 by afonso           ###   ########.fr        #
+#    Updated: 2023/03/06 15:15:45 by afonso           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,23 +23,30 @@ RM := rm -f
 
 all:minishell
 
-OBJS_built-in:
-	${MAKE} -C ./built-ins all
+libbuilt-in.a:
+	${MAKE} -C ./built-ins all && cd ./built-ins && mv libbuilt-in.a ../
 
-minishell: OBJS_built-in $(OBJS)
+libtree.a:
+	${MAKE} -C ./tree all && cd ./tree && mv libtree.a ../
+	
+minishell: built-in tree
 	${CC} ${CFLAGS} ${NAME}.c ${OBJS} ${HEADER} -o ${NAME}
 	mv *.o ./Objects
 
-test:${OBJS}
-	${CC} -g -Wextra -Wall teste.c ${OBJS} ${HEADER} -o tester
+test: libbuilt-in.a libtree.a
+	${CC} -g -Wextra -Wall teste.c libft.a libbuilt-in.a libtree.a ${HEADER} -o tester
 	
 clean:
 	${RM} *.o
 	${RM} tester
 	${MAKE} -C ./built-ins/ clean
+	${MAKE} -C ./tree/ clean
 
 fclean: clean
 	${RM} minishell
+	${RM} libbuilt-in.a
+	${RM} libtree.a
+	
 
 re: fclean all
 

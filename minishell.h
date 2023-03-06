@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:19:15 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/23 11:30:22 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/06 11:58:20 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@
 #include "libft.h"
 #include "./built-ins/built-ins.h"
 #include "./built-ins/piping.h"
+#include "define.h"
 
-
+t_heredoc	*make_heredoc(void);
+void		get_heredoc_input(t_heredoc *heredoc);
 
 #endif

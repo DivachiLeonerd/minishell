@@ -6,21 +6,12 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:28:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/23 17:00:25 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/06 12:02:55 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINE_H
 #define DEFINE_H
-
-typedef struct s_tree
-{
-int				tokentype;
-char			**args;
-struct s_tree	*left_branch;
-struct s_tree	*right_branch;
-struct s_tree	*back;
-}t_tree;
 
 typedef struct s_heredoc
 {
@@ -28,6 +19,17 @@ typedef struct s_heredoc
 	int				pipe_fd[2];
 	char			*delimiter;
 }t_heredoc;
+
+typedef struct s_tree
+{
+int				tokentype;
+char			**args;
+t_heredoc		*heredoc;
+struct s_tree	*left_branch;
+struct s_tree	*right_branch;
+struct s_tree	*back;
+}t_tree;
+
 
 #define I_REDIR 0
 #define O_REDIR 1

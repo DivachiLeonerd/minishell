@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 09:48:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/05 19:10:49 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/06 15:12:00 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 t_tree	*pipes_cond(int tokentype, t_tree *aux, t_tree *node)
 {
 	if (aux->tokentype == PIPE && COMMAND)
-			aux->right_branch == node;
+			aux->right_branch = node;
 	if (tokentype == PIPE)
 		aux->back = node;
 	return (node);
 }
 //REDIRECTS
-t_tree	*redir_cond(int tokentype, t_tree *aux, t_tree *node)
+t_tree	*redir_cond(t_tree *aux, t_tree *node)
 {
 	//if tokentype != REDIR but last token == REDIR
 	if (!REDIR && (aux->tokentype == 0 || aux->tokentype == 1))
@@ -45,8 +45,16 @@ t_tree	*redir_cond(int tokentype, t_tree *aux, t_tree *node)
 //COMMANDS
 
 //HEREDOC
-t_tree	heredoc_cond(int tokentype, t_tree *aux, t_tree *node)
+t_tree	*heredoc_cond(int tokentype, t_tree *aux, t_tree *node)
 {
-	if ()
+	if (tokentype == HEREDOC)
+	{
+		node->heredoc = make_heredoc();
+		get_heredoc_input(node->heredoc);
+	}
+	else
+		node->heredoc = NULL;
+	aux->back = node;
+	return (node);
 }
 //ETC...

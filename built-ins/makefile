@@ -6,7 +6,7 @@
 #    By: afonso <afonso@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 10:45:02 by afonso            #+#    #+#              #
-#    Updated: 2023/02/13 16:10:29 by afonso           ###   ########.fr        #
+#    Updated: 2023/03/06 12:15:57 by afonso           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ FTEXPORT_OBJS:=./export/export.o
 UNSET_OBJS:=./unset/unset.o
 ENV_OBJS:=./env/env.o
 EXIT_OBJS:=./exit/exit.o
-HELPER_OBJS:= built-in_helper.o executer.o not_built-in_exec.o realloc_env_aux.o piping.o piping_aux.o redirections.o redirectto_mypipe.o
+BUILTIN_HELPER:= built-in_helper.o executer.o not_built-in_exec.o realloc_env_aux.o piping.o piping_aux.o redirections.o redirectto_mypipe.o
 CC := cc
 CFLAGS := -g -Wall -Wextra -Werror #-fsanitize=address
 RM := rm -f
@@ -32,7 +32,7 @@ all: libbuilt-in.a
 	mv built-in_objs/${NAME} ./
 
 ${NAME}: ftecho ftcd ftpwd ftexport ftunset ftenv  fthelper all #ftexit
-	cd built-in_objs && ar rcs ${NAME} ${ALL_OBJS} ${HELPER_OBJS}
+	cd built-in_objs && ar rcs ${NAME} ${ALL_OBJS} ${BUILTIN_HELPER}
 
 testb: all
 	${CC}  tester.c -g -fsanitize=address ${HEADER} ${LIB} -o tester

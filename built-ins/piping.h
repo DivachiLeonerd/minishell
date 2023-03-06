@@ -6,14 +6,14 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:46:35 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/23 11:30:52 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/06 11:55:10 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPING_H
 #define PIPING_H
 
-#include "define.h"
+#include "../define.h"
 
 int		return_righttokenid(t_tree *command_node);
 t_tree	*find_first_command(t_tree *bintree);

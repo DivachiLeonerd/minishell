@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:18:23 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/23 11:26:45 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/06 14:54:04 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "libft.h"
+#include "../libft.h"
 
 int		ft_echo(char **args);
 char	**find_env_full_var(char *var_name, char **envp);

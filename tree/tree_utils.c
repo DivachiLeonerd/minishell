@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbuny-fe <jbuny-fe@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:24:15 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/02/02 11:24:17 by jbuny-fe         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:12:22 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_tree *node_creator(int id)
 
     node = malloc(sizeof(t_tree));
     if (!node)
-        return (1);
+        return (NULL);
     node->tokentype = id;
     node->back = NULL;
     node->left_branch = NULL;
