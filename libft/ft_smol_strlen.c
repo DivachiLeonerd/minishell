@@ -6,11 +6,9 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:11:50 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/27 19:14:19 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/06 17:07:05 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "minishell.h"
 
 int	ft_smol_strlen(char *str)
 {

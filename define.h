@@ -6,9 +6,11 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:28:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/06 12:02:55 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:34:05 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdlib.h>
 
 #ifndef DEFINE_H
 #define DEFINE_H

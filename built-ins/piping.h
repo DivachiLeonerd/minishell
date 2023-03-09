@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:46:35 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/06 11:55:10 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:46:27 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 #define PIPING_H
 
 #include "../define.h"
+#include "../libft/libft.h"
+#include <stdint.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <unistd.h>
+
 
 int		return_righttokenid(t_tree *command_node);
 t_tree	*find_first_command(t_tree *bintree);

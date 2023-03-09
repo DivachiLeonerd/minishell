@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 16:07:15 by afonso            #+#    #+#             */
-/*   Updated: 2022/03/03 13:25:24 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:57:29 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_PRINTF_H
 
 # include<stdlib.h>
-# include"libft.h"
+# include"../libft/libft.h"
 # include <stdarg.h>
 
 int			ft_printf(const char *string, ...);

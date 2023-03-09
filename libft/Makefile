@@ -6,7 +6,7 @@
 #    By: afonso <afonso@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/10 17:21:03 by atereso-          #+#    #+#              #
-#    Updated: 2023/03/01 11:06:52 by afonso           ###   ########.fr        #
+#    Updated: 2023/03/06 16:56:11 by afonso           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,16 +21,16 @@ CC = gcc
 FLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
+all: bonus
+
  $(NAME): ${OBJS}
 		${LIB} ${NAME} ${OBJS}
-
-all: bonus
 
 bonus: ${OBJS} ${BONUS_OBJS}
 		${LIB} ${NAME} ${OBJS} ${BONUS_OBJS}
 
 .c.o:
-	${CC} ${FLAGS} -c $< -o ${<:.c=.o} ${HEADER}
+	${CC} ${FLAGS} -c $< -o ${<:.c=.o} #${HEADER}
 
 clean:
 	${RM} ${OBJS}

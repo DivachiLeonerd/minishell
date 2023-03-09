@@ -6,13 +6,13 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:59:26 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/06 15:21:09 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/09 12:41:50 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../libft/libft.h"
 #include "../define.h"
-#include "stdint.h"
+#include <stdint.h>
 
 //Function to initialize pipes through the structs
 //maybe while doing the tree with heredoc nodes
@@ -35,23 +35,28 @@ t_heredoc *make_heredoc(void)
 
 void	get_heredoc_input(t_heredoc *heredoc)
 {
-	char	buf[INT32_MAX];
+	char	buf[1000];
 	int		i;
 
-	buf[INT32_MAX - 1] = 0;
+	buf[1000 - 1] = 0;
 	i = 0;
 	while (1)
 	{
 		//what if delimiter is divided between one read and another? gotta fix this
 		//Maybe I just put buf[INT_MAX]
-		read(0, buf, INT32_MAX);
+		read(0, buf, 1000);
+		// printf("%s\n", buf);
 		while (buf[i] && (ft_strncmp(&(buf[i]), heredoc->delimiter,
 				ft_strlen(heredoc->delimiter)) != 0))
+		{
+			// printf("delimiter not found && %s\n", heredoc->delimiter);			
 			i++;
+		}
 		write(heredoc->pipe_fd[1], buf, i);
 		if (ft_strncmp(&(buf[i]), heredoc->delimiter,
 				ft_strlen(heredoc->delimiter)) == 0)
 			break ;
+		i = 0;
 	}
 	return ;
 }

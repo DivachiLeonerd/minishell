@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:19:15 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/06 11:58:20 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/06 17:20:17 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@
 #include <sys/ioctl.h>
 #include <termios.h>
 #include <termcap.h>
-#include "libft.h"
+#include "./libft/libft.h"
+#include "./tree/parser.h"
 #include "./built-ins/built-ins.h"
 #include "./built-ins/piping.h"
 #include "define.h"

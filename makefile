@@ -6,22 +6,26 @@
 #    By: afonso <afonso@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/15 15:45:01 by afonso            #+#    #+#              #
-#    Updated: 2023/03/06 15:15:45 by afonso           ###   ########.fr        #
+#    Updated: 2023/03/08 16:59:21 by afonso           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := minishell
-HEADER := -I./ -I./built-ins/
+HEADER := -I./ -I./built-ins/ -I/libft/ -I./tree/
+LIB := -L./ -lbuilt-in -ltree -lft
 OBJDIR:= ./Objects
 BIOBJ:= ./built-ins/built-in_objs
 OBJS:= 
 OBJS_built-in:=
 #OBJS_T :=
-CC := gcc
+CC := cc
 CFLAGS := -g -Wall -Wextra -Werror #-fsanitize=address
 RM := rm -f
 
 all:minishell
+
+libft.a:
+	${MAKE} -C ./libft/ all && cd ./libft && mv libft.a ../
 
 libbuilt-in.a:
 	${MAKE} -C ./built-ins all && cd ./built-ins && mv libbuilt-in.a ../
@@ -33,21 +37,21 @@ minishell: built-in tree
 	${CC} ${CFLAGS} ${NAME}.c ${OBJS} ${HEADER} -o ${NAME}
 	mv *.o ./Objects
 
-test: libbuilt-in.a libtree.a
-	${CC} -g -Wextra -Wall teste.c libft.a libbuilt-in.a libtree.a ${HEADER} -o tester
+test: libbuilt-in.a libtree.a libft.a
+	${CC} ${CFLAGS} teste.c ${LIB} ${HEADER} -o tester
 	
 clean:
 	${RM} *.o
-	${RM} tester
 	${MAKE} -C ./built-ins/ clean
 	${MAKE} -C ./tree/ clean
+	${MAKE} -C ./libft/ clean
 
 fclean: clean
 	${RM} minishell
-	${RM} libbuilt-in.a
-	${RM} libtree.a
-	
+	${RM} tester
+	${RM} *.a
 
-re: fclean all
+re: fclean test
+	make clean
 
- .PHONY:linux test
+ .PHONY:linux test fclean clean re

@@ -6,11 +6,11 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:48:03 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/01 15:33:46 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/06 16:33:34 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "piping.h"
 
 int	return_righttokenid(t_tree *command_node)
 {
