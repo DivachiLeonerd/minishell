@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:19:15 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/06 17:20:17 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/09 13:04:41 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,5 @@
 #include "./built-ins/piping.h"
 #include "define.h"
 
-t_heredoc	*make_heredoc(void);
-void		get_heredoc_input(t_heredoc *heredoc);
 
 #endif
