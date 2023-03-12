@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/06 15:09:08 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/12 16:26:19 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_tree	*add_to_tree(int tokentype, char **args)
 	node->args = args;
 	node = redir_cond(aux, node);
 	node = pipes_cond(tokentype, aux, node);
-	node = heredoc_cond(tokentype, aux, node);
+	node = heredoc_cond(tokentype, aux, node, args);
 	//etc
 	aux = node;
 	return (node);

@@ -18,9 +18,9 @@ void		create_left_node(t_tree *previous, t_tree *new_node);
 void		create_right_node(t_tree *previous, t_tree *node);
 t_tree		*pipes_cond(int tokentype, t_tree *aux, t_tree *node);
 t_tree		*redir_cond(t_tree *aux, t_tree *node);
-t_tree		*heredoc_cond(int tokentype, t_tree *aux, t_tree *node);
+t_tree		*heredoc_cond(int tokentype, t_tree *aux, t_tree *node, char **args);
 t_heredoc	*make_heredoc(void);
-ssize_t		get_heredoc_input(t_heredoc *heredoc);
+ssize_t		get_heredoc_input(t_heredoc *heredoc, char *delimiter);
 // void		close_heredocs(t_heredoc **all_heredocs);
 #endif
 
