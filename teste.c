@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/12 16:20:45 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/12 16:34:35 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,15 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	(void)envp;
+	//Isto acontece no inicio da tree
 	heredoc = make_heredoc();
-	// printf("ola\n");
 	size_read = get_heredoc_input(heredoc, "Sofia");
-	// printf("ola\n");
+	//isto é o que o programa tem que fazer para os ler
 	read((heredoc->pipe_fd)[0], buf, size_read);
 	printf("size_read:%ld\n", size_read);
 	while (size_read > i)
 		printf("%c", buf[i++]);
+	//closing pipe
 	close(heredoc->pipe_fd[0]);
 	close(heredoc->pipe_fd[1]);
 	free(heredoc);
