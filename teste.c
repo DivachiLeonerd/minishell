@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/12 16:34:35 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/12 16:43:21 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int argc, char **argv, char **envp)
 	t_heredoc *heredoc;
 	ssize_t		size_read;
 	ssize_t		i;
-	// int			i;
+	// int		i;
 	i = 0;
 	// bintree = build_tree(argv, envp);
 	(void)argc;
@@ -45,7 +45,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)envp;
 	//Isto acontece no inicio da tree
 	heredoc = make_heredoc();
-	size_read = get_heredoc_input(heredoc, "Sofia");
+	size_read = get_heredoc_input(heredoc, "Marianna");
 	//isto é o que o programa tem que fazer para os ler
 	read((heredoc->pipe_fd)[0], buf, size_read);
 	printf("size_read:%ld\n", size_read);

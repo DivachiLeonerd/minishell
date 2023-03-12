@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:35 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/03/03 19:33:15 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/12 17:23:26 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ t_tree *parser_init(char *s, char **env)
 		tokentype = get_token_type(token);
 		if (tokentype == 6) //token isn't <, >, |, >>, <<
 		{
-			//função que verifica se é comando ou built in ou palavra func(token) 
+			//função que verifica se é comando ou built in ou palavra func(token)
+			if (is_builtin(token) || is_)
 			token = do_something_with_the_token(token, tokentype, env);// e se esta funçao fosse buscar o args do token?
 		}
 	}
-	return tree;
+	return (bintree);
 }
