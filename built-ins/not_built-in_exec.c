@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:10:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/28 10:55:04 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/16 18:35:27 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,14 @@ static void	free_all_paths(char **all_paths)
 
 static char *find_command_path(char **myenvp, char *command)
 {
-	int i;
+	int		i;
 	char	**all_paths;
 	char	*command_path;
 	char	*temp;
 
 	i = 0;
 	while (ft_strncmp("PATH=", myenvp[i], 4) != 0)
-	{
-		printf("not this:%s\n", myenvp[i]);
-		i++;
-	}
+		printf("not this:%s\n", myenvp[i++]);
 	printf("line:%s\n", myenvp[i]);
 	all_paths = ft_split(myenvp[i], ':');
 	i = 0;
@@ -52,13 +49,12 @@ static char *find_command_path(char **myenvp, char *command)
 		i++;
 		printf("trying path:%s\n", command_path);
 		free(command_path);
+		command_path = NULL;
 	}
 	free(temp);
-	if (all_paths[i] == NULL || access(command_path, X_OK) == -1)
-	{
-		free_all_paths(all_paths);
-		return (NULL);
-	}
+	if (command_path == NULL)
+		perror("command not found\n");
+	free_all_paths(all_paths);
 	return (command_path);
 }
 

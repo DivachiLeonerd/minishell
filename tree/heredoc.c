@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:59:26 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/12 16:21:13 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/12 17:51:46 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ ssize_t	get_heredoc_input(t_heredoc *heredoc, char *delimiter)
 	heredoc->delimiter = delimiter;
 	i = 0;
 	while (i < 1000)
-	{
 		buf[i++] = 0;
-	}
 	i = 0;
 	ret = 0;
 	size_read = 0;
@@ -58,7 +56,7 @@ ssize_t	get_heredoc_input(t_heredoc *heredoc, char *delimiter)
 				ft_strlen(buf) - 1) == 0)
 			break ;
 		write(heredoc->pipe_fd[1], buf, size_read);
-		while (buf[i])
+		while (buf[i] && i < 1000)
 			buf[i++] = 0;
 		ret += size_read;
 		i = 0;
