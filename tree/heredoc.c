@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:59:26 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/12 17:51:46 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/16 19:42:04 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 //maybe while doing the tree with heredoc nodes
 t_heredoc *make_heredoc(void)
 {
-	static int	index;
 	t_heredoc	*new_heredoc;
 	
 	new_heredoc = malloc (sizeof(t_heredoc));
@@ -27,22 +26,20 @@ t_heredoc *make_heredoc(void)
 		perror("Couldn't allocate heredoc");
 		return (NULL);
 	}
-	new_heredoc->index = index;
 	pipe(new_heredoc->pipe_fd);
-	index++;
 	return (new_heredoc);
 }
 
-ssize_t	get_heredoc_input(t_heredoc *heredoc, char *delimiter)
+ssize_t	get_heredoc_input(t_tree *node, char *delimiter)
 {
-	char	buf[1000];
+	char	buf[200];
 	int		i;
 	int		size_read;
 	int		ret;
 
-	heredoc->delimiter = delimiter;
+	node->args[0] = delimiter;
 	i = 0;
-	while (i < 1000)
+	while (i < 200)
 		buf[i++] = 0;
 	i = 0;
 	ret = 0;
@@ -50,13 +47,12 @@ ssize_t	get_heredoc_input(t_heredoc *heredoc, char *delimiter)
 	while (1)
 	{
 		//what if delimiter is divided between one read and another? gotta fix this
-		//Maybe I just put buf[INT_MAX]
-		size_read = read(0, buf, 1000);
-		if (ft_strncmp(&(buf[0]), heredoc->delimiter,
+		size_read = read(0, buf, 200);
+		if (ft_strncmp(&(buf[0]), node->args[0],
 				ft_strlen(buf) - 1) == 0)
 			break ;
-		write(heredoc->pipe_fd[1], buf, size_read);
-		while (buf[i] && i < 1000)
+		write(node->heredoc->pipe_fd[1], buf, size_read);
+		while (buf[i] && i < 200)
 			buf[i++] = 0;
 		ret += size_read;
 		i = 0;

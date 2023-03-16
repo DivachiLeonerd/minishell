@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:35 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/03/12 19:54:56 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/16 20:04:46 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,9 @@ t_tree *parser_init(char *s, char **env)
 		if (!token)
 			break;
 		tokentype = get_token_type(token);
-		if (tokentype == 6) //token isn't <, >, |, >>, <<
+		if (tokentype == 6 || tokentype == 4) //token isn't <, >, |, >>
 		{
-			//função que verifica se é comando ou built in ou palavra func(token)
-			if (find_command_path(token) != NULL)
-				tokentype = 7;
-			else
-				//word stuff
+			//pode ser command, built-in, words, heredoc
 			token = do_something_with_the_token(token, tokentype, env);// e se esta funçao fosse buscar o args do token?
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/12 16:26:19 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/16 20:07:16 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,15 @@ t_tree	*add_to_tree(int tokentype, char **args)
 	//I should add nodes with the tokentype and connect the nodes
 	//this is coming from the end of the tree to the beggining
 	t_tree			*node;
-	static t_tree	*aux;
+	static t_tree	*last_node;
 
 
 	node = malloc(sizeof(t_tree));
 	node->tokentype = tokentype;
 	node->args = args;
-	node = redir_cond(aux, node);
-	node = pipes_cond(tokentype, aux, node);
-	node = heredoc_cond(tokentype, aux, node, args);
-	//etc
-	aux = node;
+	node = redir_cond(last_node, node);
+	node = pipes_cond(tokentype, last_node, node);
+	last_node = node;
 	return (node);
 }
 

@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:28:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/06 16:34:05 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/16 20:11:09 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 
 typedef struct s_heredoc
 {
-	int				index;//is it the first? second? last?
 	int				pipe_fd[2];
 	char			*delimiter;
+	ssize_t			bytes_stored;
 }t_heredoc;
 
 typedef struct s_tree

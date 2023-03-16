@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 09:48:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/12 16:27:11 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/16 19:51:06 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,13 @@ t_tree	*redir_cond(t_tree *aux, t_tree *node)
 //COMMANDS
 
 //HEREDOC
-t_tree	*heredoc_cond(int tokentype, t_tree *aux, t_tree *node, char **args)
+t_tree	*heredoc_cond(int tokentype, t_tree *aux, t_tree *node, char *delimiter)
 {
 	if (tokentype == HEREDOC)
 	{
 		node->heredoc = make_heredoc();
-		get_heredoc_input(node->heredoc, args[0]/*represents delimiter*/);
+		node->heredoc->delimiter = delimiter;
+		get_heredoc_input(node->heredoc, node->heredoc->delimiter/*represents delimiter*/);
 	}
 	else
 		node->heredoc = NULL;
