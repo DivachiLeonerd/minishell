@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirections.c                                     :+:      :+:    :+:   */
+/*   ft_smol_strlen.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/24 11:48:03 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/06 16:33:34 by afonso           ###   ########.fr       */
+/*   Created: 2023/02/27 19:11:50 by afonso            #+#    #+#             */
+/*   Updated: 2023/03/06 17:07:05 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "piping.h"
-
-int	return_righttokenid(t_tree *command_node)
+int	ft_smol_strlen(char *str)
 {
-	if (command_node->right_branch == NULL)
-		return (0);
-	else
-		return (command_node->right_branch->tokentype);
-}
+	int	i;
 
-t_tree	*find_first_command(t_tree *bintree)
-{
-	t_tree	*node;
-
-	node = bintree;
-	while (node->left_branch != NULL)
-		node = node->left_branch;
-	return (node);
+	i = 0;
+	if (!str)
+		return (-1);
+	while (str[i])
+		i++;
+	return (i);
 }

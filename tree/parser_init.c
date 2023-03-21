@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbuny-fe <jbuny-fe@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:35 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/02/02 11:22:46 by jbuny-fe         ###   ########.fr       */
+/*   Updated: 2023/03/16 20:04:46 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,33 @@
 #include <string.h>
 #include <stdio.h>
 
-
-t_tree *parser_init(char *s, t_list *env)
+//should parser init really build the tree? Maybe delegate that to other function?
+t_tree *parser_init(char *s, char **env)
 {
-    t_tree *tree;
-    int what_is_token;
-    char *token;
+	t_tree	*bintree;
+	int		tokentype;
+	char	*token;
+	char	**tokens;
+	int		i;
 
-    token = NULL;
-    while (1)
-    {
-        token = token_getter(s);
-        if (!token)
-            break;
-        if (syntax_checker(token) != 0)
-        {
-            free(token);
-            return (NULL);
-        }
-        what_is_token = get_token_type(token);
-        if (what_is_token == 6) //token isn't <, >, |, >>, <<
-            token = do_something_with_the_token(token, env);
-        add_to_tree(char *token, int tokentype);
-    }
-    return tree;
+	token = 1;
+	i = 0;
+	if (syntax_checker(s) != 0)
+		return (NULL);
+	while (tokentype != -1)//this is end of line
+	{
+		tokens = ft_split(s, ' ');
+		if (token_manager(tokens[i++]) == 1)
+			token = token_updater(tokens, env);
+	//in the future we need to take care of token_manager() == 2
+		if (!token)
+			break;
+		tokentype = get_token_type(token);
+		if (tokentype == 6 || tokentype == 4) //token isn't <, >, |, >>
+		{
+			//pode ser command, built-in, words, heredoc
+			token = do_something_with_the_token(token, tokentype, env);// e se esta funçao fosse buscar o args do token?
+		}
+	}
+	return (bintree);
 }

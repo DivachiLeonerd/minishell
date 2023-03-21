@@ -6,11 +6,12 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/10 17:04:54 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/16 20:07:16 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "../built-ins/piping.h"
 
 
 
@@ -19,15 +20,16 @@ t_tree	*add_to_tree(int tokentype, char **args)
 	//this function should be called repeatedly with a different token and tokentype
 	//I should add nodes with the tokentype and connect the nodes
 	//this is coming from the end of the tree to the beggining
-	t_tree	*node;
-	static t_tree *aux;
+	t_tree			*node;
+	static t_tree	*last_node;
+
 
 	node = malloc(sizeof(t_tree));
 	node->tokentype = tokentype;
 	node->args = args;
-	node = redir_cond(tokentype, aux, node);
-	node = pipes_cond(tokentype, aux, node);
-	//etc
+	node = redir_cond(last_node, node);
+	node = pipes_cond(tokentype, last_node, node);
+	last_node = node;
 	return (node);
 }
 
@@ -47,6 +49,14 @@ int	check_direction(int direction, t_tree *node)
 	return (1);
 }
 
+// t_tree	*build_tree(char *command_line, char **envp)
+// {
+// 	t_tree	*head;
+// 	t_tree	*node;
+
+// 	parser_init(command_line, envp);
+// }
+
 void	free_tree(t_tree *bintree)
 {
 	t_tree	*node;
@@ -63,9 +73,9 @@ void	free_tree(t_tree *bintree)
 		{
 			temp = node->back;
 			if (temp->left_branch == node)
-				temp->left_branch == NULL;
+				temp->left_branch = NULL;
 			else if (temp->right_branch == NULL)
-				temp->right_branch == NULL;
+				temp->right_branch = NULL;
 			free(node);
 		}
 		node = temp;

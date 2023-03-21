@@ -6,7 +6,7 @@
 #    By: afonso <afonso@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 10:45:02 by afonso            #+#    #+#              #
-#    Updated: 2023/02/01 16:59:05 by afonso           ###   ########.fr        #
+#    Updated: 2023/03/06 17:26:02 by afonso           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,50 +23,50 @@ FTEXPORT_OBJS:=./export/export.o
 UNSET_OBJS:=./unset/unset.o
 ENV_OBJS:=./env/env.o
 EXIT_OBJS:=./exit/exit.o
-HELPER_OBJS:= built-in_helper.o executer.o not_built-in_exec.o realloc_env_aux.o piping.o piping_aux.o redirections.o redirectto_mypipe.o
+BUILTIN_HELPER:= built-in_helper.o executer.o not_built-in_exec.o realloc_env_aux.o piping.o piping_aux.o redirections.o redirectto_mypipe.o
 CC := cc
 CFLAGS := -g -Wall -Wextra -Werror #-fsanitize=address
 RM := rm -f
 
-all: libbuilt-in.a
+all: ${NAME}
 	mv built-in_objs/${NAME} ./
 
-${NAME}: ftecho ftcd ftpwd ftexport ftunset ftenv  fthelper all #ftexit
-	cd built-in_objs && ar rcs ${NAME} ${ALL_OBJS} ${HELPER_OBJS}
+${NAME}: ftecho ftcd ftpwd ftexport ftunset ftenv  fthelper #ftexit
+	cd built-in_objs && ar rcs ${NAME} ${ALL_OBJS} ${BUILTIN_HELPER}
 
 testb: all
 	${CC}  tester.c -g -fsanitize=address ${HEADER} ${LIB} -o tester
 
 ftecho:
-	${CC} ${CFLAGS} echo/echo.c ${HEADER} ${LIB} -c
+	${CC} ${CFLAGS} echo/echo.c -c
 	mv echo.o ./built-in_objs
 
 ftcd:
-	${CC} ${CFLAGS} cd/cd.c ${HEADER} ${LIB} -c
+	${CC} ${CFLAGS} cd/cd.c  -c
 	mv cd.o ./built-in_objs
 
 ftpwd:
-	${CC} ${CFLAGS} pwd/pwd.c ${HEADER} ${LIB} -c
+	${CC} ${CFLAGS} pwd/pwd.c  -c
 	mv pwd.o ./built-in_objs
 
 ftexport:
-	${CC} ${CFLAGS} export/export.c ${HEADER} ${LIB} -c
+	${CC} ${CFLAGS} export/export.c  -c
 	mv export.o ./built-in_objs
 
 ftunset:
-	${CC} ${CFLAGS} unset/unset.c ${HEADER} ${LIB} -c
+	${CC} ${CFLAGS} unset/unset.c  -c
 	mv unset.o ./built-in_objs
 
 ftenv:
-	${CC} ${CFLAGS} env/env.c ${HEADER} ${LIB} -c
+	${CC} ${CFLAGS} env/env.c  -c
 	mv env.o ./built-in_objs
 
 ftexit:
-	${CC} ${CFLAGS} exit/exit.c ${HEADER} ${LIB} -c
+	${CC} ${CFLAGS} exit/exit.c -c
 	mv exit/exit.o ./built-in_objs
 
 fthelper: 
-	${CC} ${CFLAGS} not_built-in_exec.c realloc_env_aux.c executer.c built-in_helper.c piping.c piping_aux.c redirections.c redirectto_mypipe.c ${HEADER} ${LIB} -c
+	${CC} ${CFLAGS} not_built-in_exec.c realloc_env_aux.c executer.c built-in_helper.c piping.c piping_aux.c redirections.c redirectto_mypipe.c -c
 	mv *.o ./built-in_objs
 
 clean:

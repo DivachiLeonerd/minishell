@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbuny-fe <jbuny-fe@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:59 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/02/02 11:23:02 by jbuny-fe         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:25:48 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ int get_token_type(char *token)
     int token_size;
     int token_id;
 
-    token_size = (int)ft_strlen(token);
     if (!token)
         return (0);
+    if (*token == '\0')
+        return (-1);
+    token_size = ft_smol_strlen(token);
     if (token_size == 1)
     {
         if (token[0] == '>')
@@ -39,9 +41,8 @@ int get_token_type(char *token)
             return (5);
     }
     else
-        return (6); //token in neither redir nor pipe
+        return (6); //token is neither redir nor pipe
 }
-
 
 void    *no_mem(void *p)
 {

@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:44:37 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/30 15:41:42 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/16 11:51:28 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	is_builtin(char *command)
 void	execute_builtin(char *command, char **myenvp, char **args)
 {
 	if (ft_strncmp("echo", command, ft_strlen("echo")) == 0)
-		ft_echo(args, myenvp);
+		ft_echo(args);
 	if (ft_strncmp("env", command, ft_strlen("env")) == 0)
 		env(myenvp);
 	// if (ft_strncmp("exit", command, ft_strlen("exit")) == 0)

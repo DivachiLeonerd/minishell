@@ -6,13 +6,15 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 10:04:42 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/05 17:17:25 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/06 15:29:04 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "built-ins.h"
 #include "piping.h"
+#include "define.h"
+#include "libft.h"
 
 static void	free_utils(int *pid, int **pipe_fd, int numof_pipes)
 {
@@ -26,19 +28,6 @@ static void	free_utils(int *pid, int **pipe_fd, int numof_pipes)
 	}
 	free(pid);
 	return ;
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	int	**pipe_fd;
-	int *pid;
-	int i;
-
-	i = 0;
-	ft_echo(argv, envp);
-	//make a tree with parsing
-	//run tree with make_and_run_pipes()
-	return (0);
 }
 
 void	run_pipes(int numof_pipes, t_tree *bintree, int *pid, char **myenvp)
@@ -69,6 +58,8 @@ void	make_pipes(t_tree *bintree, char **myenvp)
 	int		numof_pipes;
 	int		**pipe_fd;
 	int		*pid;
+	int		**heredoc_fd;
+	int		numof_heredocs;
 	
 	i = 0;
 	numof_pipes = how_many_pipes(bintree);
@@ -80,4 +71,25 @@ void	make_pipes(t_tree *bintree, char **myenvp)
 	run_pipes(numof_pipes, bintree, pid, myenvp);
 	free_utils(pid, pipe_fd, numof_pipes);
 	return ;
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	int	**pipe_fd;
+	int *pid;
+	int i;
+	char	buf[INT32_MAX];
+	t_tree	*bintree;
+	t_heredoc *heredoc;
+	ssize_t		size_read;
+	
+	// i = 0;
+	// bintree = build_tree(argv, envp);
+	heredoc = make_heredoc();
+	get_heredoc_input(heredoc);
+	size_read = read((heredoc->pipe_fd)[0], buf, INT32_MAX);
+	printf("%s", buf);
+	//make a tree with parsing
+	//run tree with make_and_run_pipes()
+	return (0);
 }

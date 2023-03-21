@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 15:52:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/28 10:50:33 by afonso           ###   ########.fr       */
+/*   Updated: 2023/02/16 09:59:48 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int main(int argc, char **argv, char **envp)
 {
-	if (ft_echo(argv, envp) == 0)
+	if (ft_echo(argv) == 0)
 		return (0);
 	return (1);
 }
