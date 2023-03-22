@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:23:47 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/03/16 20:13:48 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/22 11:26:14 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,22 @@ char      *do_something_with_the_token(char *token, int tokentype, char **env, c
 		last_node->heredoc->bytes_stored = get_heredoc_input(last_node->heredoc, new_token);
 		return (last_node);
 	}
-	if (tokentype != 8 && tokentype != 3)
+	if (tokentype != /*word*/8 && tokentype != 3/*pipe*/)
 	{
+		bintree = add_to_tree(tokentype, args);
+		last_node = bintree;
 		new_token = token_updater(tokens, env);
 		temp_tokentype = get_tokentype(new_token);
 		while (temp_tokentype == 8)
 		{
 			if (i == 0)
 				add_argstoken(last_node->args, new_token);
+			new_token = token_updater(tokens, env);
+			temp_tokentype = get_tokentype(new_token);
+			if (temp_tokentype != 8)
+				return (do_something_with_the_token(new_token, temp_tokentype, env, tokens));
 			add_argstoken(last_node->args, token_updater(tokens, env));
+			
 			i++;
 		}
 		bintree = add_to_tree(tokentype, args);

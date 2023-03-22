@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:59:26 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/16 19:42:04 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/18 16:43:10 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ ssize_t	get_heredoc_input(t_tree *node, char *delimiter)
 	size_read = 0;
 	while (1)
 	{
-		//what if delimiter is divided between one read and another? gotta fix this
 		size_read = read(0, buf, 200);
 		if (ft_strncmp(&(buf[0]), node->args[0],
 				ft_strlen(buf) - 1) == 0)
@@ -60,18 +59,31 @@ ssize_t	get_heredoc_input(t_tree *node, char *delimiter)
 	return ((ssize_t)ret);
 }
 
-//close pipes
-// void	close_heredocs(t_heredoc **all_heredocs)
-// {
-// 	t_heredoc	*hd;
+// close pipes
+void	close_heredocs(t_tree *bintree)
+{
+	t_tree *node;
+	t_tree	*right;
 	
-// 	hd = *all_heredocs;
-// 	while (hd)
-// 	{
-// 		close((hd->pipe_fd)[0]);
-// 		close((hd->pipe_fd)[1]);
-// 		hd++;//I'm thinking it will go up (sizeof(t_heredoc)) and not just 1
-// 	}
-// 	//Maybe i also free them along with pipe closure
-// 	return ;
-// }
+	node = bintree;
+	right = node->right_branch;
+	while (node->left_branch != NULL)
+	{
+		while (right != NULL)
+		{
+			if (right->heredoc != NULL)
+			{
+				close((bintree->heredoc->pipe_fd)[1]);
+				close((bintree->heredoc->pipe_fd)[0]);
+			}
+			right = right->right_branch;
+		}
+		if (node->heredoc !=NULL)
+		{
+			close((bintree->heredoc->pipe_fd)[1]);
+			close((bintree->heredoc->pipe_fd)[0]);
+		}
+	}
+	//Maybe i also free them along with pipe closure
+	return ;
+}

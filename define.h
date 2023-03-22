@@ -6,7 +6,7 @@
 /*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:28:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/16 20:11:09 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/17 13:18:40 by afonso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ struct s_tree	*left_branch;
 struct s_tree	*right_branch;
 struct s_tree	*back;
 }t_tree;
-
 
 #define I_REDIR 0
 #define O_REDIR 1
