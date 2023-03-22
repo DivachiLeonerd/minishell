@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:23:47 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/03/22 11:26:14 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/03/22 17:07:08 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char      *do_something_with_the_token(char *token, int tokentype, char **env, c
 	
 	i = 0;
 	new_token = NULL;
-	if (temp_tokentype == 4/*heredoc*/)
+	if (tokentype == 4/*heredoc*/)
 	{
 		new_token = token_updater(tokens, env);
 		temp_tokentype = get_tokentype(new_token);
@@ -100,8 +100,7 @@ char      *do_something_with_the_token(char *token, int tokentype, char **env, c
 			temp_tokentype = get_tokentype(new_token);
 			if (temp_tokentype != 8)
 				return (do_something_with_the_token(new_token, temp_tokentype, env, tokens));
-			add_argstoken(last_node->args, token_updater(tokens, env));
-			
+			add_argstoken(last_node->args, token_updater(tokens, env));	
 			i++;
 		}
 		bintree = add_to_tree(tokentype, args);
