@@ -3,45 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:59 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/02/28 18:25:48 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/27 14:24:08 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "parser.h"
+#include "../built-ins/built-ins.h"
+#include "../define.h"
 
-
-int get_token_type(char *token)
+int get_token_type(char *token, char **myenvp)
 {
-    int token_size;
-    int token_id;
+    int     token_size;
+    char    *aux;
 
     if (!token)
-        return (0);
-    if (*token == '\0')
+        return (-1);
+    if (token[0] == '\0')
         return (-1);
     token_size = ft_smol_strlen(token);
     if (token_size == 1)
     {
         if (token[0] == '>')
-            return (1);
+            return (O_REDIR);
         else if (token[0] == '<')
-            return (2);
+            return (I_REDIR);
         else if (token[0] == '|')
-            return (3);
+            return (PIPE);
     }
     else if (token_size == 2)
     {
         if (token[0] == '>' && token[1] == '>')
-            return (4);
+            return (APPEND);
         else if (token[0] == '<' && token[1] == '<')
-            return (5);
+            return (HEREDOC);
     }
-    else
-        return (6); //token is neither redir nor pipe
+    if (is_builtin(token))
+        return (6);
+    aux = find_command_path(myenvp, token);
+    if (aux)
+    {
+        free(aux);
+        return (EXECUTABLE);
+    }
+    return (WORD);
 }
 
 void    *no_mem(void *p)
@@ -49,7 +57,9 @@ void    *no_mem(void *p)
     if (!p)
     {
         ft_putendl_fd("No more available memory for minishell!", 2);
-        exit(EXIT_FAILURE);
+        chad_exitstatus = EXIT_FAILURE;
+        return (NULL);
     }
+    return (p);
 }
 

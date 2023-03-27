@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   tree_building.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/16 20:07:16 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/27 15:34:20 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "../built-ins/piping.h"
-
-
 
 t_tree	*add_to_tree(int tokentype, char **args)
 {
@@ -25,10 +23,22 @@ t_tree	*add_to_tree(int tokentype, char **args)
 
 
 	node = malloc(sizeof(t_tree));
+	node->back = NULL;
 	node->tokentype = tokentype;
 	node->args = args;
-	node = redir_cond(last_node, node);
-	node = pipes_cond(tokentype, last_node, node);
+	if (last_node != NULL)
+	{
+		if (tokentype == WORD)
+		{
+			chad_exitstatus = 10;
+			perror("command cannot be found");
+			free(node);
+			node = NULL;
+			return (NULL);
+		}
+		node = redir_cond(last_node, node);
+		node = pipes_cond(tokentype, last_node, node);
+	}
 	last_node = node;
 	return (node);
 }
@@ -49,19 +59,15 @@ int	check_direction(int direction, t_tree *node)
 	return (1);
 }
 
-// t_tree	*build_tree(char *command_line, char **envp)
-// {
-// 	t_tree	*head;
-// 	t_tree	*node;
-
-// 	parser_init(command_line, envp);
-// }
-
 void	free_tree(t_tree *bintree)
 {
 	t_tree	*node;
 	t_tree	*temp;
 
+	if (!bintree)
+		return ;
+	while (bintree->back != NULL)//tries to find the first position of the tree
+		bintree = bintree->back;
 	node = find_command_node(0, bintree);
 	while (node != bintree)
 	{

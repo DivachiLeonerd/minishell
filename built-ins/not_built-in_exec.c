@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   not_built-in_exec.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:10:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/16 18:35:27 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/27 15:07:16 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	free_all_paths(char **all_paths)
 	return ;
 }
 
-static char *find_command_path(char **myenvp, char *command)
+char *find_command_path(char **myenvp, char *command)
 {
 	int		i;
 	char	**all_paths;
@@ -32,8 +32,7 @@ static char *find_command_path(char **myenvp, char *command)
 
 	i = 0;
 	while (ft_strncmp("PATH=", myenvp[i], 4) != 0)
-		printf("not this:%s\n", myenvp[i++]);
-	printf("line:%s\n", myenvp[i]);
+		i++;
 	all_paths = ft_split(myenvp[i], ':');
 	i = 0;
 	temp = ft_strjoin("/", command);
@@ -47,7 +46,6 @@ static char *find_command_path(char **myenvp, char *command)
 			perror("Permission denied\n");
 		}
 		i++;
-		printf("trying path:%s\n", command_path);
 		free(command_path);
 		command_path = NULL;
 	}

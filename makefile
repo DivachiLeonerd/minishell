@@ -3,23 +3,23 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: afonso <afonso@student.42.fr>              +#+  +:+       +#+         #
+#    By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/15 15:45:01 by afonso            #+#    #+#              #
-#    Updated: 2023/03/08 16:59:21 by afonso           ###   ########.fr        #
+#    Updated: 2023/03/24 12:16:52 by atereso-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := minishell
-HEADER := -I./ -I./built-ins/ -I/libft/ -I./tree/
-LIB := -L./ -lbuilt-in -ltree -lft
+HEADER := -I./ -I./ -I./built-ins/ -I/libft/ -I./tree/
+LIB := -L./ -ltree -lbuilt-in -lft -lreadline
 OBJDIR:= ./Objects
 BIOBJ:= ./built-ins/built-in_objs
 OBJS:= 
 OBJS_built-in:=
 #OBJS_T :=
 CC := cc
-CFLAGS := -g -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS := -g -fsanitize=address #-Wall -Wextra -Werror 
 RM := rm -f
 
 all:minishell
@@ -38,7 +38,7 @@ minishell: built-in tree
 	mv *.o ./Objects
 
 test: libbuilt-in.a libtree.a libft.a
-	${CC} ${CFLAGS} teste.c ${LIB} ${HEADER} -o tester
+	${CC} ${CFLAGS} teste.c ${LIB} ${HEADER} -o minitester
 	
 clean:
 	${RM} *.o
@@ -48,7 +48,7 @@ clean:
 
 fclean: clean
 	${RM} minishell
-	${RM} tester
+	${RM} minitester
 	${RM} *.a
 
 re: fclean test

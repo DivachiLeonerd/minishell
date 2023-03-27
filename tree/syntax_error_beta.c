@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error_beta.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:23:15 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/03/03 18:43:23 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/23 16:06:55 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include "parser.h"
 
-int     syntax_checker(char *line)
+int	syntax_checker(char *line)
 {
 	int     i;
 	int     j;
@@ -37,7 +37,7 @@ int     syntax_checker(char *line)
 		if (j == 2 && line[i] != line[i - 1])
 			return (2);
 	}
-	if (line[i] == NULL)
+	if (line[i] == 0)
 		return (0);
 	else
 		return (1);

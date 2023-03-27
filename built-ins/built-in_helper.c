@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built-in_helper.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 10:24:14 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/28 17:33:12 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/27 14:59:07 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	how_many_arrays(char **double_ptr)
 	int		i;
 
 	i = 0;
+	if (!double_ptr)
+		return (0);
 	while (double_ptr[i] != NULL)
 		i++;
 	return (i);
@@ -72,7 +74,7 @@ char	**env_realloc(char **envp, int	numof_new_arrays, char *var)
 	return (new_env);
 }
 
-void	free_env(char **envp)
+void	free_matrix(char **envp)
 {
 	int	i;
 	int	j;

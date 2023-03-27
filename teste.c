@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   teste.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/12 16:43:21 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/27 15:13:03 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,29 +33,47 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	buf[1000];
-	t_heredoc *heredoc;
-	ssize_t		size_read;
-	ssize_t		i;
-	// int		i;
-	i = 0;
-	// bintree = build_tree(argv, envp);
+	t_tree				*bintree;
+	char				**myenvp;
+	char				*command_line;
+	struct sigaction	behaviour;
+
 	(void)argc;
 	(void)argv;
-	(void)envp;
-	//Isto acontece no inicio da tree
-	heredoc = make_heredoc();
-	size_read = get_heredoc_input(heredoc, "Marianna");
-	//isto é o que o programa tem que fazer para os ler
-	read((heredoc->pipe_fd)[0], buf, size_read);
-	printf("size_read:%ld\n", size_read);
-	while (size_read > i)
-		printf("%c", buf[i++]);
-	//closing pipe
-	close(heredoc->pipe_fd[0]);
-	close(heredoc->pipe_fd[1]);
-	free(heredoc);
-	//make a tree with parsing
-	//run tree with make_and_run_pipes()
+	
+	myenvp = build_envp(envp);
+	command_line = NULL;
+	//returns a empty string, which is different from a NULL
+	intr_behaviour(&behaviour);
+	command_line = readline(PROMPT);
+	while (1)
+	{
+		chad_exitstatus = 0;
+		while (command_line[0] == 0)
+		{
+			command_line[0] == 0?free(command_line):printf("\n");
+			command_line = readline(PROMPT);
+		}
+		ft_strncmp("exit", command_line, 4)?add_history(command_line):exit(0);
+		printf("beginning parsing...\n");
+		nintr_behaviour(&behaviour);
+		bintree = parser_init(command_line, myenvp);
+		if (!bintree)
+		{
+			errno = 30;
+			perror("Bad tree build. Exiting...");
+		}
+		else
+			make_pipes(bintree, myenvp);//command_line a ser executado
+		free(command_line);
+		printf("\n");
+		break ;
+	}
+	free_matrix(myenvp);
+	if (bintree)
+	{
+		printf("bintree n e nula\n");
+		free_tree(bintree);
+	}
 	return (0);
 }

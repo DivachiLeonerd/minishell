@@ -6,19 +6,19 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:23:47 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/03/22 17:07:08 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:46:23 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 
 #include "parser.h"
-#include "./built-ins.h"
+#include "../built-ins/built-ins.h"
 
 
 //check if there's single/double quotes or '$' (to see 
 //if it's a token that needs more attention) 
-int    *token_manager(char *token)
+int	token_manager(char *token)
 {
 	int     i;
 	int     dollar_sign;
@@ -45,7 +45,7 @@ int    *token_manager(char *token)
 		return (1);
 	else if (single_quote == 1 || double_quote == 1)
 		return (2);
-	return (0);
+	return (1);
 }
 
 char	**add_argstoken(char **args, char *token)
@@ -54,19 +54,24 @@ char	**add_argstoken(char **args, char *token)
 	int		size;
 	int     i;
 	
-	i = -1;
+	i = 0;
 	size = how_many_arrays(args);
-	if (!size)
-		return (NULL);
-	new_args = malloc((size + 2) * sizeof(char *));
-	while (args[++i])
+	printf("size:%d\n", size);
+	new_args = malloc((size + 2) * sizeof(char *));//its plus NULL termination and new arg
+	while (args && i < size + 1)
+	{
+		printf("i:%d\n", i);
 		new_args[i] = ft_strdup(args[i]);
+		i++;
+	}
 	new_args[i] = token;
 	new_args[++i] = NULL;
+	if (size)
+		free(args);
 	return (new_args);
 }
 
-char      *do_something_with_the_token(char *token, int tokentype, char **env, char **tokens)
+t_tree	*addtoken_to_tree(char *token, int tokentype, char **env, char **tokens)
 {
 	char			*new_token;
 	t_tree			*bintree;
@@ -76,35 +81,41 @@ char      *do_something_with_the_token(char *token, int tokentype, char **env, c
 	int				temp_tokentype;
 	
 	i = 0;
+	args = NULL;
 	new_token = NULL;
-	if (tokentype == 4/*heredoc*/)
+	bintree = NULL;
+	if (tokentype == HEREDOC)
 	{
 		new_token = token_updater(tokens, env);
-		temp_tokentype = get_tokentype(new_token);
+		temp_tokentype = get_token_type(new_token, env);
 		last_node->heredoc = make_heredoc();
 		last_node->heredoc->delimiter = new_token;//do we even need delimiter member then?
 		last_node->heredoc->bytes_stored = get_heredoc_input(last_node->heredoc, new_token);
 		return (last_node);
 	}
-	if (tokentype != /*word*/8 && tokentype != 3/*pipe*/)
+	if (tokentype != WORD && tokentype != HEREDOC && tokentype != PIPE && tokentype > 0)
 	{
 		bintree = add_to_tree(tokentype, args);
 		last_node = bintree;
+		if (tokentype == BUILTIN || tokentype == EXECUTABLE)
+			add_argstoken(last_node->args, token);
 		new_token = token_updater(tokens, env);
-		temp_tokentype = get_tokentype(new_token);
-		while (temp_tokentype == 8)
+		temp_tokentype = get_token_type(new_token, env);
+		while (temp_tokentype == WORD)
 		{
 			if (i == 0)
 				add_argstoken(last_node->args, new_token);
 			new_token = token_updater(tokens, env);
-			temp_tokentype = get_tokentype(new_token);
-			if (temp_tokentype != 8)
-				return (do_something_with_the_token(new_token, temp_tokentype, env, tokens));
+			temp_tokentype = get_token_type(new_token, env);
+			if (temp_tokentype != WORD)
+				return (addtoken_to_tree(new_token, temp_tokentype, env, tokens));
 			add_argstoken(last_node->args, token_updater(tokens, env));	
 			i++;
 		}
-		bintree = add_to_tree(tokentype, args);
-		last_node = bintree;
 	}
+	free(token);
+	printf("inside addtoken_to_tree():bintree:%p\n", bintree);
+	bintree = add_to_tree(tokentype, args);
+	last_node = bintree;
 	return (bintree);
 }

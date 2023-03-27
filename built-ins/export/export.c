@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:05:47 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/28 17:29:57 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/27 12:32:58 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**export(char **args, char **myenvp)
 		new_env = env_realloc(myenvp, 1, variable);
 	else
 		new_env = env_realloc(myenvp, 0, variable);
-	free_env(myenvp);
+	free_matrix(myenvp);
 	free(new_var);
 	return (new_env);
 }

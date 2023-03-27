@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_chrcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 11:21:44 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/27 12:32:53 by atereso-         ###   ########.fr       */
+/*   Created: 2023/03/23 16:30:58 by atereso-          #+#    #+#             */
+/*   Updated: 2023/03/23 17:47:12 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "built-ins.h"
+#include "libft.h"
 
-int main(int argc, char **argv, char **envp)
+int	ft_chrcmp(char c, char *s)
 {
-	char	**myenvp;
+	int	i;
 
-	myenvp = build_envp(envp);
-	env(myenvp);
-	cd(argv[1]);
-	printf("\n\nnew_PWD:");
-	myenvp = ft_pwd(myenvp);
-	printf("\n\nCheck new PWD in env:\n\n");
-	env(myenvp);
-	free_matrix(myenvp);
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			return (1);
+		i++;
+	}
 	return (0);
 }

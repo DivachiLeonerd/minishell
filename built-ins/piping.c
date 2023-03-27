@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   piping.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:43:55 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/06 16:40:58 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/23 15:30:23 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "piping.h"
 
-// I need a function that creates all pipes and returns the int**
+//function that creates all pipes and returns the int**
 
 int **pipe_creation(int how_many_pipes)
 {
@@ -31,20 +31,24 @@ int **pipe_creation(int how_many_pipes)
 	return (pipe_fd);
 }
 
-int output_redirection(int fd1, t_tree *node)
+int output_redirection(int fd1, t_tree *node, int token_type)
 {
-	char buf[INT32_MAX];
+	char buf[200];
 	int fd2;
 	ssize_t readbytes;
-
-	fd2 = open(node->args[0] /*filename*/, O_CREAT, O_WRONLY);
+	if (token_type == O_REDIR)
+		fd2 = open(node->args[0] /*filename*/, O_CREAT, O_WRONLY);
+	else if (token_type == O_APPEND)
+		fd2 = open(node->args[0], O_CREAT, O_WRONLY, O_APPEND);
+	else
+		perror("Token type was neither redirect nor append");
 	readbytes = read(fd1, buf, INT32_MAX);
 	if (readbytes == -1)
 	{
 		perror("Failed read() instruction in redirection");
 		return (-1);
 	}
-	write(fd2, buf, ft_strlen(buf));
+	write(fd2, buf, readbytes);
 	close(fd2);
 	return (0);
 }

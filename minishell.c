@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:00:04 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/01 10:57:23 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/24 11:13:17 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int main(int argc, char **argv, char **envp)
 	line = 1;
 	while (1)
 	{
-		while (line)
+		while (!line)
 		{
 			line = readline("minishell: ");
 			printf("\n");

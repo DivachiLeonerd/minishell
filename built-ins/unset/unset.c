@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 18:19:46 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/28 17:31:06 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/27 12:33:07 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ char	**unset(char **args, char **envp)
 		return (0);
 	else
 		myenvp = env_realloc(envp, -1, variable);
-	free_env(envp);
+	free_matrix(envp);
 	return (myenvp);
 }

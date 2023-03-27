@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:35 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/03/22 11:27:11 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:55:48 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <string.h>
 #include <stdio.h>
 
-//should parser init really build the tree? Maybe delegate that to other function?
 t_tree *parser_init(char *s, char **env)
 {
 	t_tree	*bintree;
@@ -23,20 +22,33 @@ t_tree *parser_init(char *s, char **env)
 	char	**tokens;
 	int		i;
 
-	token = 1;
+	token = NULL;
+	tokentype = 0;
 	i = 0;
+	bintree = NULL;
 	if (syntax_checker(s) != 0)
 		return (NULL);
+	printf("passed syntax checker\n");
+	tokens = ft_split(s, ' ');
 	while (tokentype != -1)//this is end of line
 	{
-		tokens = ft_split(s, ' ');
-		if (token_manager(tokens[i++]) == 1)
+		if (token_manager(tokens[i++]) == 1)//nao gosto do facto de isto ter que correr duas vezes
 			token = token_updater(tokens, env);
 	//in the future we need to take care of token_manager() == 2
+		tokentype = get_token_type(token, env);
 		if (!token)
-			break; //erraido
-		tokentype = get_token_type(token);
-		bintree = do_something_with_the_token(token, tokentype, env);// e se esta funçao fosse buscar o args do token?
+			continue ;
+		printf("tokentype=%d\n", tokentype);
+		bintree = addtoken_to_tree(token, tokentype, env, tokens);// e se esta funçao fosse buscar o args do token?
+		if (chad_exitstatus == 10)//inside add_token()
+			break ;
 	}
+	if (bintree)
+	{
+		printf("bintree tokentype:%d\n", bintree->tokentype);
+		while (bintree->back != NULL)
+			bintree = bintree->back;
+	}
+	free(tokens);
 	return (bintree);
 }
