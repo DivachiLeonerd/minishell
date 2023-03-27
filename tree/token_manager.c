@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:23:47 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/03/27 15:46:23 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/03/27 23:33:04 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@ int	token_manager(char *token)
 	int     double_quote;
 
 	if (!token)
-		return (0);
+		return (1);
 	i = 0;
 	dollar_sign = 0;
 	single_quote = 0;
 	double_quote = 0;
+	// printf("in token_manager():token:%p\n", token);
 	while (token[i])
 	{
 		if (token[i] == '\'')
@@ -56,9 +57,9 @@ char	**add_argstoken(char **args, char *token)
 	
 	i = 0;
 	size = how_many_arrays(args);
-	printf("size:%d\n", size);
+	printf("in add_argstoken:args_size:%d\n", size);
 	new_args = malloc((size + 2) * sizeof(char *));//its plus NULL termination and new arg
-	while (args && i < size + 1)
+	while (args && i < size)
 	{
 		printf("i:%d\n", i);
 		new_args[i] = ft_strdup(args[i]);
@@ -66,24 +67,24 @@ char	**add_argstoken(char **args, char *token)
 	}
 	new_args[i] = token;
 	new_args[++i] = NULL;
+	printf("in add_argstoken():args[0]:%s\n", new_args[0]);
 	if (size)
-		free(args);
+		free_matrix(args);
 	return (new_args);
 }
 
 t_tree	*addtoken_to_tree(char *token, int tokentype, char **env, char **tokens)
 {
 	char			*new_token;
-	t_tree			*bintree;
 	static t_tree	*last_node;// guardar o último node q pode aceitar args
 	char			**args; //dinamicamente mallocado
 	int				i;
 	int				temp_tokentype;
 	
 	i = 0;
+	temp_tokentype = 0;
 	args = NULL;
 	new_token = NULL;
-	bintree = NULL;
 	if (tokentype == HEREDOC)
 	{
 		new_token = token_updater(tokens, env);
@@ -95,16 +96,18 @@ t_tree	*addtoken_to_tree(char *token, int tokentype, char **env, char **tokens)
 	}
 	if (tokentype != WORD && tokentype != HEREDOC && tokentype != PIPE && tokentype > 0)
 	{
-		bintree = add_to_tree(tokentype, args);
-		last_node = bintree;
+		last_node = add_to_tree(tokentype, args);
 		if (tokentype == BUILTIN || tokentype == EXECUTABLE)
-			add_argstoken(last_node->args, token);
+			last_node->args = add_argstoken(last_node->args, token);
+		printf("inside addtoken_to_tree():last_nodeargs:%s\n", (last_node->args)[0]);
 		new_token = token_updater(tokens, env);
+		printf("in addtoken_to_tree():new_token:%s\n", new_token);
 		temp_tokentype = get_token_type(new_token, env);
+		printf("in the same func:tokentype:%d\n", temp_tokentype);
 		while (temp_tokentype == WORD)
 		{
 			if (i == 0)
-				add_argstoken(last_node->args, new_token);
+				last_node->args = add_argstoken(last_node->args, new_token);
 			new_token = token_updater(tokens, env);
 			temp_tokentype = get_token_type(new_token, env);
 			if (temp_tokentype != WORD)
@@ -112,10 +115,9 @@ t_tree	*addtoken_to_tree(char *token, int tokentype, char **env, char **tokens)
 			add_argstoken(last_node->args, token_updater(tokens, env));	
 			i++;
 		}
+		last_node = add_to_tree(temp_tokentype, args);
 	}
-	free(token);
-	printf("inside addtoken_to_tree():bintree:%p\n", bintree);
-	bintree = add_to_tree(tokentype, args);
-	last_node = bintree;
-	return (bintree);
+	if (token)
+		free(token);
+	return (last_node);
 }

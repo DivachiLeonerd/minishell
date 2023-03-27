@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/27 15:34:20 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/03/27 23:34:38 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,16 @@ t_tree	*add_to_tree(int tokentype, char **args)
 	t_tree			*node;
 	static t_tree	*last_node;
 
-
+	if (tokentype == -1)
+	{
+		return (last_node);
+	}
 	node = malloc(sizeof(t_tree));
 	node->back = NULL;
 	node->tokentype = tokentype;
 	node->args = args;
+	node->left_branch = NULL;
+	node->right_branch = NULL;
 	if (last_node != NULL)
 	{
 		if (tokentype == WORD)
@@ -66,9 +71,11 @@ void	free_tree(t_tree *bintree)
 
 	if (!bintree)
 		return ;
+	printf("in free_tree():b_back:%p\n", bintree->back);
 	while (bintree->back != NULL)//tries to find the first position of the tree
 		bintree = bintree->back;
 	node = find_command_node(0, bintree);
+	printf("in free_tree():b_back:%p\n", bintree->back);
 	while (node != bintree)
 	{
 		if (check_direction(LEFT, node) == 0)

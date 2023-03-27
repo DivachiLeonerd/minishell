@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:24:02 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/03/24 13:12:31 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/03/27 18:02:55 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char    *token_updater(char **tokens, char **env)
 	
 	token = tokens[i];
 	//get_size() fetches strlen of token inside quotes
-	printf("token:%s\n", token);
+	printf("in token_updater:token:%s\n", token);
 	size = get_size(token);
 	if (size)
 	{
@@ -84,7 +84,10 @@ char    *token_updater(char **tokens, char **env)
 			str = no_mem(ft_substr(token, 0, size));
 	}
 	else
+	{
+		free(token);
 		return (NULL);
+	}
 	i++;
 	free (token);
 	return (str);

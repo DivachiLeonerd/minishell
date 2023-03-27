@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:59 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/03/27 14:24:08 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/03/27 19:39:40 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int get_token_type(char *token, char **myenvp)
             return (HEREDOC);
     }
     if (is_builtin(token))
-        return (6);
+        return (BUILTIN);
     aux = find_command_path(myenvp, token);
     if (aux)
     {

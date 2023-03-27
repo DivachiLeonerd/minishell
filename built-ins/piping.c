@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:43:55 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/23 15:30:23 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/03/27 23:06:58 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ int **pipe_creation(int how_many_pipes)
 
 	i = 0;
 	pipe_fd = malloc(how_many_pipes * sizeof(int *));
-	while (i < how_many_pipes)
+	while (pipe_fd && i < how_many_pipes)
 	{
-
 		pipe_fd[i] = malloc(2 * sizeof(int));
 		pipe(pipe_fd[i]);
 		i++;
@@ -73,14 +72,15 @@ t_tree *find_command_node(int index, t_tree *bintree)
 
 	i = -1;
 	node = find_first_command(bintree);
+	printf("node:%p vs bintree:%p\n", node, bintree);
 	while (node != bintree && i < index)
 	{
 		if (COMMAND)
 			i++;
 		else if (PIPE)
 		{
-			if (node->right_branch->tokentype == 5
-				|| node->right_branch->tokentype == 6)
+			if (node->right_branch->tokentype == BUILTIN
+				|| node->right_branch->tokentype == EXECUTABLE)
 			{
 				i++;
 				if (i == index)

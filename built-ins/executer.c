@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:44:37 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/16 11:51:28 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/27 19:39:33 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,5 @@ void	execute_builtin(char *command, char **myenvp, char **args)
 		ft_pwd(myenvp);
 	if (ft_strncmp("unset", command, ft_strlen("unset")) == 0)
 		unset(args, myenvp);
+	return ;
 }

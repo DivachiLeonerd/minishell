@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/27 15:13:03 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/03/27 19:39:30 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,18 @@ int	main(int argc, char **argv, char **envp)
 	command_line = readline(PROMPT);
 	while (1)
 	{
-		chad_exitstatus = 0;
 		while (command_line[0] == 0)
 		{
 			command_line[0] == 0?free(command_line):printf("\n");
 			command_line = readline(PROMPT);
 		}
 		ft_strncmp("exit", command_line, 4)?add_history(command_line):exit(0);
-		printf("beginning parsing...\n");
 		nintr_behaviour(&behaviour);
 		bintree = parser_init(command_line, myenvp);
 		if (!bintree)
 		{
 			errno = 30;
-			perror("Bad tree build. Exiting...");
+			perror("Command not found.");
 		}
 		else
 			make_pipes(bintree, myenvp);//command_line a ser executado

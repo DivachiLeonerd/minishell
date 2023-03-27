@@ -6,7 +6,7 @@
 #    By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/15 15:45:01 by afonso            #+#    #+#              #
-#    Updated: 2023/03/24 12:16:52 by atereso-         ###   ########.fr        #
+#    Updated: 2023/03/27 22:24:07 by atereso-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OBJS:=
 OBJS_built-in:=
 #OBJS_T :=
 CC := cc
-CFLAGS := -g -fsanitize=address #-Wall -Wextra -Werror 
+CFLAGS := -g -fsanitize=address -Wall -Wextra -Werror 
 RM := rm -f
 
 all:minishell
