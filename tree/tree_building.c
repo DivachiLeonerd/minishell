@@ -6,20 +6,19 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/27 23:34:38 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/03/28 15:07:49 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "../built-ins/piping.h"
 
-t_tree	*add_to_tree(int tokentype, char **args)
+t_tree	*add_to_tree(int tokentype, char **args, t_tree *last_node)
 {
 	//this function should be called repeatedly with a different token and tokentype
 	//I should add nodes with the tokentype and connect the nodes
 	//this is coming from the end of the tree to the beggining
 	t_tree			*node;
-	static t_tree	*last_node;
 
 	if (tokentype == -1)
 	{
@@ -44,7 +43,6 @@ t_tree	*add_to_tree(int tokentype, char **args)
 		node = redir_cond(last_node, node);
 		node = pipes_cond(tokentype, last_node, node);
 	}
-	last_node = node;
 	return (node);
 }
 
@@ -64,6 +62,13 @@ int	check_direction(int direction, t_tree *node)
 	return (1);
 }
 
+static void free_node(t_tree *node)
+{
+	free_matrix(node->args);
+	free(node);
+	return ;
+}
+
 void	free_tree(t_tree *bintree)
 {
 	t_tree	*node;
@@ -71,12 +76,10 @@ void	free_tree(t_tree *bintree)
 
 	if (!bintree)
 		return ;
-	printf("in free_tree():b_back:%p\n", bintree->back);
 	while (bintree->back != NULL)//tries to find the first position of the tree
 		bintree = bintree->back;
 	node = find_command_node(0, bintree);
-	printf("in free_tree():b_back:%p\n", bintree->back);
-	while (node != bintree)
+	while (node->back != NULL)
 	{
 		if (check_direction(LEFT, node) == 0)
 			node = node->left_branch;
@@ -89,9 +92,10 @@ void	free_tree(t_tree *bintree)
 				temp->left_branch = NULL;
 			else if (temp->right_branch == NULL)
 				temp->right_branch = NULL;
-			free(node);
+			free_node(node);
 		}
 		node = temp;
 	}
+	free_node(bintree);
 	return ;
 }

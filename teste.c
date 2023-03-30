@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/27 19:39:30 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/03/30 11:07:47 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,28 @@
 // 	}
 // }
 
+static char	*print_prompt(void)
+{
+	char	*pwd;
+	char	*aux;
+
+	pwd = ft_pwd();
+	aux = ft_strjoin(PROMPT, pwd);
+	free(pwd);
+	pwd = ft_strjoin(aux, "$ ");
+	free(aux);
+	aux = readline(pwd);
+	free(pwd);
+	return (aux);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_tree				*bintree;
 	char				**myenvp;
 	char				*command_line;
 	struct sigaction	behaviour;
+	
 
 	(void)argc;
 	(void)argv;
@@ -44,14 +60,16 @@ int	main(int argc, char **argv, char **envp)
 	myenvp = build_envp(envp);
 	command_line = NULL;
 	//returns a empty string, which is different from a NULL
-	intr_behaviour(&behaviour);
-	command_line = readline(PROMPT);
 	while (1)
 	{
-		while (command_line[0] == 0)
+		intr_behaviour(&behaviour);
+		while (1)
 		{
-			command_line[0] == 0?free(command_line):printf("\n");
-			command_line = readline(PROMPT);
+			command_line = print_prompt();
+			if (command_line[0] == '\0')
+				free(command_line);
+			else
+				break ;
 		}
 		ft_strncmp("exit", command_line, 4)?add_history(command_line):exit(0);
 		nintr_behaviour(&behaviour);
@@ -59,19 +77,15 @@ int	main(int argc, char **argv, char **envp)
 		if (!bintree)
 		{
 			errno = 30;
-			perror("Command not found.");
+			// perror("Command not found.");
 		}
 		else
 			make_pipes(bintree, myenvp);//command_line a ser executado
 		free(command_line);
-		printf("\n");
-		break ;
+		command_line = NULL;
+		free_tree(bintree);
+		// printf("\n");
 	}
 	free_matrix(myenvp);
-	if (bintree)
-	{
-		printf("bintree n e nula\n");
-		free_tree(bintree);
-	}
 	return (0);
 }

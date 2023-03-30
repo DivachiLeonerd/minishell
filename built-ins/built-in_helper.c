@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 10:24:14 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/27 19:39:38 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:50:19 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	**build_envp(char **envp)
 	while (i < len)
 	{
 		myenvp[i] = ft_strdup(envp[i]);
-		if (myenvp[i] == 0)
+		if (myenvp[i] == NULL)
 		{
 			free_bad_env_build(myenvp, i);
 			return (NULL);
@@ -57,21 +57,26 @@ char	**build_envp(char **envp)
 	return (myenvp);
 }
 
-char	**env_realloc(char **envp, int	numof_new_arrays, char *var)
+void	env_realloc(char ***envp,char ***new_env, int	numof_new_arrays, char *var)
 {
-	char	**new_env;
 	int		len;
 
-	len = how_many_arrays(envp);
+	printf("in env_realloc():%d\n", numof_new_arrays);
+	if (numof_new_arrays == 0)
+	{
+		*envp = replace_env_var(*envp, var);
+		printf("i env_realloc():%s\n", *envp[0]);
+		return ;
+	}
+	len = how_many_arrays(*envp);
 	new_env = malloc(((len + 1) + numof_new_arrays) * sizeof(char *));
 	if (numof_new_arrays > 0)
-		add_var_to_env(new_env, envp, var);
-	else if (numof_new_arrays == 0)
-		replace_env_var(new_env, envp, var);
+		add_var_to_env(*new_env, *envp, var);
 	else
-		delete_var_from_env(new_env, envp, var);
+		delete_var_from_env(*new_env, *envp, var);
 	new_env[len + numof_new_arrays] = NULL;
-	return (new_env);
+	envp = new_env;
+	return ;
 }
 
 void	free_matrix(char **envp)

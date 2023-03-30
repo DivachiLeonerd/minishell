@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:19:15 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/27 12:27:24 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/03/28 12:09:43 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,11 @@
 #include "./built-ins/built-ins.h"
 #include "./built-ins/piping.h"
 #include "define.h"
+
+typedef struct s_controller
+{
+	int		token_updater;
+	t_tree	*last_node;
+}t_controller;
 
 #endif

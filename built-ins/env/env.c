@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:45:50 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/05 15:52:41 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/30 16:45:51 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,12 @@
 int	env(char **envp)
 {
 	int	i;
-	int	j;
 
 	i = 0;
+	printf("in env():ENV CALLED\n");
 	while (envp[i])
 	{
-		j = 0;
-		while (envp[i][j])
-		{
-			write(1, &(envp[i][j]), 1);
-			j++;
-		}
-		if (envp[i][j] == 0)
-			write(1, "\n", 1);
+		printf("%s\n", envp[i]);
 		i++;
 	}
 	return (0);

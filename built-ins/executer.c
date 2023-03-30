@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:44:37 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/27 19:39:33 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/03/30 16:44:18 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	is_builtin(char *command)
 
 void	execute_builtin(char *command, char **myenvp, char **args)
 {
+	char *str;
+
 	if (ft_strncmp("echo", command, ft_strlen("echo")) == 0)
 		ft_echo(args);
 	if (ft_strncmp("env", command, ft_strlen("env")) == 0)
@@ -37,11 +39,15 @@ void	execute_builtin(char *command, char **myenvp, char **args)
 	// if (ft_strncmp("exit", command, ft_strlen("exit")) == 0)
 	// 	exit();
 	if (ft_strncmp("export", command, ft_strlen("export")) == 0)
-		export(args, myenvp);
+		myenvp = export(args, myenvp);
 	if (ft_strncmp("cd", command, ft_strlen("cd")) == 0)
-		cd(args[1]);
+		cd(args[1], myenvp);
 	if (ft_strncmp("pwd", command, ft_strlen("pwd")) == 0)
-		ft_pwd(myenvp);
+	{
+		str = ft_pwd();
+		printf("%s\n", str);
+		free(str);		
+	}
 	if (ft_strncmp("unset", command, ft_strlen("unset")) == 0)
 		unset(args, myenvp);
 	return ;

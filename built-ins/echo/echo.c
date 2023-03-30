@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:25:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/27 19:39:34 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:06:11 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char **find_env_full_var(char *message, char **envp)
 
 	i = 0;
 	var_name = get_variable_name(message);
+	printf("in find_env_full_var():%d\n",(*envp)[i]);
 	while (envp[i])
 	{
 		if (ft_strncmp(envp[i], var_name, ft_strlen(var_name)) == 0)
@@ -63,8 +64,10 @@ int	ft_echo(char **args)
 {
 	int	numberof_args;
 	int	i;
+	int	j;
+
 	numberof_args = how_many_arrays(args);
-	if (numberof_args > 3 || numberof_args < 1)
+	if (numberof_args < 1)
 	{
 		printf("\n");
 		return (-1);
@@ -74,28 +77,28 @@ int	ft_echo(char **args)
 		printf("\n");
 		return (0);
 	}
+	if (numberof_args == 2 && ft_strncmp(args[1], "-n", ft_strlen(args[1])) == 0)
+		return (0);
 	// isto bem feito era ter um array com todas as flags e ver
 	//se n existe nehuma non-flag presente mas como só temos
 	// q fazer uma flag.....
-	i = 1;
-	if (numberof_args >= 2)
+	i = 0;
+	j = 0;
+	if (numberof_args > 2 && args[1][0] == '-')
 	{
-		if (args[1][0] == '-')
-		{
-			while (args[1][i])
-			{
-				if (args[1][i] != 'n')
-					break ;
-				else
-					i++;
-			}
-		}	
+		i = 1;
+		j = 1;
+		while (args[1][j] && args[1][j] == 'n')
+			j++;
+		if (args[1][j] && args[1][j] != 'n')
+			printf("%s", args[1]);
 	}
-	if (args[1][i] == 0 && numberof_args == 2)
-		return (0);
-	else if (args[1][i] != 0 && numberof_args == 3)
-		printf("%s ", args[1]);
-	printf("%s", args[numberof_args - 1]);
+	i += 1;
+	while (args[i])
+	{
+		printf("%s", args[i]);
+		i++;
+	}
 	if (ft_strncmp(args[1], "-n", ft_strlen(args[1])) != 0)
 		printf("\n");
 	return (0);

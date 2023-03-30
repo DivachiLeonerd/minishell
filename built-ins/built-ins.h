@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:18:23 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/27 12:28:22 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/03/30 17:43:55 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@
 int		ft_echo(char **args);
 char	**find_env_full_var(char *var_name, char **envp);
 char 	*get_variable_name(char *message);
-char	**ft_pwd(char **envp);
-int		cd(char *pathname);
+char	*ft_pwd(void);
+int		cd(char *pathname, char **envp);
 int		env(char **envp);
 char	**export(char **args, char **envp);
 int		get_env_fd(char **envp);
 int		how_many_arrays(char **double_ptr);
 char	**build_envp(char **envp);
 char	**unset(char **args, char **envp);
-char	**env_realloc(char **envp, int	numof_new_arrays, char *var);
+void	env_realloc(char ***envp,char ***new_env, int	numof_new_arrays, char *var);
 int		add_var_to_env(char **new_env, char **old_env, char *var);
-int		replace_env_var(char **new_env, char **old_env, char *var);
+char	**replace_env_var(char **env, char *var);
 int		delete_var_from_env(char **new_env, char **old_env, char *var);
 int		is_builtin(char *command);
 int		execute_non_builtin(char *command_name, char **myenvp, char **argv);

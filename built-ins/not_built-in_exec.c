@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:10:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/27 23:53:13 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:53:16 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char *find_command_path(char **myenvp, char *command)
 	char	*temp;
 
 	i = 0;
-	printf("in find_command_path:%s\n", command);
 	while (ft_strncmp("PATH=", myenvp[i], 4) != 0)
 		i++;
 	all_paths = ft_split(myenvp[i], ':');
@@ -40,25 +39,25 @@ char *find_command_path(char **myenvp, char *command)
 	while (all_paths[i])
 	{
 		command_path = ft_strjoin(all_paths[i], temp);
-		printf("trying this path:%s\n", command_path);
 		if (access(command_path, F_OK) == 0)
 		{
-			printf("o comando existe\n");
+			// printf("o comando existe\n");
 			if (access(command_path, X_OK) == 0)
 			{
-				printf("e é executavel\n");
+				// printf("e é executavel\n");
 				break ;
 			}
-			perror("Permission denied\n");
+			// perror("Permission denied\n");
 		}
 		i++;
 		free(command_path);
 		command_path = NULL;
 	}
 	free(temp);
-	if (command_path == NULL)
-		perror("command not found\n");
+	// if (command_path == NULL)
+		// perror("command not found\n");
 	free_all_paths(all_paths);
+	// printf("in find_command_path():%s\n", command_path);
 	return (command_path);
 }
 
@@ -67,7 +66,6 @@ int execute_non_builtin(char *command_name, char **myenvp, char **args)
 	char	*pathname;
 
 	pathname = find_command_path(myenvp, command_name);
-	printf("command:%s\n", command_name);
 	if (pathname != NULL)
 		execve(pathname, args, myenvp);//execve should free all memory from process after running
 	perror("Couldn't find command");

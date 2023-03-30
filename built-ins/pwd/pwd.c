@@ -3,26 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 18:23:07 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/30 15:35:04 by afonso           ###   ########.fr       */
+/*   Updated: 2023/03/30 10:39:48 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../built-ins.h"
 
-char	**ft_pwd(char **myenvp)
+char	*ft_pwd(void)
 {
 	char	*pwd;
-	char	*str;
 
 
 	pwd = getcwd(NULL, 0);
-	printf("%s\n", pwd);
-	str = ft_strjoin("PWD=", pwd);
-	free(pwd);
-	myenvp = export(&str, myenvp);
-	free(str);
-	return (myenvp);
+	return (pwd);
 }

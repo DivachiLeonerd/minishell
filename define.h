@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:28:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/27 13:33:12 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/03/30 10:30:36 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	chad_exitstatus;
 #define BUILTIN 6
 #define EXECUTABLE 7
 #define WORD 8
-#define PROMPT "GigaShell: "
+#define PROMPT "GigaShell:"
 #define COMMAND (node->tokentype == BUILTIN || node->tokentype == EXECUTABLE)
 #define REDIR (node->tokentype == I_REDIR || node->tokentype == O_REDIR)
 

@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:43:55 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/27 23:06:58 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/03/28 15:47:44 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int **pipe_creation(int how_many_pipes)
 	int i;
 
 	i = 0;
+	if (!how_many_pipes)
+		return (NULL);
 	pipe_fd = malloc(how_many_pipes * sizeof(int *));
 	while (pipe_fd && i < how_many_pipes)
 	{
@@ -72,7 +74,7 @@ t_tree *find_command_node(int index, t_tree *bintree)
 
 	i = -1;
 	node = find_first_command(bintree);
-	printf("node:%p vs bintree:%p\n", node, bintree);
+	// printf("node:%p vs bintree:%p\n", node, bintree);
 	while (node != bintree && i < index)
 	{
 		if (COMMAND)
@@ -101,6 +103,10 @@ void initialize_forking_processes(int *pid, int numof_processes)
 	{
 		if ((pid[i] = fork()) == -1)
 			perror("A problem has occured during fork process\n");
+		// if (pid[i] == 0)
+		// 	printf("im a child\n");
+		// else
+		// 	printf("im a parent\n");
 		i++;
 	}
 	return;
