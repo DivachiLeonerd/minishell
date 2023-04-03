@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:10:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/30 15:53:16 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 15:59:49 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ char *find_command_path(char **myenvp, char *command)
 
 	i = 0;
 	while (ft_strncmp("PATH=", myenvp[i], 4) != 0)
+	{
+		printf("in find_command_path():i[%d]:%s\n", i, myenvp[i]);
 		i++;
+	}
 	all_paths = ft_split(myenvp[i], ':');
 	i = 0;
 	temp = ft_strjoin("/", command);

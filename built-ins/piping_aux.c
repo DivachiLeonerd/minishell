@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/03 13:05:30 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 16:01:36 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,22 @@ static void	free_utils(int *pid, int **pipe_fd, int numof_pipes)
 	return ;
 }
 
-void	run_pipes(int numof_pipes, t_tree *bintree, int *pid, char **myenvp)
+char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid, char ***myenvp)
 {
 	int	i;
 	t_tree *node;
 
 	i = 0;
-	printf("in run_pipes():myenvp:%p\n",myenvp);
+	printf("in run_pipes():myenvp:%p\n",*myenvp);
 	while (i <= numof_pipes)
 	{
 		node = find_command_node(i, bintree);//command index is the position of each command in command line
 		if (ft_strncmp((node->args)[0], "cd", 3) == 0 && pid[0] != 0)
-			cd((node->args)[1], myenvp);
+			*myenvp = cd((node->args)[1], *myenvp);
 		if (ft_strncmp((node->args)[0], "export", 7) == 0 && pid[0] != 0)
-			myenvp = export(&((node->args)[1]), myenvp);
+			*myenvp = export(&((node->args)[1]), *myenvp);
 		if (ft_strncmp((node->args)[0], "env", 4) == 0 && pid[0] != 0)
-			env(myenvp);
+			env(*myenvp);
 		if (pid[i] == 0)
 		{
 			node = find_command_node(i, bintree);//command index is the position of each command in command line
@@ -72,9 +72,9 @@ void	run_pipes(int numof_pipes, t_tree *bintree, int *pid, char **myenvp)
 			// if (return_righttokenid(node) == HEREDOC)
 			//heredoc?
 			if (is_builtin((node->args)[0]))
-				execute_builtin((node->args)[0], myenvp, node->args);
+				execute_builtin((node->args)[0], *myenvp, node->args);
 			else
-				execute_non_builtin((node->args)[0], myenvp, node->args);
+				execute_non_builtin((node->args)[0], *myenvp, node->args);
 		}
 		i++;
 	}
@@ -85,9 +85,10 @@ void	run_pipes(int numof_pipes, t_tree *bintree, int *pid, char **myenvp)
 		exit(0);
 		i++;
 	}
+	return (*myenvp);
 }
 
-void	make_pipes(t_tree *bintree, char **myenvp)
+char	**make_pipes(t_tree *bintree, char **myenvp)
 {
 	int		i;
 	int		numof_pipes;
@@ -102,8 +103,8 @@ void	make_pipes(t_tree *bintree, char **myenvp)
 	initialize_forking_processes(pid, numof_pipes + 1);
 	while (pipe_fd && i <= numof_pipes)
 		piping(pid, pipe_fd, numof_pipes, i++);
-	run_pipes(numof_pipes, bintree, pid, myenvp);
+	myenvp = run_pipes(numof_pipes, bintree, pid, &myenvp);
 	waitpid(pid[0],NULL,0);
 	free_utils(pid, pipe_fd, numof_pipes);
-	return ;
+	return (myenvp);
 }

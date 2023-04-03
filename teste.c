@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/03 12:04:06 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 15:44:27 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	main(int argc, char **argv, char **envp)
 			// perror("Command not found.");
 		}
 		else
-			make_pipes(bintree, myenvp);//command_line a ser executado
+			myenvp = make_pipes(bintree, myenvp);//command_line a ser executado
 		free(command_line);
 		command_line = NULL;
 		free_tree(bintree);

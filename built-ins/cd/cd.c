@@ -6,13 +6,13 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:19:20 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/03 14:51:08 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 16:02:32 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../built-ins.h"
 
-int	cd (char *pathname, char **envp) // depois temos que usar getcwd() para mudar o prompt
+char	**cd (char *pathname, char **envp) // depois temos que usar getcwd() para mudar o prompt
 {
 	int	ret;
 	char	*old_pwd;
@@ -25,7 +25,7 @@ int	cd (char *pathname, char **envp) // depois temos que usar getcwd() para muda
 	if (!old_pwd)
 	{
 		free(old_pwd);
-		return (ret);
+		return (envp);
 	}
 	ret = chdir(pathname);
 	if (!ret)
@@ -44,5 +44,5 @@ int	cd (char *pathname, char **envp) // depois temos que usar getcwd() para muda
 	else
 		free(old_pwd);
 	printf("IN CD()\nmy new_envp:%p\n",envp);
-	return (ret);
+	return (envp);
 }

@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:18:23 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/03 15:26:55 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 16:02:24 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_echo(char **args);
 char	**find_env_full_var(char *var_name, char **envp);
 char 	*get_variable_name(char *message);
 char	*ft_pwd(void);
-int		cd(char *pathname, char **envp);
+char	**cd(char *pathname, char **envp);
 int		env(char **envp);
 char	**export(char **args, char **envp);
 int		get_env_fd(char **envp);
