@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 10:24:14 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/03 14:57:06 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 15:27:09 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	**env_realloc(char **envp,char **new_env, int	numof_new_arrays, char *var)
 	printf("in env_realloc():char**envp:%p vs **new_env:%p\n", envp, new_env);
 	if (numof_new_arrays == 0)
 	{
-		replace_env_var(envp, var);
+		envp = replace_env_var(envp, var);
 		return (envp);
 	}
 	len = how_many_arrays(envp);

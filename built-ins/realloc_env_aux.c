@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:58:53 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/03 12:54:14 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 15:27:36 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	add_var_to_env(char **new_env, char **old_env, char *var)
 	return ;
 }
 
-void	replace_env_var(char **env, char *var)
+char	**replace_env_var(char **env, char *var)
 {
 	int i;
 	char *new_name;
@@ -45,7 +45,7 @@ void	replace_env_var(char **env, char *var)
 		i++;
 	}
 	free(new_name);
-	return ;
+	return (env);
 }
 
 void	delete_var_from_env(char **new_env, char **old_env, char *var)
