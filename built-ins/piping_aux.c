@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/03 16:01:36 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 18:22:41 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,17 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid, char ***myenvp)
 	t_tree *node;
 
 	i = 0;
-	printf("in run_pipes():myenvp:%p\n",*myenvp);
 	while (i <= numof_pipes)
 	{
 		node = find_command_node(i, bintree);//command index is the position of each command in command line
-		if (ft_strncmp((node->args)[0], "cd", 3) == 0 && pid[0] != 0)
+		if (pid[0] != 0 && ft_strncmp((node->args)[0], "cd", 3) == 0)
 			*myenvp = cd((node->args)[1], *myenvp);
-		if (ft_strncmp((node->args)[0], "export", 7) == 0 && pid[0] != 0)
+		if (pid[0] != 0 && ft_strncmp((node->args)[0], "export", 7) == 0)
 			*myenvp = export(&((node->args)[1]), *myenvp);
-		if (ft_strncmp((node->args)[0], "env", 4) == 0 && pid[0] != 0)
-			env(*myenvp);
+		if (pid[0] != 0 && ft_strncmp((node->args)[0], "unset", 6) == 0)
+			*myenvp = unset(&((node->args)[1]), *myenvp);
 		if (pid[i] == 0)
 		{
-			node = find_command_node(i, bintree);//command index is the position of each command in command line
 			// if (return_righttokenid(node) == O_REDIR)
 			// 	output_redirection(STDOUT_FILENO, node->right_branch, O_REDIR);
 			// if (return_righttokenid(node) == O_APPEND)
@@ -75,6 +73,7 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid, char ***myenvp)
 				execute_builtin((node->args)[0], *myenvp, node->args);
 			else
 				execute_non_builtin((node->args)[0], *myenvp, node->args);
+			// waitpid(pid[i - 1], NULL, 0);
 		}
 		i++;
 	}
@@ -94,10 +93,10 @@ char	**make_pipes(t_tree *bintree, char **myenvp)
 	int		numof_pipes;
 	int		**pipe_fd;
 	int		*pid;
-	
+
 	i = 0;
 	numof_pipes = how_many_pipes(bintree);
-	// printf("in make_pipes():numof_pipes:%d\n", numof_pipes);
+	printf("in make_pipes():numof_pipes:%d\n", numof_pipes);
 	pid = malloc((numof_pipes + 1) * sizeof(int));//if there is 3 processes then we will need only 2 pipes
 	pipe_fd = pipe_creation(numof_pipes);
 	initialize_forking_processes(pid, numof_pipes + 1);

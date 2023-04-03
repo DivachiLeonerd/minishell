@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/03 15:44:27 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:58:31 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 // 	}
 // }
 
-static char	*print_prompt(void)
+char	*print_prompt(void)
 {
 	char	*pwd;
 	char	*aux;
@@ -59,7 +59,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	
 	myenvp = build_envp(envp);
-	printf("in main():myenvp:%p\n", myenvp);
 	command_line = NULL;
 	//returns a empty string, which is different from a NULL
 	while (i)
@@ -91,7 +90,6 @@ int	main(int argc, char **argv, char **envp)
 		free_tree(bintree);
 		// printf("\n");
 	}
-	printf("in main():myenvp:%p\n", myenvp);
 	free_matrix(myenvp);
 	exit(0);
 	return (0);

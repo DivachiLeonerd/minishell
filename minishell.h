@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:19:15 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/28 12:09:43 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:58:45 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,7 @@ typedef struct s_controller
 	int		token_updater;
 	t_tree	*last_node;
 }t_controller;
+
+char	*print_prompt(void);
 
 #endif

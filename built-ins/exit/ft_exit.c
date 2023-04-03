@@ -6,12 +6,13 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 17:52:15 by atereso-          #+#    #+#             */
-/*   Updated: 2023/03/27 13:13:28 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 18:02:19 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../built-ins.h"
 #include "../../define.h"
+#include "../../minishell.h"
 #include <errno.h>
 //we need exit built-in so we can free all resources before we exit
 
@@ -20,10 +21,15 @@
 
 static void    intrv_signal_handler(int sig_num)
 {
+	char *p;
+	
 	if (sig_num == SIGINT)
 	{
 		printf("\n");
 		printf(PROMPT);
+		p = ft_pwd();
+		printf("%s$ ", p);
+		free (p);
 	}
 	return ;
 }

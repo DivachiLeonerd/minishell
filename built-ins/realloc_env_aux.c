@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:58:53 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/03 15:27:36 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:40:48 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	add_var_to_env(char **new_env, char **old_env, char *var)
 	}
 	new_env[i] = ft_strdup(var);
 	new_env[++i] = NULL;
-	printf("in add_var_to_end():&new_env:%p vs new_env:%p\n", new_env, *new_env);
 	return ;
 }
 
@@ -59,9 +58,13 @@ void	delete_var_from_env(char **new_env, char **old_env, char *var)
 	{
 		if (ft_strncmp(old_env[i], var, ft_strlen(var)) == 0)
 			i++;
-		new_env[j] = ft_strdup(var);
-		i++;
-		j++;
+		new_env[j] = ft_strdup(old_env[i]);
+		if (old_env[i])
+		{
+			i++;
+			j++;
+		}
 	}
+	new_env[j] = NULL;
 	return ;
 }

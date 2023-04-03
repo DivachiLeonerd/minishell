@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 10:24:14 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/03 15:27:09 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:39:44 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ char	**env_realloc(char **envp,char **new_env, int	numof_new_arrays, char *var)
 {
 	int		len;
 
-	printf("in env_realloc():char**envp:%p vs **new_env:%p\n", envp, new_env);
 	if (numof_new_arrays == 0)
 	{
 		envp = replace_env_var(envp, var);
@@ -70,7 +69,6 @@ char	**env_realloc(char **envp,char **new_env, int	numof_new_arrays, char *var)
 	}
 	len = how_many_arrays(envp);
 	new_env = malloc(((len + 1) + numof_new_arrays) * sizeof(char *));
-	printf("in env_realloc():new_env=%p & *new_env=%p\n", new_env,*new_env);
 	if (new_env == NULL)
 		no_mem(new_env);
 	if (numof_new_arrays > 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 15:56:05 by atereso-          #+#    #+#             */
-/*   Updated: 2021/12/19 14:57:48 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:35:55 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strdup(const char *s1)
 	char	*alloc;
 
 	i = 0;
+	if (!s1)
+		return (NULL);
 	alloc = malloc((ft_strlen(s1) + 1) * sizeof(char));
 	if (!alloc)
 		return (NULL);

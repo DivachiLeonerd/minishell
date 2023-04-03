@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:44:37 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/03 13:04:57 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:06:25 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	execute_builtin(char *command, char **myenvp, char **args)
 		printf("%s\n", str);
 		free(str);		
 	}
-	if (ft_strncmp("unset", command, ft_strlen("unset")) == 0)
-		unset(args, myenvp);
+	// if (ft_strncmp("unset", command, ft_strlen("unset")) == 0)
+	// 	unset(args, myenvp);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:05:47 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/03 14:57:39 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:39:34 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,10 @@ char	**export(char **args, char **myenvp)
 	variable = args[0];
 	var = find_env_full_var(variable, myenvp);
 	new_var = ft_strdup(variable);
-	printf("in export():myenvp:%p vs new:%p\n", myenvp, new_env);
 	if (var == NULL)//if var not found
 		new_env = env_realloc(myenvp, new_env, 1, variable);
 	else
 		new_env = env_realloc(myenvp, new_env, 0, variable);
 	free(new_var);
-	printf("in export():myenvp:%p vs new:%p\n", myenvp, new_env);
 	return (new_env);
 }

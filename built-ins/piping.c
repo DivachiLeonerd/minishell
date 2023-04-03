@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:43:55 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/03 16:14:15 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 18:28:42 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int output_redirection(int fd1, t_tree *node, int token_type)
 
 int	piping(int *pid, int **pipe_fd, int num_of_pipes, int index)
 {
-	if (pid[index] == 0)
+	if (index <= num_of_pipes && pid[index] == 0)
 	{
 		if (index > 0)
 			dup2(pipe_fd[index - 1][0], STDIN_FILENO); // STDIN of a i process is the read part of pipe connecting it to process i - 1
@@ -99,14 +99,18 @@ void initialize_forking_processes(int *pid, int numof_processes)
 	int i;
 
 	i = 0;
+	printf("numof_processes%d\n", numof_processes);
 	while (i < numof_processes)
 	{
+		printf("porra\n");
 		if ((pid[i] = fork()) == -1)
 			perror("A problem has occured during fork process\n");
+		if (pid[i] == 0)
+			printf("im a child\n");
+		else
+			printf("im a parent\n");
 		// if (pid[i] == 0)
-		// 	printf("im a child\n");
-		// else
-		// 	printf("im a parent\n");
+		// 	break ;
 		i++;
 	}
 	return;
