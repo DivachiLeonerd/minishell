@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/30 18:03:25 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 13:05:30 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,19 @@ void	run_pipes(int numof_pipes, t_tree *bintree, int *pid, char **myenvp)
 	t_tree *node;
 
 	i = 0;
+	printf("in run_pipes():myenvp:%p\n",myenvp);
 	while (i <= numof_pipes)
 	{
 		node = find_command_node(i, bintree);//command index is the position of each command in command line
 		if (ft_strncmp((node->args)[0], "cd", 3) == 0 && pid[0] != 0)
-			execute_builtin((node->args)[0], myenvp, node->args);
+			cd((node->args)[1], myenvp);
+		if (ft_strncmp((node->args)[0], "export", 7) == 0 && pid[0] != 0)
+			myenvp = export(&((node->args)[1]), myenvp);
+		if (ft_strncmp((node->args)[0], "env", 4) == 0 && pid[0] != 0)
+			env(myenvp);
 		if (pid[i] == 0)
 		{
 			node = find_command_node(i, bintree);//command index is the position of each command in command line
-			printf("in run_pipes():%p vs %p\n",node, bintree);
 			// if (return_righttokenid(node) == O_REDIR)
 			// 	output_redirection(STDOUT_FILENO, node->right_branch, O_REDIR);
 			// if (return_righttokenid(node) == O_APPEND)
@@ -67,7 +71,7 @@ void	run_pipes(int numof_pipes, t_tree *bintree, int *pid, char **myenvp)
 			// 	input_redirection(STDIN_FILENO, node);
 			// if (return_righttokenid(node) == HEREDOC)
 			//heredoc?
-			if (is_builtin((node->args)[0]) && ft_strncmp((node->args)[0], "cd", 3) == 0)
+			if (is_builtin((node->args)[0]))
 				execute_builtin((node->args)[0], myenvp, node->args);
 			else
 				execute_non_builtin((node->args)[0], myenvp, node->args);
@@ -75,6 +79,7 @@ void	run_pipes(int numof_pipes, t_tree *bintree, int *pid, char **myenvp)
 		i++;
 	}
 	i = 0;
+	
 	while (i <= numof_pipes && pid[i] == 0)
 	{
 		exit(0);

@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:35 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/03/30 15:52:27 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 11:54:06 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include "../minishell.h"
 
-t_tree *parser_init(char *s, char **env)
+t_tree *parser_init(char *s, char ***env)
 {
 	t_tree			*bintree;
 	int				tokentype;
@@ -35,13 +35,13 @@ t_tree *parser_init(char *s, char **env)
 	while (tokentype != -1)//this is end of line
 	{
 		// if (token_manager(tokens[i++]) == 1)//nao gosto do facto de isto ter que correr duas vezes
-		token = token_updater(tokens, env, &i);
+		token = token_updater(tokens, *env, &i);
 	//in the future we need to take care of token_manager() == 2
 		if (!token)
 			break ;
-		tokentype = get_token_type(token, env);
+		tokentype = get_token_type(token, *env);
 		// printf("in parser_init():tokentype=%d\n", tokentype);
-		bintree = addtoken_to_tree(token, tokentype, env, tokens, last_node, &i);// e se esta funçao fosse buscar o args do token?
+		bintree = addtoken_to_tree(token, tokentype, *env, tokens, last_node, &i);// e se esta funçao fosse buscar o args do token?
 		if (chad_exitstatus == 10)//inside add_token()
 			break ;
 	}

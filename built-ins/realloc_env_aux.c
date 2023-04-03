@@ -6,13 +6,13 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:58:53 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/30 17:19:25 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 12:54:14 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "built-ins.h"
 
-int	add_var_to_env(char **new_env, char **old_env, char *var)
+void	add_var_to_env(char **new_env, char **old_env, char *var)
 {
 	int i;
 
@@ -23,11 +23,12 @@ int	add_var_to_env(char **new_env, char **old_env, char *var)
 		i++;
 	}
 	new_env[i] = ft_strdup(var);
-	new_env[++i] = NULL; 
-	return (0);
+	new_env[++i] = NULL;
+	printf("in add_var_to_end():&new_env:%p vs new_env:%p\n", new_env, *new_env);
+	return ;
 }
 
-char	**replace_env_var(char **env, char *var)
+void	replace_env_var(char **env, char *var)
 {
 	int i;
 	char *new_name;
@@ -44,10 +45,10 @@ char	**replace_env_var(char **env, char *var)
 		i++;
 	}
 	free(new_name);
-	return (env);
+	return ;
 }
 
-int	delete_var_from_env(char **new_env, char **old_env, char *var)
+void	delete_var_from_env(char **new_env, char **old_env, char *var)
 {
 	int i;
 	int j;
@@ -62,5 +63,5 @@ int	delete_var_from_env(char **new_env, char **old_env, char *var)
 		i++;
 		j++;
 	}
-	return (0);
+	return ;
 }

@@ -25,7 +25,7 @@ t_tree		*addtoken_to_tree(char *token, int tokentype, char **env, char **tokens,
 int			token_manager(char *token);
 char		*token_updater(char **tokens, char **env, int *i);
 int			get_token_type(char *token, char **env);
-t_tree		*parser_init(char *s, char **env);
+t_tree		*parser_init(char *s, char ***env);
 int			syntax_checker(char *line);
 void		*no_mem(void *p);
 char		*str_expander(char *s, char **env);

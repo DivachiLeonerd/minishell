@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/30 11:07:47 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 12:04:06 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,17 @@ int	main(int argc, char **argv, char **envp)
 	char				**myenvp;
 	char				*command_line;
 	struct sigaction	behaviour;
-	
+	int					i;
 
+	i = 1;
 	(void)argc;
 	(void)argv;
 	
 	myenvp = build_envp(envp);
+	printf("in main():myenvp:%p\n", myenvp);
 	command_line = NULL;
 	//returns a empty string, which is different from a NULL
-	while (1)
+	while (i)
 	{
 		intr_behaviour(&behaviour);
 		while (1)
@@ -71,9 +73,12 @@ int	main(int argc, char **argv, char **envp)
 			else
 				break ;
 		}
-		ft_strncmp("exit", command_line, 4)?add_history(command_line):exit(0);
+		if (ft_strncmp("exit", command_line, 4))
+			add_history(command_line);
+		else
+			i = 0;
 		nintr_behaviour(&behaviour);
-		bintree = parser_init(command_line, myenvp);
+		bintree = parser_init(command_line, &myenvp);
 		if (!bintree)
 		{
 			errno = 30;
@@ -86,6 +91,8 @@ int	main(int argc, char **argv, char **envp)
 		free_tree(bintree);
 		// printf("\n");
 	}
+	printf("in main():myenvp:%p\n", myenvp);
 	free_matrix(myenvp);
+	exit(0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:25:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/30 18:06:11 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 12:47:39 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char **find_env_full_var(char *message, char **envp)
 
 	i = 0;
 	var_name = get_variable_name(message);
-	printf("in find_env_full_var():%d\n",(*envp)[i]);
 	while (envp[i])
 	{
 		if (ft_strncmp(envp[i], var_name, ft_strlen(var_name)) == 0)

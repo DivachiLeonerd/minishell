@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:18:23 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/30 17:43:55 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:57:23 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int		get_env_fd(char **envp);
 int		how_many_arrays(char **double_ptr);
 char	**build_envp(char **envp);
 char	**unset(char **args, char **envp);
-void	env_realloc(char ***envp,char ***new_env, int	numof_new_arrays, char *var);
-int		add_var_to_env(char **new_env, char **old_env, char *var);
-char	**replace_env_var(char **env, char *var);
-int		delete_var_from_env(char **new_env, char **old_env, char *var);
+char	**env_realloc(char **envp,char **new_env, int	numof_new_arrays, char *var);
+void	add_var_to_env(char **new_env, char **old_env, char *var);
+void	replace_env_var(char **env, char *var);
+void	delete_var_from_env(char **new_env, char **old_env, char *var);
 int		is_builtin(char *command);
 int		execute_non_builtin(char *command_name, char **myenvp, char **argv);
 int		is_builtin(char *command);

@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:45:50 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/30 16:45:51 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 11:56:30 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	env(char **envp)
 	int	i;
 
 	i = 0;
-	printf("in env():ENV CALLED\n");
 	while (envp[i])
 	{
 		printf("%s\n", envp[i]);

@@ -6,11 +6,12 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 10:24:14 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/30 17:50:19 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:57:06 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "built-ins.h"
+#include "../tree/parser.h"
 
 void	free_bad_env_build(char **envp, int failed_index)
 {
@@ -57,26 +58,29 @@ char	**build_envp(char **envp)
 	return (myenvp);
 }
 
-void	env_realloc(char ***envp,char ***new_env, int	numof_new_arrays, char *var)
+char	**env_realloc(char **envp,char **new_env, int	numof_new_arrays, char *var)
 {
 	int		len;
 
-	printf("in env_realloc():%d\n", numof_new_arrays);
+	printf("in env_realloc():char**envp:%p vs **new_env:%p\n", envp, new_env);
 	if (numof_new_arrays == 0)
 	{
-		*envp = replace_env_var(*envp, var);
-		printf("i env_realloc():%s\n", *envp[0]);
-		return ;
+		replace_env_var(envp, var);
+		return (envp);
 	}
-	len = how_many_arrays(*envp);
+	len = how_many_arrays(envp);
 	new_env = malloc(((len + 1) + numof_new_arrays) * sizeof(char *));
+	printf("in env_realloc():new_env=%p & *new_env=%p\n", new_env,*new_env);
+	if (new_env == NULL)
+		no_mem(new_env);
 	if (numof_new_arrays > 0)
-		add_var_to_env(*new_env, *envp, var);
+		add_var_to_env(new_env, envp, var);
 	else
-		delete_var_from_env(*new_env, *envp, var);
-	new_env[len + numof_new_arrays] = NULL;
-	envp = new_env;
-	return ;
+		delete_var_from_env(new_env, envp, var);
+	free_matrix(envp);
+	// env(*new_env);
+	envp = NULL;
+	return (new_env);
 }
 
 void	free_matrix(char **envp)

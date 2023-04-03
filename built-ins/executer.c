@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:44:37 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/30 16:44:18 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 13:04:57 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,8 @@ void	execute_builtin(char *command, char **myenvp, char **args)
 		ft_echo(args);
 	if (ft_strncmp("env", command, ft_strlen("env")) == 0)
 		env(myenvp);
-	// if (ft_strncmp("exit", command, ft_strlen("exit")) == 0)
-	// 	exit();
-	if (ft_strncmp("export", command, ft_strlen("export")) == 0)
-		myenvp = export(args, myenvp);
-	if (ft_strncmp("cd", command, ft_strlen("cd")) == 0)
-		cd(args[1], myenvp);
+	// if (ft_strncmp("cd", command, ft_strlen("cd")) == 0)
+	// 	cd(args[1], myenvp);
 	if (ft_strncmp("pwd", command, ft_strlen("pwd")) == 0)
 	{
 		str = ft_pwd();
