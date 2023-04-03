@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:43:55 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/28 15:47:44 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/03 16:14:15 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int output_redirection(int fd1, t_tree *node, int token_type)
 		fd2 = open(node->args[0], O_CREAT, O_WRONLY, O_APPEND);
 	else
 		perror("Token type was neither redirect nor append");
-	readbytes = read(fd1, buf, INT32_MAX);
+	readbytes = read(fd1, buf, 200);
 	if (readbytes == -1)
 	{
 		perror("Failed read() instruction in redirection");
