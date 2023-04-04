@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/03 18:22:41 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/04 15:02:26 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,15 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid, char ***myenvp)
 	while (i <= numof_pipes)
 	{
 		node = find_command_node(i, bintree);//command index is the position of each command in command line
-		if (pid[0] != 0 && ft_strncmp((node->args)[0], "cd", 3) == 0)
-			*myenvp = cd((node->args)[1], *myenvp);
-		if (pid[0] != 0 && ft_strncmp((node->args)[0], "export", 7) == 0)
-			*myenvp = export(&((node->args)[1]), *myenvp);
-		if (pid[0] != 0 && ft_strncmp((node->args)[0], "unset", 6) == 0)
-			*myenvp = unset(&((node->args)[1]), *myenvp);
+		if (numof_pipes == 0)
+		{
+			if (pid[0] != 0 && ft_strncmp((node->args)[0], "cd", 3) == 0)
+				*myenvp = cd((node->args)[1], *myenvp);
+			if (pid[0] != 0 && ft_strncmp((node->args)[0], "export", 7) == 0)
+				*myenvp = export(&((node->args)[1]), *myenvp);
+			if (pid[0] != 0 && ft_strncmp((node->args)[0], "unset", 6) == 0)
+				*myenvp = unset(&((node->args)[1]), *myenvp);
+		}
 		if (pid[i] == 0)
 		{
 			// if (return_righttokenid(node) == O_REDIR)

@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:23:47 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/03/30 15:54:13 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:17:15 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_tree	*addtoken_to_tree(char *token, int tokentype, char **env, char **tokens, 
 		// printf("in addtoken_to_tree():heredoc bytes stored:%ld\n", (*last_node)->heredoc->bytes_stored);
 		return ((*last_node));
 	}
-	if (tokentype != WORD && tokentype != HEREDOC && tokentype != PIPE && tokentype > 0)
+	if (tokentype != WORD && tokentype != HEREDOC  && tokentype > 0)
 	{
 		(*last_node) = add_to_tree(tokentype, args, (*last_node));
 		if (tokentype == BUILTIN || tokentype == EXECUTABLE)
@@ -110,7 +110,7 @@ t_tree	*addtoken_to_tree(char *token, int tokentype, char **env, char **tokens, 
 		// printf("in addtoken_to_tree():new_token:%s\n", new_token);
 		temp_tokentype = get_token_type(new_token, env);
 		// printf("in the same func:tokentype:%d\n", temp_tokentype);
-		if (temp_tokentype == HEREDOC)
+		if (temp_tokentype == HEREDOC || temp_tokentype == PIPE)
 			return (addtoken_to_tree(new_token, temp_tokentype,env, tokens, last_node, controller));
 		while (temp_tokentype == WORD)
 		{

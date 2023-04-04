@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/03 17:58:31 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:45:33 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ char	*print_prompt(void)
 	char	*aux;
 
 	pwd = ft_pwd();
-	aux = ft_strjoin(PROMPT, pwd);
-	free(pwd);
-	pwd = ft_strjoin(aux, "$ ");
-	free(aux);
-	aux = readline(pwd);
+	printf("\033[1;32m");
+	printf(PROMPT);
+	printf("\033[1;34m");
+	printf("%s$",pwd);
+	printf("\033[0m");
+	aux = readline(" ");
 	free(pwd);
 	return (aux);
 }
@@ -67,6 +68,7 @@ int	main(int argc, char **argv, char **envp)
 		while (1)
 		{
 			command_line = print_prompt();
+			
 			if (command_line[0] == '\0')
 				free(command_line);
 			else
