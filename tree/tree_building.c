@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/28 15:07:49 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/07 15:34:02 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ t_tree	*add_to_tree(int tokentype, char **args, t_tree *last_node)
 	node->right_branch = NULL;
 	if (last_node != NULL)
 	{
+		node = redir_cond(last_node, node);
+		node = pipes_cond(tokentype, last_node, node);
+	}
+	else
+	{
 		if (tokentype == WORD)
 		{
 			chad_exitstatus = 10;
@@ -40,8 +45,6 @@ t_tree	*add_to_tree(int tokentype, char **args, t_tree *last_node)
 			node = NULL;
 			return (NULL);
 		}
-		node = redir_cond(last_node, node);
-		node = pipes_cond(tokentype, last_node, node);
 	}
 	return (node);
 }

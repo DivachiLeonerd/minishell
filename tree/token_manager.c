@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:23:47 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/04 20:17:15 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/07 15:19:14 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ t_tree	*addtoken_to_tree(char *token, int tokentype, char **env, char **tokens, 
 		// printf("in addtoken_to_tree():new_token:%s\n", new_token);
 		temp_tokentype = get_token_type(new_token, env);
 		// printf("in the same func:tokentype:%d\n", temp_tokentype);
-		if (temp_tokentype == HEREDOC || temp_tokentype == PIPE)
+		if (temp_tokentype == HEREDOC || temp_tokentype == PIPE || temp_tokentype == BUILTIN || temp_tokentype == EXECUTABLE)
 			return (addtoken_to_tree(new_token, temp_tokentype,env, tokens, last_node, controller));
 		while (temp_tokentype == WORD)
 		{
