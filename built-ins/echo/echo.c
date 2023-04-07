@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:25:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/04 11:10:47 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:08:46 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int	ft_echo(char **args)
 	{
 		printf("%s", args[i]);
 		i++;
+		if (args[i])
+			printf(" ");
 	}
 	printf("\033[0m");
 	if (ft_strncmp(args[1], "-n", ft_strlen(args[1])) != 0)

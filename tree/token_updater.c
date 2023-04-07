@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:24:02 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/03/30 15:06:43 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:48:56 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int      quoted_size(char *s)
 	while (s[i])
 	{
 		if (s[0] == s[i])
-			return (i + 1);
+			return (i);
 		i++;
 	}
 	return (0);
