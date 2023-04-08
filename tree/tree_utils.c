@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:24:15 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/03/06 15:12:22 by afonso           ###   ########.fr       */
+/*   Updated: 2023/04/08 10:52:04 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,18 @@ void    create_right_node(t_tree *previous, t_tree *node)
     }
     previous->right_branch = node;
     node->back = previous;
+}
+
+t_tree  *find_topof_tree(t_tree *bintree)
+{
+    t_tree *node;
+
+    node = bintree;
+    if (bintree == NULL)
+        return (NULL);
+    while (node->back != NULL)
+    {
+        node = node->back;
+    }
+    return (node);
 }

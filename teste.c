@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/04 19:45:33 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/08 16:09:07 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,28 @@
 // 		return (errno >> 8);
 // 	}
 // }
+static	void	print_tree_leftbranch(t_tree *bintree)
+{
+	t_tree *tree;
+
+	tree = bintree;
+	while (tree != NULL)
+	{
+		printf("******************************");
+		if (tree->args)
+			printf("%s_node:******************************\n", tree->args[0]);
+		printf("tree_tokentype:%d\n", tree->tokentype);
+		if (tree->back && tree->back->args)
+			printf("node->back:%s\n", tree->back->args[0]);
+		if (tree->left_branch && tree->left_branch->args)
+		printf("tree->left_branch:%s\n", tree->left_branch->args[0]);
+		if (tree->right_branch && tree->right_branch->args)
+			printf("tree->right_branch:%s\n", tree->right_branch->args[0]);
+		printf("************************************************************\n");
+		tree = tree->left_branch;
+	}
+	return ;
+}
 
 char	*print_prompt(void)
 {
@@ -80,6 +102,7 @@ int	main(int argc, char **argv, char **envp)
 			i = 0;
 		nintr_behaviour(&behaviour);
 		bintree = parser_init(command_line, &myenvp);
+		print_tree_leftbranch(bintree);
 		if (!bintree)
 		{
 			errno = 30;

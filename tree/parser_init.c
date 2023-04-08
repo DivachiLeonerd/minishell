@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:35 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/07 14:44:20 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/08 10:57:27 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ t_tree *parser_init(char *s, char ***env)
 			break ;
 		tokentype = get_token_type(token, *env);
 		// printf("in parser_init():tokentype=%d\n", tokentype);
-		bintree = addtoken_to_tree(token, tokentype, *env, tokens, last_node, &i);// e se esta funçao fosse buscar o args do token?
-		printf("bintree-args:%s\n", bintree->args[1]);
+		bintree = addtoken_to_tree(token, tokentype, *env, tokens, last_node, &i);
+		bintree = find_topof_tree(bintree);
 		if (chad_exitstatus == 10)//inside add_token()
 			break ;
 	}

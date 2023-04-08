@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/04 15:02:26 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/08 10:22:35 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,12 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid, char ***myenvp)
 	int	i;
 	t_tree *node;
 
-	i = 0;
-	while (i <= numof_pipes)
+	i = numof_pipes;
+	printf("We are in run_pipes()\n");
+	while (i >= 0)
 	{
 		node = find_command_node(i, bintree);//command index is the position of each command in command line
+		printf("we are dealing with %s\n", (node->args)[0]);
 		if (numof_pipes == 0)
 		{
 			if (pid[0] != 0 && ft_strncmp((node->args)[0], "cd", 3) == 0)
@@ -78,7 +80,7 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid, char ***myenvp)
 				execute_non_builtin((node->args)[0], *myenvp, node->args);
 			// waitpid(pid[i - 1], NULL, 0);
 		}
-		i++;
+		i--;
 	}
 	i = 0;
 	

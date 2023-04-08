@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:23:47 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/07 15:19:14 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/08 16:17:43 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ t_tree	*addtoken_to_tree(char *token, int tokentype, char **env, char **tokens, 
 	if (tokentype == HEREDOC)
 	{
 		free(token);
+		token = NULL;
 		free((*last_node)->args);
 		(*last_node)->args = NULL;
 		new_token = token_updater(tokens, env, controller);
@@ -121,6 +122,7 @@ t_tree	*addtoken_to_tree(char *token, int tokentype, char **env, char **tokens, 
 			if (temp_tokentype != WORD)
 			{
 				free(token);
+				token = NULL;
 				return (addtoken_to_tree(new_token, temp_tokentype, env, tokens, last_node, controller));
 			}
 			(*last_node)->args = add_argstoken((*last_node)->args, new_token);

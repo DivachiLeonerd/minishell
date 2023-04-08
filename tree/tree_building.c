@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/07 15:34:02 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/08 16:13:36 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ t_tree	*add_to_tree(int tokentype, char **args, t_tree *last_node)
 	node->args = args;
 	node->left_branch = NULL;
 	node->right_branch = NULL;
-	if (last_node != NULL)
+	printf("In add_to_tree():adding a node of %d tokentype value\n", node->tokentype);
+	if (last_node)
 	{
 		node = redir_cond(last_node, node);
 		node = pipes_cond(tokentype, last_node, node);

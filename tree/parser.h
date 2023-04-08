@@ -30,6 +30,7 @@ int			syntax_checker(char *line);
 void		*no_mem(void *p);
 char		*str_expander(char *s, char **env);
 void		free_tree(t_tree *bintree);
+t_tree  	*find_topof_tree(t_tree *bintree);
 // void		close_heredocs(t_heredoc **all_heredocs);
 #endif
 
