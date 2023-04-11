@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:24:02 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/05 16:48:56 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:24:31 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static int      get_size(char *s)
 	else
 		return (nquoted_size(s));
 }
-
 
 char    *token_updater(char **tokens, char **env, int *var)
 {

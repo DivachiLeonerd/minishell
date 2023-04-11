@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:43:55 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/07 15:42:59 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/11 18:02:12 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,18 @@ int output_redirection(int fd1, t_tree *node, int token_type)
 	close(fd2);
 	return (0);
 }
-
+// pipe_fd[0] is the read part of the pipe where u read FROM the pipe
+//pipe_fd[1] is the write part of the pipe where u write TO the pipe
 int	piping(int *pid, int **pipe_fd, int num_of_pipes, int index)
 {
+	printf("in piping():num of pipes:%d and index:%d\n", num_of_pipes, index);
 	if (index <= num_of_pipes && pid[index] == 0)
 	{
+		printf("in piping():I'm process %d. Im piping %d[0] to stdin and [index][1] to stdout\n", index, index);
 		if (index > 0)
 			dup2(pipe_fd[index - 1][0], STDIN_FILENO); // STDIN of a i process is the read part of pipe connecting it to process i - 1
 		if (index < num_of_pipes)
-			dup2(pipe_fd[index][1], STDOUT_FILENO); // process is writing to pipe instead of stdout
+			dup2(pipe_fd[index][1], STDOUT_FILENO); // process is writing to pipe instead of stdout	
 		// I need to do error checking
 	}
 	return (0);
@@ -74,8 +77,7 @@ t_tree *find_command_node(int index, t_tree *bintree)
 
 	i = -1;
 	node = find_first_command(bintree);
-	// printf("node:%p vs bintree:%p\n", node, bintree);
-	while (node != bintree && i < index)
+	while (i < index)
 	{
 		if (COMMAND)
 			i++;
@@ -89,7 +91,8 @@ t_tree *find_command_node(int index, t_tree *bintree)
 					return (node->right_branch);
 			}
 		}
-		node = node->back;
+		if (node->back != NULL && i < index)
+			node = node->back;
 	}
 	return (node);
 }

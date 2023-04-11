@@ -21,7 +21,7 @@ t_tree		*pipes_cond(int tokentype, t_tree *aux, t_tree *node);
 t_tree		*redir_cond(t_tree *aux, t_tree *node);
 t_heredoc	*make_heredoc(void);
 ssize_t		get_heredoc_input(t_heredoc *heredoc, char *delimiter);
-t_tree		*addtoken_to_tree(char *token, int tokentype, char **env, char **tokens,t_tree **last_node, int *controller);
+t_tree		*addtoken_to_tree(char **env, char **tokens);
 int			token_manager(char *token);
 char		*token_updater(char **tokens, char **env, int *i);
 int			get_token_type(char *token, char **env);

@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:59 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/03/30 15:30:06 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/10 15:46:02 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@ int get_token_type(char *token, char **myenvp)
 {
     int         token_size;
     char        *aux;
-    static int  last_tokentype;
 
     aux = NULL;
     if (!token)
     {
-        last_tokentype = 0;
         return (-1);
     }
     if (token[0] == '\0')
@@ -48,10 +46,9 @@ int get_token_type(char *token, char **myenvp)
     }
     if (is_builtin(token))
     {
-        last_tokentype = BUILTIN;
         return (BUILTIN);
     }
-    if (last_tokentype != BUILTIN)
+    else
         aux = find_command_path(myenvp, token);
     if (aux)
     {

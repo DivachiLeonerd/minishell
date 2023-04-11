@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/08 10:22:35 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/11 18:57:09 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@ static void	free_utils(int *pid, int **pipe_fd, int numof_pipes)
 	i = numof_pipes - 1;
 	while (pipe_fd && i >= 0)
 	{
+		close(pipe_fd[i][0]);
 		free(pipe_fd[i]);
 		i--;
 	}
-	free(pid);
-	// free(pipe_fd);
+	free(pipe_fd);
+	if (pid == 0)
+		exit (0);
 	return ;
 }
 
@@ -54,7 +56,6 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid, char ***myenvp)
 	while (i >= 0)
 	{
 		node = find_command_node(i, bintree);//command index is the position of each command in command line
-		printf("we are dealing with %s\n", (node->args)[0]);
 		if (numof_pipes == 0)
 		{
 			if (pid[0] != 0 && ft_strncmp((node->args)[0], "cd", 3) == 0)
@@ -66,6 +67,8 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid, char ***myenvp)
 		}
 		if (pid[i] == 0)
 		{
+			printf("in run_pipes():i:%d & node:%d\n", i, node->tokentype);
+			printf("stdin:%d & stdout:%d\n", STDIN_FILENO, STDOUT_FILENO);
 			// if (return_righttokenid(node) == O_REDIR)
 			// 	output_redirection(STDOUT_FILENO, node->right_branch, O_REDIR);
 			// if (return_righttokenid(node) == O_APPEND)
@@ -78,16 +81,16 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid, char ***myenvp)
 				execute_builtin((node->args)[0], *myenvp, node->args);
 			else
 				execute_non_builtin((node->args)[0], *myenvp, node->args);
-			// waitpid(pid[i - 1], NULL, 0);
 		}
 		i--;
 	}
 	i = 0;
 	
-	while (i <= numof_pipes && pid[i] == 0)
+	while (wait(NULL) != -1 || errno != ECHILD)
 	{
-		exit(0);
-		i++;
+		if (pid[i] == 0)
+			printf("a child is waiting bruh\n");
+		printf("waited for child\n");
 	}
 	return (*myenvp);
 }
@@ -107,8 +110,8 @@ char	**make_pipes(t_tree *bintree, char **myenvp)
 	initialize_forking_processes(pid, numof_pipes + 1);
 	while (pipe_fd && i <= numof_pipes)
 		piping(pid, pipe_fd, numof_pipes, i++);
+	printf("in make_pipes() we vibing\n");
 	myenvp = run_pipes(numof_pipes, bintree, pid, &myenvp);
-	waitpid(pid[0],NULL,0);
 	free_utils(pid, pipe_fd, numof_pipes);
 	return (myenvp);
 }

@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/08 16:13:36 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/10 20:01:02 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void	free_tree(t_tree *bintree)
 		return ;
 	while (bintree->back != NULL)//tries to find the first position of the tree
 		bintree = bintree->back;
-	node = find_command_node(0, bintree);
-	while (node->back != NULL)
+	node = bintree;
+	while (node->left_branch != NULL)
 	{
 		if (check_direction(LEFT, node) == 0)
 			node = node->left_branch;
@@ -92,7 +92,7 @@ void	free_tree(t_tree *bintree)
 		else
 		{
 			temp = node->back;
-			if (temp->left_branch == node)
+			if (check_direction(LEFT, temp) != 0)
 				temp->left_branch = NULL;
 			else if (temp->right_branch == NULL)
 				temp->right_branch = NULL;

@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/08 16:09:07 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/11 10:47:30 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static	void	print_tree_leftbranch(t_tree *bintree)
 		printf("tree_tokentype:%d\n", tree->tokentype);
 		if (tree->back && tree->back->args)
 			printf("node->back:%s\n", tree->back->args[0]);
+		else if (tree->back)
+			printf("node->back:%p, tokentype:%d\n", tree->back, tree->back->tokentype);
 		if (tree->left_branch && tree->left_branch->args)
 		printf("tree->left_branch:%s\n", tree->left_branch->args[0]);
 		if (tree->right_branch && tree->right_branch->args)
@@ -110,6 +112,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		else
 			myenvp = make_pipes(bintree, myenvp);//command_line a ser executado
+		printf("we got out of make_pipes()\n");
 		free(command_line);
 		command_line = NULL;
 		free_tree(bintree);
