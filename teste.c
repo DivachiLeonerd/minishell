@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/11 10:47:30 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/14 12:09:45 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*print_prompt(void)
 	free(pwd);
 	return (aux);
 }
-
+int chad_exitstatus = 0;
 int	main(int argc, char **argv, char **envp)
 {
 	t_tree				*bintree;

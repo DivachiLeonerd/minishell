@@ -6,12 +6,13 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/10 20:01:02 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/14 11:44:12 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "../built-ins/piping.h"
+#include "../define.h"
 
 t_tree	*add_to_tree(int tokentype, char **args, t_tree *last_node)
 {

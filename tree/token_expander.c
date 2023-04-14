@@ -13,6 +13,7 @@
 
 #include "parser.h"
 #include "../built-ins/built-ins.h"
+#include "../define.h"
 
 static int      word_size(char *s)
 {

@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:28:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/08 16:44:03 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/14 12:06:56 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ struct s_tree	*right_branch;
 struct s_tree	*back;
 }t_tree;
 
-int	chad_exitstatus;
 
 #define I_REDIR 1
 #define O_REDIR 2
@@ -50,3 +49,4 @@ int	chad_exitstatus;
 void	free_matrix(char **envp);
 char	*find_command_path(char **myenvp, char *command);
 #endif
+extern int	chad_exitstatus;

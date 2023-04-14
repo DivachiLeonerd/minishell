@@ -6,12 +6,11 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:00:04 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/24 11:13:17 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/14 12:09:32 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int main(int argc, char **argv, char **envp)
 {

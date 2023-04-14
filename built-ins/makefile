@@ -6,7 +6,7 @@
 #    By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 10:45:02 by afonso            #+#    #+#              #
-#    Updated: 2023/04/03 16:31:33 by atereso-         ###   ########.fr        #
+#    Updated: 2023/04/14 11:20:02 by atereso-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,7 @@ fthelper:
 	mv *.o ./built-in_objs
 
 clean:
+	rm -f *.o
 	cd built-in_objs && rm -rf *.o
 	
 
