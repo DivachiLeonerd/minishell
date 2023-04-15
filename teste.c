@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/15 11:25:06 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/15 12:42:57 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +30,30 @@
 // 		return (errno >> 8);
 // 	}
 // }
-static	void	print_tree_leftbranch(t_tree *bintree)
-{
-	t_tree *tree;
+// static	void	print_tree_leftbranch(t_tree *bintree)
+// {
+// 	t_tree *tree;
 
-	tree = bintree;
-	while (tree != NULL)
-	{
-		printf("******************************");
-		if (tree->args)
-			printf("%s_node:******************************\n", tree->args[0]);
-		printf("tree_tokentype:%d\n", tree->tokentype);
-		if (tree->back && tree->back->args)
-			printf("node->back:%s\n", tree->back->args[0]);
-		else if (tree->back)
-			printf("node->back:%p, tokentype:%d\n", tree->back, tree->back->tokentype);
-		if (tree->left_branch && tree->left_branch->args)
-		printf("tree->left_branch:%s\n", tree->left_branch->args[0]);
-		if (tree->right_branch && tree->right_branch->args)
-			printf("tree->right_branch:%s\n", tree->right_branch->args[0]);
-		printf("************************************************************\n");
-		tree = tree->left_branch;
-	}
-	return ;
-}
+// 	tree = bintree;
+// 	while (tree != NULL)
+// 	{
+// 		printf("******************************");
+// 		if (tree->args)
+// 			printf("%s_node:******************************\n", tree->args[0]);
+// 		printf("tree_tokentype:%d\n", tree->tokentype);
+// 		if (tree->back && tree->back->args)
+// 			printf("node->back:%s\n", tree->back->args[0]);
+// 		else if (tree->back)
+// 			printf("node->back:%p, tokentype:%d\n", tree->back, tree->back->tokentype);
+// 		if (tree->left_branch && tree->left_branch->args)
+// 		printf("tree->left_branch:%s\n", tree->left_branch->args[0]);
+// 		if (tree->right_branch && tree->right_branch->args)
+// 			printf("tree->right_branch:%s\n", tree->right_branch->args[0]);
+// 		printf("************************************************************\n");
+// 		tree = tree->left_branch;
+// 	}
+// 	return ;
+// }
 
 char	*print_prompt(void)
 {
@@ -77,15 +77,18 @@ int	main(int argc, char **argv, char **envp)
 	char				**myenvp;
 	char				*command_line;
 	struct sigaction	behaviour;
+	int					i;
 
+	i = 1;
 	(void)argc;
 	(void)argv;
-	
+
 	myenvp = build_envp(envp);
 	command_line = NULL;
 	//returns a empty string, which is different from a NULL
-	while (1)
+	while (i)
 	{
+		bintree = NULL;
 		intr_behaviour(&behaviour);
 		while (1)
 		{
@@ -99,10 +102,13 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strncmp("exit", command_line, 4))
 			add_history(command_line);
 		else
-			break ;
-		nintr_behaviour(&behaviour);
-		bintree = parser_init(command_line, &myenvp);
-		print_tree_leftbranch(bintree);
+			i = 0 ;
+		if (i == 1)
+		{
+			nintr_behaviour(&behaviour);
+			bintree = parser_init(command_line, &myenvp);
+			// print_tree_leftbranch(bintree);
+		}
 		if (!bintree)
 		{
 			errno = 30;
@@ -110,13 +116,14 @@ int	main(int argc, char **argv, char **envp)
 		}
 		else
 			myenvp = make_pipes(bintree, myenvp);//command_line a ser executado
-		printf("we got out of make_pipes()\n");
+		// printf("we got out of make_pipes()\n");
 		free(command_line);
 		command_line = NULL;
 		free_tree(bintree);
 		puts("tree has been freed");
 		// printf("\n");
 	}
+	printf("we left the matrix\n");
 	free_matrix(myenvp);
 	exit(0);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:10:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/10 15:52:29 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/15 16:46:32 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int execute_non_builtin(char *command_name, char **myenvp, char **args)
 	char	*pathname;
 
 	pathname = find_command_path(myenvp, command_name);
-	printf("I'm about to execute %s\n", command_name);
+	// printf("I'm about to execute %s\n", command_name);
 	if (pathname != NULL)
 		execve(pathname, args, myenvp);//execve should free all memory from process after running
 	perror("Couldn't find command");

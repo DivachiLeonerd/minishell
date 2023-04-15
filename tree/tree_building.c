@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/15 11:14:38 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/15 12:34:17 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_tree	*add_to_tree(int tokentype, char **args, t_tree *last_node)
 	node->args = args;
 	node->left_branch = NULL;
 	node->right_branch = NULL;
-	printf("In add_to_tree():adding a node of %d tokentype value\n", node->tokentype);
+	// printf("In add_to_tree():adding a node of %d tokentype value\n", node->tokentype);
 	if (last_node)
 	{
 		node = redir_cond(last_node, node);
@@ -73,7 +73,9 @@ static void free_node(t_tree *node)
 	// {
 	// 	free(node->heredoc->pipe_fd);
 	// }
-	free_matrix(node->args);
+	// printf("node type:%d\n", node->tokentype);
+	if (node->args)
+		free_matrix(node->args);
 	free(node);
 	return ;
 }
@@ -91,7 +93,7 @@ void	free_tree(t_tree *bintree)
 	node = bintree;
 	while (node->left_branch != NULL)
 	{
-		printf("we are freeing tree\n");
+		// printf("we are freeing tree\n");
 		if (check_direction(RIGHT, node) == 0)
 		{
 			temp = node;

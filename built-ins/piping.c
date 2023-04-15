@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:43:55 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/11 18:02:12 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/15 15:41:01 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,11 @@ int output_redirection(int fd1, t_tree *node, int token_type)
 int	piping(int *pid, int **pipe_fd, int num_of_pipes, int index)
 {
 	printf("in piping():num of pipes:%d and index:%d\n", num_of_pipes, index);
+	if (num_of_pipes == 0)
+		return (0);
 	if (index <= num_of_pipes && pid[index] == 0)
 	{
-		printf("in piping():I'm process %d. Im piping %d[0] to stdin and [index][1] to stdout\n", index, index);
+		// printf("in piping():I'm process %d. Im piping %d[0] to stdin and [index][1] to stdout\n", index, index);
 		if (index > 0)
 			dup2(pipe_fd[index - 1][0], STDIN_FILENO); // STDIN of a i process is the read part of pipe connecting it to process i - 1
 		if (index < num_of_pipes)
@@ -102,7 +104,7 @@ void initialize_forking_processes(int *pid, int numof_processes)
 	int i;
 
 	i = 0;
-	printf("numof_processes%d\n", numof_processes);
+	// printf("numof_processes%d\n", numof_processes);
 	while (i < numof_processes)
 	{
 		if ((pid[i] = fork()) == -1)
@@ -113,7 +115,7 @@ void initialize_forking_processes(int *pid, int numof_processes)
 			break ;
 		}
 		else
-			printf("im a parent\n");
+			// printf("im a parent\n");
 		i++;
 	}
 	return;

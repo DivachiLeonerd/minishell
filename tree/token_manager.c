@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:23:47 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/15 11:26:41 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/15 15:48:04 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ char	**add_argstoken(char **args, char *token)
 static void addtoken_heredoc(char **env, char *token, char **tokens, int *controller, t_tree *last_node)
 {
 	//token == "<<"
-	free(token);
 	//put heredoc in last_node with next token as delimiter
 	token = token_updater(tokens, env, controller);
 	// printf("in addtoken_to_tree():heredoc:%s\n", token);
@@ -86,10 +85,17 @@ static void addtoken_heredoc(char **env, char *token, char **tokens, int *contro
 	return ;
 }
 
-static void addtoken_words(char *token, t_tree *last_node)
+static void addtoken_words(char *token, t_tree *last_node, int *tokentype)
 {
 	// put as parameter
-	last_node->args = add_argstoken(last_node->args, token);
+	if (last_node == NULL)
+	{
+		perror("Command not found:");
+		free(token);
+		*tokentype = -1;
+	}
+	else
+		last_node->args = add_argstoken(last_node->args, token);
 	// get next token
 	return ;
 }
@@ -111,16 +117,18 @@ t_tree	*addtoken_to_tree(char **env, char **tokens)
 		//update
 		token = token_updater(tokens, env, &controller);
 		tokentype = get_token_type(token, env);
-		printf("addtoken_to_tree():token:%s-tokentype:%d\n", token, tokentype);
+		// printf("addtoken_to_tree():token:%s-tokentype:%d\n", token, tokentype);
 		if (tokentype == HEREDOC)
 			addtoken_heredoc(env, token, tokens, &controller, last_node);
 		if (tokentype == WORD)
-			addtoken_words(token, last_node);
+			addtoken_words(token, last_node, &tokentype);
 		// make a node
 		if (NODE_WORTHY)
 			last_node = add_to_tree(tokentype, args, last_node);
 		if (tokentype == BUILTIN || tokentype == EXECUTABLE)
 			last_node->args = add_argstoken(last_node->args, token);
+		else if (tokentype == PIPE)
+			free(token);
 	}
 	return (last_node);
 }

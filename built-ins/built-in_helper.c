@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 10:24:14 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/03 17:39:44 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/15 12:00:01 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	free_matrix(char **envp)
 
 	j = 0;
 	i = how_many_arrays(envp);
+	
 	while (j < i)
 	{
 		free(envp[j]);
