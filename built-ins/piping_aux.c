@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/15 16:49:51 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/15 18:03:13 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid, char ***myenvp, int
 	i = 0;
 	// j = -1;
 	// printf("We are in run_pipes()\n");
-	while (i < numof_pipes + 1)
+	while (i <= numof_pipes)
 	{
 		node = find_command_node(i, bintree);//command index is the position of each command in command line
 		if (pid[i] == 0)
@@ -76,7 +76,7 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid, char ***myenvp, int
 				execute_builtin((node->args)[0], *myenvp, node->args);
 			else
 				execute_non_builtin((node->args)[0], *myenvp, node->args);
-			if (numof_pipes > 0)
+			if (numof_pipes > 0 && i < numof_pipes)
 			{
 				close(pipe_fd[i][0]);
 			}
@@ -85,7 +85,9 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid, char ***myenvp, int
 	}
 	waitpid(pid[0], NULL, 0);
 	printf("child number 0 is waiting bruh\n");
+	close(pipe_fd[0][1]);
 	close(pipe_fd[0][0]);
+	kill(pid[1], SIGQUIT);
 	waitpid(pid[1], NULL, 0);
 	printf("child number 1 is waiting bruh\n");
 	return (*myenvp);

@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:43:55 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/15 15:41:01 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/15 17:28:12 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,6 @@ void initialize_forking_processes(int *pid, int numof_processes)
 			printf("im a child%d\n", i);
 			break ;
 		}
-		else
-			// printf("im a parent\n");
 		i++;
 	}
 	return;
