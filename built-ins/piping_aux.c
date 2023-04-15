@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/15 18:46:10 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/16 00:22:11 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	how_many_pipes(t_tree *bintree)
 
 	numof_pipes = 0;
 	node = bintree;
-	// printf("in how_many_pipes(): %p\n", node->left_branch);
 	while (node->left_branch != NULL)
 	{
 		if (node->tokentype == PIPE)
@@ -29,6 +28,22 @@ int	how_many_pipes(t_tree *bintree)
 	return (numof_pipes);
 }
 
+void	wait_for_children(int *pid, int numof_pipes)
+{
+	int	i;
+
+	i = 0;
+	if (numof_pipes == 0)
+		wait(NULL);
+	while (i < numof_pipes)
+	{
+		waitpid(pid[i], NULL, 0);
+		kill(pid[i + 1], SIGQUIT);
+		i++;
+	}
+	return ;
+}
+
 static void	free_utils(int *pid, int **pipe_fd, int numof_pipes)
 {
 	int	i;
@@ -36,7 +51,6 @@ static void	free_utils(int *pid, int **pipe_fd, int numof_pipes)
 	i = numof_pipes - 1;
 	while (pipe_fd && i >= 0)
 	{
-		printf("free_tree()\n");
 		close(pipe_fd[i][0]);
 		free(pipe_fd[i]);
 		i--;
@@ -83,9 +97,7 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid, char ***myenvp, int
 		}
 		i++;
 	}
-	waitpid(pid[0],NULL, 0);
-	if (numof_pipes > 0)
-		kill(pid[1], SIGQUIT);
+	wait_for_children(pid, numof_pipes);
 	return (*myenvp);
 }
 
@@ -98,14 +110,12 @@ char	**make_pipes(t_tree *bintree, char **myenvp)
 
 	i = 0;
 	numof_pipes = how_many_pipes(bintree);
-	printf("in make_pipes():numof_pipes:%d\n", numof_pipes);
 	pid = malloc((numof_pipes + 1) * sizeof(int));//if there is 3 processes then we will need only 2 pipes
 	pipe_fd = pipe_creation(numof_pipes);
 	initialize_forking_processes(pid, numof_pipes + 1);
 	while (pipe_fd && i <= numof_pipes)
 		piping(pid, pipe_fd, numof_pipes, i++);
 	myenvp = run_pipes(numof_pipes, bintree, pid, &myenvp, pipe_fd);
-	printf("after_make_pipes()\n");
 	free_utils(pid, pipe_fd, numof_pipes);
 	return (myenvp);
 }

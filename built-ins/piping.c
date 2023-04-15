@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:43:55 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/15 17:28:12 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/16 00:09:17 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int output_redirection(int fd1, t_tree *node, int token_type)
 //pipe_fd[1] is the write part of the pipe where u write TO the pipe
 int	piping(int *pid, int **pipe_fd, int num_of_pipes, int index)
 {
-	printf("in piping():num of pipes:%d and index:%d\n", num_of_pipes, index);
 	if (num_of_pipes == 0)
 		return (0);
 	if (index <= num_of_pipes && pid[index] == 0)
@@ -110,10 +109,7 @@ void initialize_forking_processes(int *pid, int numof_processes)
 		if ((pid[i] = fork()) == -1)
 			perror("A problem has occured during fork process\n");
 		if (pid[i] == 0)
-		{
-			printf("im a child%d\n", i);
 			break ;
-		}
 		i++;
 	}
 	return;
