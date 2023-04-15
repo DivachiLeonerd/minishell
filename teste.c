@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/14 12:09:45 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/15 11:25:06 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,14 @@ int	main(int argc, char **argv, char **envp)
 	char				**myenvp;
 	char				*command_line;
 	struct sigaction	behaviour;
-	int					i;
 
-	i = 1;
 	(void)argc;
 	(void)argv;
 	
 	myenvp = build_envp(envp);
 	command_line = NULL;
 	//returns a empty string, which is different from a NULL
-	while (i)
+	while (1)
 	{
 		intr_behaviour(&behaviour);
 		while (1)
@@ -101,7 +99,7 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strncmp("exit", command_line, 4))
 			add_history(command_line);
 		else
-			i = 0;
+			break ;
 		nintr_behaviour(&behaviour);
 		bintree = parser_init(command_line, &myenvp);
 		print_tree_leftbranch(bintree);
@@ -116,6 +114,7 @@ int	main(int argc, char **argv, char **envp)
 		free(command_line);
 		command_line = NULL;
 		free_tree(bintree);
+		puts("tree has been freed");
 		// printf("\n");
 	}
 	free_matrix(myenvp);

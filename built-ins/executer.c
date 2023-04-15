@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:44:37 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/10 17:20:49 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/14 15:28:57 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 int	is_builtin(char *command)
 {
+	printf("in is_builtin\n");
 	if (ft_strncmp("echo", command, ft_strlen("echo")) == 0
 		|| ft_strncmp("env", command, ft_strlen("env")) == 0
 		|| ft_strncmp("exit", command, ft_strlen("exit")) == 0
@@ -45,7 +46,6 @@ void	execute_builtin(char *command, char **myenvp, char **args)
 		printf("%s\n", str);
 		free(str);		
 	}
-	exit(0);
 	// if (ft_strncmp("unset", command, ft_strlen("unset")) == 0)
 	// 	unset(args, myenvp);
 	return ;

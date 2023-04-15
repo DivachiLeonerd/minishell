@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:35 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/08 17:53:16 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/15 11:03:34 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,8 @@ t_tree *parser_init(char *s, char ***env)
 	bintree = addtoken_to_tree(*env, tokens);
 	// printf("%s\n", bintree->args[0]);
 	// printf("%s\n", bintree->args[1]);
-	// bintree = find_topof_tree(bintree);
 	// if (chad_exitstatus == 10) inside add_token()
-	if (bintree)
-	{
-		while (bintree->back != NULL)
-			bintree = bintree->back;
-	}
+	bintree = find_topof_tree(bintree);
 	free(tokens);
 	return (bintree);
 }

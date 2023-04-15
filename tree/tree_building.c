@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/14 11:44:12 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/15 11:14:38 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ int	check_direction(int direction, t_tree *node)
 
 static void free_node(t_tree *node)
 {
+	// if (node->heredoc)
+	// {
+	// 	free(node->heredoc->pipe_fd);
+	// }
 	free_matrix(node->args);
 	free(node);
 	return ;
@@ -78,6 +82,7 @@ void	free_tree(t_tree *bintree)
 {
 	t_tree	*node;
 	t_tree	*temp;
+	t_tree	*aux;
 
 	if (!bintree)
 		return ;
@@ -86,21 +91,26 @@ void	free_tree(t_tree *bintree)
 	node = bintree;
 	while (node->left_branch != NULL)
 	{
-		if (check_direction(LEFT, node) == 0)
-			node = node->left_branch;
-		else if (check_direction(RIGHT, node) == 0)
-			node = node->right_branch;
-		else
+		printf("we are freeing tree\n");
+		if (check_direction(RIGHT, node) == 0)
 		{
-			temp = node->back;
-			if (check_direction(LEFT, temp) != 0)
-				temp->left_branch = NULL;
-			else if (temp->right_branch == NULL)
-				temp->right_branch = NULL;
-			free_node(node);
+			temp = node;
+			while (check_direction(RIGHT, node) == 0)
+				node = node->right_branch;
+			while (node != temp)
+			{
+				aux = node;
+				node = node->back;
+				free_node(aux);
+			}
 		}
-		node = temp;
+		if (check_direction(LEFT, node) == 0)
+		{
+			aux = node;
+			node = node->left_branch;
+			free_node(aux);
+		}
 	}
-	free_node(bintree);
+	free_node(node);
 	return ;
 }
