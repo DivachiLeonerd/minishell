@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/15 12:34:17 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/15 18:37:19 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../built-ins/piping.h"
 #include "../define.h"
 
-t_tree	*add_to_tree(int tokentype, char **args, t_tree *last_node)
+t_tree	*add_to_tree(int tokentype, t_tree *last_node)
 {
 	//this function should be called repeatedly with a different token and tokentype
 	//I should add nodes with the tokentype and connect the nodes
@@ -28,7 +28,7 @@ t_tree	*add_to_tree(int tokentype, char **args, t_tree *last_node)
 	node = malloc(sizeof(t_tree));
 	node->back = NULL;
 	node->tokentype = tokentype;
-	node->args = args;
+	node->args = NULL;
 	node->left_branch = NULL;
 	node->right_branch = NULL;
 	// printf("In add_to_tree():adding a node of %d tokentype value\n", node->tokentype);

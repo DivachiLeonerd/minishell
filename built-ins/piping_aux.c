@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/15 18:03:13 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/15 18:46:10 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,9 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid, char ***myenvp, int
 		}
 		i++;
 	}
-	waitpid(pid[0], NULL, 0);
-	printf("child number 0 is waiting bruh\n");
-	close(pipe_fd[0][1]);
-	close(pipe_fd[0][0]);
-	kill(pid[1], SIGQUIT);
-	waitpid(pid[1], NULL, 0);
-	printf("child number 1 is waiting bruh\n");
+	waitpid(pid[0],NULL, 0);
+	if (numof_pipes > 0)
+		kill(pid[1], SIGQUIT);
 	return (*myenvp);
 }
 
@@ -108,7 +104,6 @@ char	**make_pipes(t_tree *bintree, char **myenvp)
 	initialize_forking_processes(pid, numof_pipes + 1);
 	while (pipe_fd && i <= numof_pipes)
 		piping(pid, pipe_fd, numof_pipes, i++);
-	// printf("in make_pipes() we vibing\n");
 	myenvp = run_pipes(numof_pipes, bintree, pid, &myenvp, pipe_fd);
 	printf("after_make_pipes()\n");
 	free_utils(pid, pipe_fd, numof_pipes);
