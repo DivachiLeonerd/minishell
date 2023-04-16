@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:10:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/16 01:01:50 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/16 14:14:48 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char *find_command_path(char **myenvp, char *command)
 			// printf("o comando existe\n");
 			if (access(command_path, X_OK) == 0)
 			{
-				printf("e é executavel\n");
+				// printf("e é executavel\n");
 				break ;
 			}
 			// perror("Permission denied\n");

@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/15 12:42:57 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/16 14:25:46 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,10 @@ int	main(int argc, char **argv, char **envp)
 		free(command_line);
 		command_line = NULL;
 		free_tree(bintree);
-		puts("tree has been freed");
+		// puts("tree has been freed");
 		// printf("\n");
 	}
-	printf("we left the matrix\n");
+	// printf("we left the matrix\n");
 	free_matrix(myenvp);
 	exit(0);
 	return (0);
