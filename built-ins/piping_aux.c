@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/16 14:48:28 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/16 16:37:37 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,12 @@ static void	wait_for_children(int *pid, int numof_pipes)
 	i = 0;
 		while (i <= numof_pipes)
 		{
-			if (pid[i] != 0)
-				wait(NULL);
+			if (i == 0 && pid[0] != 0)
+				waitpid(pid[0], NULL, 0);
 			if (i + 1 <= numof_pipes)
 				kill(pid[i + 1], SIGQUIT);
+			if (pid[i] == 0 && i + 1 <= numof_pipes)
+				waitpid(pid[i + 1], NULL, 0);	
 			if (pid[i] == 0)
 				exit(0);
 			i++;
