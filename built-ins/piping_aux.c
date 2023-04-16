@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/16 00:22:11 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/16 14:04:51 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,30 @@ int	how_many_pipes(t_tree *bintree)
 	return (numof_pipes);
 }
 
-void	wait_for_children(int *pid, int numof_pipes)
+static void	wait_for_children(int *pid, int numof_pipes)
 {
 	int	i;
 
 	i = 0;
 	if (numof_pipes == 0)
 		wait(NULL);
-	while (i < numof_pipes)
-	{
-		waitpid(pid[i], NULL, 0);
-		kill(pid[i + 1], SIGQUIT);
-		i++;
-	}
+	else
+		while (i < numof_pipes)
+		{
+			waitpid(pid[i], NULL, 0);
+			kill(pid[i + 1], SIGQUIT);
+			i++;
+			if (pid[i] == 0)
+				exit(0);
+		}
+	free(pid);
 	return ;
 }
 
-static void	free_utils(int *pid, int **pipe_fd, int numof_pipes)
+static void	free_utils(int **pipe_fd, int numof_pipes)
 {
 	int	i;
-	
+
 	i = numof_pipes - 1;
 	while (pipe_fd && i >= 0)
 	{
@@ -57,28 +61,23 @@ static void	free_utils(int *pid, int **pipe_fd, int numof_pipes)
 	}
 	free(pipe_fd);
 	i = numof_pipes - 1;
-	if (pid[0] == 0)
-		exit (0);
-	free(pid);
 	return ;
 }
 
-char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid, char ***myenvp, int **pipe_fd)
+char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid,
+			char ***myenvp)
 {
 	int	i;
-	// int	j;
 	t_tree *node;
 
 	i = 0;
-	// j = -1;
-	// printf("We are in run_pipes()\n");
 	while (i <= numof_pipes)
 	{
 		node = find_command_node(i, bintree);//command index is the position of each command in command line
 		if (pid[i] == 0)
 		{
-			// if (return_righttokenid(node) == O_REDIR)
-			// 	output_redirection(STDOUT_FILENO, node->right_branch, O_REDIR);
+			if (return_righttokenid(node) == O_REDIR)
+				output_redirection(STDOUT_FILENO, node->right_branch, O_REDIR);
 			// if (return_righttokenid(node) == O_APPEND)
 			// 	output_redirection(STDOUT_FILENO, node->right_branch, O_APPEND);
 			// if (return_righttokenid(node) == I_REDIR)
@@ -90,14 +89,9 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid, char ***myenvp, int
 				execute_builtin((node->args)[0], *myenvp, node->args);
 			else
 				execute_non_builtin((node->args)[0], *myenvp, node->args);
-			if (numof_pipes > 0 && i < numof_pipes)
-			{
-				close(pipe_fd[i][0]);
-			}
 		}
 		i++;
 	}
-	wait_for_children(pid, numof_pipes);
 	return (*myenvp);
 }
 
@@ -115,7 +109,14 @@ char	**make_pipes(t_tree *bintree, char **myenvp)
 	initialize_forking_processes(pid, numof_pipes + 1);
 	while (pipe_fd && i <= numof_pipes)
 		piping(pid, pipe_fd, numof_pipes, i++);
-	myenvp = run_pipes(numof_pipes, bintree, pid, &myenvp, pipe_fd);
-	free_utils(pid, pipe_fd, numof_pipes);
+	myenvp = run_pipes(numof_pipes, bintree, pid, &myenvp);
+	free_utils(pipe_fd, numof_pipes);
+	while (i < numof_pipes || i == 0)
+	{
+		if (pid[i] == 0)
+			exit(0);
+		i++;
+	}
+	wait_for_children(pid, numof_pipes);
 	return (myenvp);
 }
