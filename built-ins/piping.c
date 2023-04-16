@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:43:55 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/16 16:33:55 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/16 16:45:03 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,15 +102,15 @@ void initialize_forking_processes(int *pid, int numof_processes)
 {
 	int i;
 
-	i = 0;
+	i = numof_processes - 1;
 	// printf("numof_processes%d\n", numof_processes);
-	while (i < numof_processes)
+	while (0 <= i)
 	{
 		if ((pid[i] = fork()) == -1)
 			perror("A problem has occured during fork process\n");
 		if (pid[i] == 0)
 			break ;
-		i++;
+		i--;
 	}
 	return;
 }

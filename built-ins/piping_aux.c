@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/16 16:37:37 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/16 19:55:13 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,26 @@ int	how_many_pipes(t_tree *bintree)
 	return (numof_pipes);
 }
 
-static void	wait_for_children(int *pid, int numof_pipes)
-{
-	int	i;
+// static void	wait_for_children(int *pid, int numof_pipes)
+// {
+// 	int	i;
 
-	i = 0;
-		while (i <= numof_pipes)
-		{
-			if (i == 0 && pid[0] != 0)
-				waitpid(pid[0], NULL, 0);
-			if (i + 1 <= numof_pipes)
-				kill(pid[i + 1], SIGQUIT);
-			if (pid[i] == 0 && i + 1 <= numof_pipes)
-				waitpid(pid[i + 1], NULL, 0);	
-			if (pid[i] == 0)
-				exit(0);
-			i++;
-		}
-	free(pid);
-	return ;
-}
+// 	i = 0;
+// 		while (i <= numof_pipes)
+// 		{
+// 			if (i == 0 && pid[0] != 0)
+// 				waitpid(pid[0], NULL, 0);
+// 			if (i + 1 <= numof_pipes)
+// 				kill(pid[i + 1], SIGQUIT);
+// 			if (pid[i] == 0 && i + 1 <= numof_pipes)
+// 				waitpid(pid[i + 1], NULL, 0);	
+// 			if (pid[i] == 0)
+// 				exit(0);
+// 			i++;
+// 		}
+// 	free(pid);
+// 	return ;
+// }
 
 static void	free_utils(int **pipe_fd, int numof_pipes)
 {
@@ -74,6 +74,11 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid,
 	while (i <= numof_pipes)
 	{
 		node = find_command_node(i, bintree);//command index is the position of each command in command line
+		if (numof_pipes == 0)
+		{
+			if (ft_strncmp("cd", node->args[0], ft_strlen("cd")) == 0)
+				*myenvp = cd(node->args[1], *myenvp);
+		}
 		if (pid[i] == 0)
 		{
 			if (return_righttokenid(node) == O_REDIR)
@@ -111,11 +116,13 @@ char	**make_pipes(t_tree *bintree, char **myenvp)
 		piping(pid, pipe_fd, numof_pipes, i++);
 	myenvp = run_pipes(numof_pipes, bintree, pid, &myenvp);
 	free_utils(pipe_fd, numof_pipes);
-	if (numof_pipes == 0 && pid[i] == 0)
-	{
-		free(pid);
+	if (pid[0] == 0)
 		exit(0);
-	}
-	wait_for_children(pid, numof_pipes);
+	if (i > 0 && pid[i - 1] != 0 )
+		wait(NULL);
+	else if (pid[i] != 0 && i == 0)
+		wait(NULL);
+	free(pid);
+	// wait_for_children(pid, numof_pipes);
 	return (myenvp);
 }

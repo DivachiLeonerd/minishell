@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:10:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/16 14:14:48 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/16 19:45:29 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char *find_command_path(char **myenvp, char *command)
 	while (all_paths[i])
 	{
 		command_path = ft_strjoin(all_paths[i], temp);
-		if (access(command_path, F_OK) == 0)
+		if (access(command_path, F_OK) == 0 && !ft_strnstr(command_path, "./", ft_strlen(command_path)))
 		{
 			// printf("o comando existe\n");
 			if (access(command_path, X_OK) == 0)
@@ -66,7 +66,7 @@ int execute_non_builtin(char *command_name, char **myenvp, char **args)
 	char	*pathname;
 
 	pathname = find_command_path(myenvp, command_name);
-	// printf("I'm about to execute %s\n", command_name);
+	// printf("I'm about to execute %s\n", pathname);
 	if (pathname != NULL)
 		execve(pathname, args, myenvp);//execve should free all memory from process after running
 	// perror("Couldn't find command");
