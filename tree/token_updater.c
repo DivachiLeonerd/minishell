@@ -67,17 +67,20 @@ char    *token_updater(char **tokens, char **env, int *var)
 	
 	
 	token = tokens[*var];
-	//get_size() fetches strlen of token inside quotes
-	// printf("in token_updater:token:%s\n", token);
 	size = get_size(token);
 	if (size)
 	{
 		if (ft_chrcmp('\'', token)
-			&& ft_chrcmp('\"', token))
+			|| ft_chrcmp('\"', token))
 		{
-			str = no_mem(ft_substr(token, 1, size - 2));
-			if (token[0] == '\"')
+			str = no_mem(ft_substr(token, 1, size - 1));
+			if (token[0] != '\'')
 				str = str_expander(str, env);
+		}
+		else if (ft_chrcmp('$', token))
+		{
+			str = no_mem(ft_substr(token, 0, size));
+			str = str_expander(str, env);
 		}
 		else
 			str = no_mem(ft_substr(token, 0, size));

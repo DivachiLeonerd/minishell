@@ -16,10 +16,10 @@
 
 //Function to initialize pipes through the structs
 //maybe while doing the tree with heredoc nodes
-t_heredoc *make_heredoc(void)
+t_heredoc	*make_heredoc(void)
 {
 	t_heredoc	*new_heredoc;
-	
+
 	new_heredoc = malloc (sizeof(t_heredoc));
 	if (new_heredoc == NULL)
 	{
@@ -62,9 +62,9 @@ ssize_t	get_heredoc_input(t_tree *node, char *delimiter)
 // close pipes
 void	close_heredocs(t_tree *bintree)
 {
-	t_tree *node;
+	t_tree	*node;
 	t_tree	*right;
-	
+
 	node = bintree;
 	right = node->right_branch;
 	while (node->left_branch != NULL)
@@ -78,7 +78,7 @@ void	close_heredocs(t_tree *bintree)
 			}
 			right = right->right_branch;
 		}
-		if (node->heredoc !=NULL)
+		if (node->heredoc != NULL)
 		{
 			close((bintree->heredoc->pipe_fd)[1]);
 			close((bintree->heredoc->pipe_fd)[0]);

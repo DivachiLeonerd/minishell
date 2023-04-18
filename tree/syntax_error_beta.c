@@ -10,23 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include <string.h>
 #include <stdio.h>
 #include "parser.h"
 
 int	syntax_checker(char *line)
 {
-	int     i;
-	int     j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
 	if (line[0] == '>' || line[0] == '<' || line[0] == '|')
-		return(1);
+		return (1);
 	//also, the last character cant be <, > or >>
-	while(line[i] && j < 3)
+	while (line[i] && j < 3)
 	{
 		i++;
 		if (line[i] == '>' || line[i] == '<' || line[i] == '|')
@@ -41,5 +39,5 @@ int	syntax_checker(char *line)
 		return (0);
 	else
 		return (1);
-	return(0);
+	return (0);
 }

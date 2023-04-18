@@ -27,7 +27,11 @@ char	**cd (char *pathname, char **envp) // depois temos que usar getcwd() para m
 		free(old_pwd);
 		return (envp);
 	}
-	ret = chdir(pathname);
+	printf("%s\n", pathname);
+	if (ft_strncmp(pathname, "..", 2) == 0)
+		ret = chdir("../");
+	else
+		ret = chdir(pathname);
 	if (!ret)
 	{
 		temp = ft_strjoin("OLDPWD=", old_pwd);

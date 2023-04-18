@@ -1,16 +1,14 @@
 #ifndef PARSER_H
 # define PARSER_H
 
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include "../define.h"
+# include "../libft/libft.h"
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "../define.h"
-#include "../libft/libft.h"
-
-
-#define LEFT 1
-#define RIGHT 2
+# define LEFT 1
+# define RIGHT 2
 
 t_tree		*node_creator(int id);
 void		create_top_node(t_tree **tree, t_tree *node);
@@ -30,7 +28,6 @@ int			syntax_checker(char *line);
 void		*no_mem(void *p);
 char		*str_expander(char *s, char **env);
 void		free_tree(t_tree *bintree);
-t_tree  	*find_topof_tree(t_tree *bintree);
+t_tree		*find_topof_tree(t_tree *bintree);
 // void		close_heredocs(t_heredoc **all_heredocs);
 #endif
-

@@ -19,7 +19,7 @@ OBJS:=
 OBJS_built-in:=
 #OBJS_T :=
 CC := cc
-CFLAGS := -g -fsanitize=address -Wall -Wextra -Werror 
+CFLAGS := -g -Wall -Wextra -Werror #-fsanitize=address
 RM := rm -f
 
 all:minishell

@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include "../minishell.h"
 
-t_tree *parser_init(char *s, char ***env)
+t_tree	*parser_init(char *s, char ***env)
 {
 	t_tree			*bintree;
 	char			**tokens;

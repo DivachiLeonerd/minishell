@@ -63,9 +63,13 @@ int	piping(int *pid, int **pipe_fd, int num_of_pipes, int index)
 	{
 		// printf("in piping():I'm process %d. Im piping %d[0] to stdin and [index][1] to stdout\n", index, index);
 		if (index > 0)
+		{
 			dup2(pipe_fd[index - 1][0], STDIN_FILENO); // STDIN of a i process is the read part of pipe connecting it to process i - 1
+		}
 		if (index < num_of_pipes)
+		{
 			dup2(pipe_fd[index][1], STDOUT_FILENO); // process is writing to pipe instead of stdout	
+		}
 		// I need to do error checking
 	}
 	return (0);

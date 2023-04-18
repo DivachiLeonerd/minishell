@@ -54,7 +54,9 @@ char	**add_argstoken(char **args, char *token)
 		i++;
 	}
 	new_args[i] = ft_strdup(token);
+
 	new_args[++i] = NULL;
+
 	if (size)
 		free_matrix(args);
 	return (new_args);
@@ -63,6 +65,7 @@ char	**add_argstoken(char **args, char *token)
 static void	addtoken_heredoc(char **env, char **tokens,
 	int *controller, t_tree *last_node)
 {
+	printf("here controller is: %d\n", *controller);
 	char	*token;
 
 	token = token_updater(tokens, env, controller);
@@ -75,6 +78,11 @@ static void	addtoken_heredoc(char **env, char **tokens,
 
 static void	addtoken_words(char *token, t_tree *last_node)
 {
+	if (!last_node)
+	{
+		perror("Command not found");
+		return ;
+	}
 	last_node->args = add_argstoken(last_node->args, token);
 	return ;
 }
@@ -102,6 +110,7 @@ t_tree	*addtoken_to_tree(char **env, char **tokens)
 		if (tokentype == BUILTIN || tokentype == EXECUTABLE)
 			last_node->args = add_argstoken(last_node->args, token);
 		free(token);
+		//controller += 1;
 	}
 	return (last_node);
 }

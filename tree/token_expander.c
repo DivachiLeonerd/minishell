@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_expander.c                                     :+:      :+:    :+:   */
+/*   token_expander.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbuny-fe <jbuny-fe@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,29 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "parser.h"
 #include "../built-ins/built-ins.h"
 #include "../define.h"
 
-static int      word_size(char *s)
+char	*join_tokens(char *s1, char *s2, int i)
 {
-	int     i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == '$')
-			return i;
-		i++;
-	}
-	return i;
-}
-
-
-char *join_tokens(char *s1, char *s2, int i)
-{
-	char    *new;
+	char	*new;
 
 	new = NULL;
 	if (s1 && s2)
@@ -46,15 +30,11 @@ char *join_tokens(char *s1, char *s2, int i)
 //expands string wrapped in double quotes and with a '$'
 char	*str_expander(char *s, char **env)
 {
-	char	*token;
 	size_t	size;
-	int		i;
 	char	*temp;
 	char	**full_name;
 
-	token = NULL;
 	temp = NULL;
-	i = 0;
 	if (!s)
 	{
 		perror("What a grave mistake in str_expander()");
@@ -63,20 +43,18 @@ char	*str_expander(char *s, char **env)
 	}
 	if (ft_strlen(s) == 1 && s[0] == '$')
 		return (s);
-	i = word_size(s);
-	if (s[i] == '$')
+	size = ft_strlen(s);
+	if (s[0] == '$')
 	{
-		token = ft_substr(token,0, i);//token ="ola"
-		size = ft_strlen(&(s[i]));//strlen do "PWD"
-		temp = ft_substr(s, i, size);//token = "PWD"
+		temp = ft_substr(s, 0, size);//token = "PWD"
 		full_name = find_env_full_var(temp, env);//full_name = "PWD=./"
+		//printf("%p\n", *full_name);
 		free(temp);
 		if (!full_name)
-			return (token);
-		temp = ft_substr(*full_name, size, ft_strlen(*full_name) - size - 1);
-		token = ft_strjoin(token, temp);
-		free(temp);
-		return (token);
+			return (NULL);
+		temp = ft_substr(*full_name, size, ft_strlen(*full_name) - size);
+		free(s);
+		return (temp);
 	}
 	return (s);
 }

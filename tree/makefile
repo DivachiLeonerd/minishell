@@ -15,7 +15,7 @@ HEADER := -I./ -I../ -I../
 LIB:= -L./built-ins -lbuilt-in -L../ -lft
 TREE_OBJS:= parser_init.o parser_utils.o token_expander.o token_manager.o token_updater.o syntax_error_beta.o heredoc.o  tree_building.o tree_building_cond.o tree_utils.o
 CC := cc
-CFLAGS := -g -Wall -Wextra -Werror -fsanitize=address
+CFLAGS := -g -Wall -Wextra -Werror #-fsanitize=address
 RM := rm -f
 
 all: ${NAME}

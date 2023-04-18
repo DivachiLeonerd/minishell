@@ -46,7 +46,7 @@ char **find_env_full_var(char *message, char **envp)
 	var_name = get_variable_name(message);
 	while (envp[i])
 	{
-		if (ft_strncmp(envp[i], var_name, ft_strlen(var_name)) == 0)
+		if (ft_strncmp(envp[i], &(var_name[1]), ft_strlen(var_name) - 1) == 0)
 			break ;
 		i++;
 	}

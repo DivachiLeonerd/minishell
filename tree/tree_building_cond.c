@@ -27,14 +27,17 @@ t_tree	*pipes_cond(int tokentype, t_tree *last_node, t_tree *node)
 	}
 	return (node);
 }
+
 //REDIRECTS
 t_tree	*redir_cond(t_tree *last_node, t_tree *node)
 {
 	//if tokentype != REDIR but last token == REDIR
-	if (!REDIR && (last_node->tokentype == I_REDIR || last_node->tokentype == O_REDIR))
+	if (!REDIR && (last_node->tokentype == I_REDIR
+			|| last_node->tokentype == O_REDIR))
 	{
 		//go back in the tree until last_node == COMMAND
-		while (!(last_node->tokentype == I_REDIR || last_node->tokentype == O_REDIR))
+		while (!(last_node->tokentype == I_REDIR
+				|| last_node->tokentype == O_REDIR))
 			last_node = last_node->back;
 		//if there's a pipe behind the command, go back
 		if (last_node->back != NULL && last_node->back->tokentype == PIPE)

@@ -14,17 +14,26 @@
 #include "../built-ins/piping.h"
 #include "../define.h"
 
+void	i_dont_know_dude(int tokentype, t_tree *node)
+{
+	(void)node;
+	if (tokentype == WORD)
+	{
+		chad_exitstatus = 10;
+		perror("command cannot be found");
+		node = NULL;
+		return ;
+	}
+}
+
 t_tree	*add_to_tree(int tokentype, t_tree *last_node)
 {
+	t_tree			*node;
 	//this function should be called repeatedly with a different token and tokentype
 	//I should add nodes with the tokentype and connect the nodes
 	//this is coming from the end of the tree to the beggining
-	t_tree			*node;
-
 	if (tokentype == -1)
-	{
 		return (last_node);
-	}
 	node = malloc(sizeof(t_tree));
 	node->back = NULL;
 	node->tokentype = tokentype;
@@ -38,28 +47,18 @@ t_tree	*add_to_tree(int tokentype, t_tree *last_node)
 		node = pipes_cond(tokentype, last_node, node);
 	}
 	else
-	{
-		if (tokentype == WORD)
-		{
-			chad_exitstatus = 10;
-			perror("command cannot be found");
-			free(node);
-			node = NULL;
-			return (NULL);
-		}
-	}
+		i_dont_know_dude(tokentype, node);
 	return (node);
 }
 
 int	check_direction(int direction, t_tree *node)
 {
-	
-	if (direction == LEFT)//left side
+	if (direction == LEFT) //left side
 	{
 		if (node->left_branch != NULL)
 			return (0);
 	}
-	if (direction == RIGHT)//right side
+	if (direction == RIGHT) //right side
 	{
 		if (node->right_branch != NULL)
 			return (0);
@@ -67,7 +66,7 @@ int	check_direction(int direction, t_tree *node)
 	return (1);
 }
 
-static void free_node(t_tree *node)
+static void	free_node(t_tree *node)
 {
 	// if (node->heredoc)
 	// {
@@ -88,7 +87,7 @@ void	free_tree(t_tree *bintree)
 
 	if (!bintree)
 		return ;
-	while (bintree->back != NULL)//tries to find the first position of the tree
+	while (bintree->back != NULL) //tries to find the first position of the tree
 		bintree = bintree->back;
 	node = bintree;
 	while (node->left_branch != NULL)

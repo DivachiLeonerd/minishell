@@ -25,7 +25,7 @@ ENV_OBJS:=./env/env.o
 EXIT_OBJS:=./exit/exit.o
 BUILTIN_HELPER:= built-in_helper.o realloc_env_aux.o parser_utils.o executer.o not_built-in_exec.o  piping.o piping_aux.o redirections.o redirectto_mypipe.o
 CC := cc
-CFLAGS := -g -Wall -Wextra -Werror -fsanitize=address
+CFLAGS := -g -Wall -Wextra -Werror #-fsanitize=address
 RM := rm -f
 
 all: ${NAME}
