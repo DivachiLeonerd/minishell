@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_expander.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbuny-fe <jbuny-fe@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:59 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/02/02 11:23:02 by jbuny-fe         ###   ########.fr       */
+/*   Updated: 2023/04/18 23:15:58 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ char	*str_expander(char *s, char **env)
 	size_t	size;
 	char	*temp;
 	char	**full_name;
+	int		i;
 
+	i = 0;
 	temp = NULL;
 	if (!s)
 	{
@@ -44,9 +46,11 @@ char	*str_expander(char *s, char **env)
 	if (ft_strlen(s) == 1 && s[0] == '$')
 		return (s);
 	size = ft_strlen(s);
-	if (s[0] == '$')
+	if (s[0] == '\"')
+		i++;
+	if (s[i] == '$')
 	{
-		temp = ft_substr(s, 0, size);//token = "PWD"
+		temp = ft_substr(s, i, size);//token = "PWD"
 		full_name = find_env_full_var(temp, env);//full_name = "PWD=./"
 		//printf("%p\n", *full_name);
 		free(temp);
@@ -54,6 +58,7 @@ char	*str_expander(char *s, char **env)
 			return (NULL);
 		temp = ft_substr(*full_name, size, ft_strlen(*full_name) - size);
 		free(s);
+		printf("str_expander():%s\n", temp);
 		return (temp);
 	}
 	return (s);

@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:59 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/16 14:14:31 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/18 23:02:20 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	get_token_type(char *token, char **myenvp)
 		aux = find_command_path(myenvp, token);
 	if (aux)
 	{
-		// printf("in get_tokentype():%s\n", aux);
 		free(aux);
 		return (EXECUTABLE);
 	}
