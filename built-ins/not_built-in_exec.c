@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:10:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/18 19:37:44 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/18 22:58:39 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,24 @@ static void	free_all_paths(char **all_paths)
 	return ;
 }
 
-static char	*fix_bin(char *command)
-{
-	char	**split;
-	int		size;
-	int		i;
-	char	*temp;
+// static char	*fix_bin(char *command)
+// {
+// 	char	**split;
+// 	int		size;
+// 	int		i;
+// 	char	*temp;
 
-	i = 0;
-	split = ft_split(command, '/');
-	size = how_many_arrays(split);
-	temp = ft_strdup(split[size - 1]);
-	printf("temp in fix bin: %s\n", temp);
-	while (split[i])
-		free(split[i++]);
-	free(split[i]);
-	free(split);
-	return (temp);
-}
+// 	i = 0;
+// 	split = ft_split(command, '/');
+// 	size = how_many_arrays(split);
+// 	temp = ft_strdup(split[size - 1]);
+// 	printf("temp in fix bin: %s\n", temp);
+// 	while (split[i])
+// 		free(split[i++]);
+// 	free(split[i]);
+// 	free(split);
+// 	return (temp);
+// }
 
 char	*find_command_path(char **myenvp, char *command)
 {
@@ -49,12 +49,18 @@ char	*find_command_path(char **myenvp, char *command)
 	char	*command_path;
 	char	*temp;
 
+	//nota: Nao podemos dar return ao command nunca
 	i = 0;
 	if (command[0] == '/')
 	{
-		temp = fix_bin(command);
-		printf("temp:%s\n", temp);
-		return (temp);
+		temp = ft_strdup(command);
+		if (access(temp, F_OK) == 0)
+		{
+			if (access(temp, X_OK) == 0)
+				return (temp);
+		}
+		free(temp);
+		return (temp = NULL);
 	}
 	else if (command[0] == '.' && command[1] == '/')
 	{
@@ -73,7 +79,6 @@ char	*find_command_path(char **myenvp, char *command)
 		i++;
 	all_paths = ft_split(myenvp[i], ':');
 	i = 0;
-	// free(command);
 	while (all_paths[i])
 	{
 		command_path = ft_strjoin(all_paths[i], temp);
