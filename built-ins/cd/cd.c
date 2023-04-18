@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:19:20 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/03 16:02:32 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/18 15:04:06 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@ char	**cd (char *pathname, char **envp) // depois temos que usar getcwd() para m
 	
 	ret = 1;
 	old_pwd = getcwd(NULL, 0);
-	printf("IN CD()\nmyenvp:%p\n",envp);
 	if (!old_pwd)
 	{
 		free(old_pwd);
 		return (envp);
 	}
-	printf("%s\n", pathname);
+	printf("in CD:pathname:%s\n", pathname);
 	if (ft_strncmp(pathname, "..", 2) == 0)
 		ret = chdir("../");
 	else

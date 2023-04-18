@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:10:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/16 19:45:29 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/18 19:37:44 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,26 @@ static void	free_all_paths(char **all_paths)
 	return ;
 }
 
-char *find_command_path(char **myenvp, char *command)
+static char	*fix_bin(char *command)
+{
+	char	**split;
+	int		size;
+	int		i;
+	char	*temp;
+
+	i = 0;
+	split = ft_split(command, '/');
+	size = how_many_arrays(split);
+	temp = ft_strdup(split[size - 1]);
+	printf("temp in fix bin: %s\n", temp);
+	while (split[i])
+		free(split[i++]);
+	free(split[i]);
+	free(split);
+	return (temp);
+}
+
+char	*find_command_path(char **myenvp, char *command)
 {
 	int		i;
 	char	**all_paths;
@@ -31,15 +50,34 @@ char *find_command_path(char **myenvp, char *command)
 	char	*temp;
 
 	i = 0;
+	if (command[0] == '/')
+	{
+		temp = fix_bin(command);
+		printf("temp:%s\n", temp);
+		return (temp);
+	}
+	else if (command[0] == '.' && command[1] == '/')
+	{
+		temp = ft_strdup(command);
+		printf("in find_command_path:%s\n", temp);
+		if (access(temp, F_OK) == 0)
+		{
+			if (access(temp, X_OK) == 0)
+				return (temp);
+		}
+		return (temp);
+	}
+	else
+		temp = ft_strjoin("/", command);
 	while (ft_strncmp("PATH=", myenvp[i], 4) != 0)
 		i++;
 	all_paths = ft_split(myenvp[i], ':');
 	i = 0;
-	temp = ft_strjoin("/", command);
+	// free(command);
 	while (all_paths[i])
 	{
 		command_path = ft_strjoin(all_paths[i], temp);
-		if (access(command_path, F_OK) == 0 && !ft_strnstr(command_path, "./", ft_strlen(command_path)))
+		if (access(command_path, F_OK) == 0 && ft_strnstr(command_path, "..", ft_strlen(command_path)) == 0)
 		{
 			// printf("o comando existe\n");
 			if (access(command_path, X_OK) == 0)
