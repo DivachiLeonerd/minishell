@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 10:16:20 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/19 20:13:43 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/19 22:23:26 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	**ft_divide_tokens(char const *s, char c)
 	char	*str;
 	size_t	i;
 
-	dst = (char **)malloc(sizeof(char *) * (size_t)(char_counter(s, c) + 1));//o problema estava aqui *facepalm*
+	dst = (char **)malloc(sizeof(char *) * (char_counter(s, c) + 1));
 	if (!dst)
 		return (0);
 	i = 0;
@@ -53,15 +53,15 @@ char	**ft_divide_tokens(char const *s, char c)
 	{
 		if (*s == '\"' || *s == '\'')
 		{
+			s++;
 			str = (char *)s;
-			while (*s && (*s != '\"' || *s != '\''))
-			{
+			while (*s && (*s != '\"' && *s != '\''))
 				s++;
-			}
 			dst[i] = (char *)malloc(s - str + 1);
 			if (!dst)
 				return (0);
 			ft_strlcpy(dst[i++], str, s - str + 1);
+			s++;
 		}
 		else if (*s != c)
 		{

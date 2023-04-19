@@ -6,7 +6,7 @@
 #    By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/10 17:21:03 by atereso-          #+#    #+#              #
-#    Updated: 2023/04/19 19:32:40 by atereso-         ###   ########.fr        #
+#    Updated: 2023/04/19 23:25:13 by atereso-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,20 +24,20 @@ RM = rm -f
 all: bonus
 
  $(NAME): ${OBJS}
-		${LIB} ${NAME} ${OBJS}
+		@${LIB} ${NAME} ${OBJS}
 
 bonus: ${OBJS} ${BONUS_OBJS}
-		${LIB} ${NAME} ${OBJS} ${BONUS_OBJS}
+		@${LIB} ${NAME} ${OBJS} ${BONUS_OBJS}
 
 .c.o:
-	${CC} ${FLAGS} -c $< -o ${<:.c=.o} ${HEADER}
+	@${CC} ${FLAGS} -c $< -o ${<:.c=.o} ${HEADER}
 
 clean:
-	${RM} ${OBJS}
-	${RM} ${BONUS_OBJS}
+	@${RM} ${OBJS}
+	@${RM} ${BONUS_OBJS}
 
 fclean: clean
-	${RM} ${NAME}
+	@${RM} ${NAME}
 
 re: fclean all
 

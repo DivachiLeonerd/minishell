@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 18:23:07 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/30 10:39:48 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/19 22:26:28 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 char	*ft_pwd(void)
 {
 	char	*pwd;
-
 
 	pwd = getcwd(NULL, 0);
 	return (pwd);

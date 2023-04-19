@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/19 17:24:02 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/19 21:53:08 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,17 @@ char	*print_prompt(void)
 {
 	char	*pwd;
 	char	*aux;
-
+	
 	pwd = ft_pwd();
 	printf("\033[1;32m");
 	printf(PROMPT);
 	printf("\033[1;34m");
-	printf("%s$",pwd);
-	printf("\033[0m");
+	if (ft_strncmp(pwd, "/home/afonso", ft_strlen(pwd)) == 0)
+	{
+		free(pwd);
+		pwd = ft_strdup("~");
+	}
+	printf("%s\033[0m$", pwd);
 	aux = readline(" ");
 	free(pwd);
 	return (aux);

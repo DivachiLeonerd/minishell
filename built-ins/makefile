@@ -6,7 +6,7 @@
 #    By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 10:45:02 by afonso            #+#    #+#              #
-#    Updated: 2023/04/18 15:39:32 by atereso-         ###   ########.fr        #
+#    Updated: 2023/04/19 23:11:51 by atereso-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,53 +29,53 @@ CFLAGS := -g -Wall -Wextra -Werror -fsanitize=address
 RM := rm -f
 
 all: ${NAME}
-	mv built-in_objs/${NAME} ./
+	@mv built-in_objs/${NAME} ./
 
 ${NAME}: ftecho ftcd ftpwd ftexport ftunset ftenv  fthelper ftexit ../tree/parser_utils.o
-	mv ../tree/parser_utils.o built-in_objs
-	cd built-in_objs && ar rcs ${NAME} ${ALL_OBJS} ${BUILTIN_HELPER}
+	@mv ../tree/parser_utils.o built-in_objs
+	@cd built-in_objs && ar rcs ${NAME} ${ALL_OBJS} ${BUILTIN_HELPER}
 testb: all
-	${CC}  tester.c -g -fsanitize=address ${HEADER} ${LIB} -o tester
+	@${CC}  tester.c -g -fsanitize=address ${HEADER} ${LIB} -o tester
 
 ftecho:
-	${CC} ${CFLAGS} echo/echo.c -c
-	mv echo.o ./built-in_objs
+	@${CC} ${CFLAGS} echo/echo.c -c
+	@mv echo.o ./built-in_objs
 
 ftcd:
-	${CC} ${CFLAGS} cd/cd.c  -c
-	mv cd.o ./built-in_objs
+	@${CC} ${CFLAGS} cd/cd.c  -c
+	@mv cd.o ./built-in_objs
 
 ftpwd:
-	${CC} ${CFLAGS} pwd/pwd.c  -c
-	mv pwd.o ./built-in_objs
+	@${CC} ${CFLAGS} pwd/pwd.c  -c
+	@mv pwd.o ./built-in_objs
 
 ftexport:
-	${CC} ${CFLAGS} export/export.c  -c
-	mv export.o ./built-in_objs
+	@${CC} ${CFLAGS} export/export.c  -c
+	@mv export.o ./built-in_objs
 
 ftunset:
-	${CC} ${CFLAGS} unset/unset.c  -c
-	mv unset.o ./built-in_objs
+	@${CC} ${CFLAGS} unset/unset.c  -c
+	@mv unset.o ./built-in_objs
 
 ftenv:
-	${CC} ${CFLAGS} env/env.c  -c
-	mv env.o ./built-in_objs
+	@${CC} ${CFLAGS} env/env.c  -c
+	@mv env.o ./built-in_objs
 
 ftexit:
-	${CC} ${CFLAGS} exit/ft_exit.c -c
-	mv ft_exit.o ./built-in_objs
+	@${CC} ${CFLAGS} exit/ft_exit.c -c
+	@mv ft_exit.o ./built-in_objs
 
 fthelper: 
-	${CC} ${CFLAGS} not_built-in_exec.c realloc_env_aux.c executer.c built-in_helper.c piping.c piping_aux.c redirections.c redirectto_mypipe.c -c
-	mv *.o ./built-in_objs
+	@${CC} ${CFLAGS} not_built-in_exec.c realloc_env_aux.c executer.c built-in_helper.c piping.c piping_aux.c redirections.c redirectto_mypipe.c -c
+	@mv *.o ./built-in_objs
 
 clean:
-	rm -f *.o
-	cd built-in_objs && rm -rf *.o
+	@rm -f *.o
+	@cd built-in_objs && rm -rf *.o
 	
 
 fclean:clean
-	${RM} libbuilt-in.a
-	${RM} tester
-	${RM} *.out
+	@${RM} libbuilt-in.a
+	@${RM} tester
+	@${RM} *.out
 .PHONY: ftecho, ftpwd, ftexport, ftunset, ftenv, ftexit, clean

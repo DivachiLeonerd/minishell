@@ -6,7 +6,7 @@
 #    By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/15 15:45:01 by afonso            #+#    #+#              #
-#    Updated: 2023/04/18 15:40:13 by atereso-         ###   ########.fr        #
+#    Updated: 2023/04/19 23:45:14 by atereso-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,36 +22,37 @@ CC := cc
 CFLAGS := -g -Wall -Wextra -Werror -fsanitize=address
 RM := rm -f
 
-all:minishell
-
+all: minishell
+	printf("Its done")
 libft.a:
-	${MAKE} -C ./libft/ all && cd ./libft && mv libft.a ../
+	@${MAKE} -C ./libft/ all && cd ./libft && mv libft.a ../
 
 libbuilt-in.a:
-	${MAKE} -C ./built-ins all && cd ./built-ins && mv libbuilt-in.a ../
+	@${MAKE} -C ./built-ins all && cd ./built-ins && mv libbuilt-in.a ../
 
 libtree.a:
-	${MAKE} -C ./tree all && cd ./tree && mv libtree.a ../
+	@${MAKE} -C ./tree all && cd ./tree && mv libtree.a ../
 	
 minishell: built-in tree
-	${CC} ${CFLAGS} ${NAME}.c ${OBJS} ${HEADER} -o ${NAME}
-	mv *.o ./Objects
+	@${CC} ${CFLAGS} ${NAME}.c ${OBJS} ${HEADER} -o ${NAME}
+	@mv *.o ./Objects
 
 test: libbuilt-in.a libtree.a libft.a
-	${CC} ${CFLAGS} teste.c ${LIB} ${HEADER} -o minitester
+	@${CC} ${CFLAGS} teste.c ${LIB} ${HEADER} -o minitester
 	
 clean:
-	${RM} *.o
-	${MAKE} -C ./built-ins/ clean
-	${MAKE} -C ./tree/ clean
-	${MAKE} -C ./libft/ clean
+	@${RM} *.o
+	@${MAKE} -C ./built-ins/ clean
+	@${MAKE} -C ./tree/ clean
+	@${MAKE} -C ./libft/ clean
 
 fclean: clean
-	${RM} minishell
-	${RM} minitester
-	${RM} *.a
+	@${RM} minishell
+	@${RM} minitester
+	@${RM} *.a
 
 re: fclean test
-	make clean
+	${MAKE} -s clean
+	printf "Its done\n"
 
  .PHONY:linux test fclean clean re

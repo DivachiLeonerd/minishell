@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:35 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/19 20:23:53 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/19 22:28:59 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,11 @@ t_tree	*parser_init(char *s, char ***env)
 {
 	t_tree			*bintree;
 	char			**tokens;
-	// int				i;
+
 	bintree = NULL;
 	if (syntax_checker(s) != 0)
 		return (NULL);
 	tokens = ft_divide_tokens(s, ' ');
-	// i = 0;
-	// while (tokens[i])
-	// {
-	// 	printf("%s\n", tokens[i]);
-	// 	i++;
-	// }
 	bintree = addtoken_to_tree(*env, tokens);
 	// printf("%s\n", bintree->args[0]);
 	// printf("%s\n", bintree->args[1]);
