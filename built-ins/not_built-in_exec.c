@@ -6,11 +6,12 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:10:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/18 23:23:09 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/19 12:47:25 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "built-ins.h"
+#include "../minishell.h"
 
 static void	free_all_paths(char **all_paths)
 {
@@ -48,6 +49,7 @@ char	*find_command_path(char **myenvp, char *command)
 	char	**all_paths;
 	char	*command_path;
 	char	*temp;
+	struct stat buff;
 
 	//nota: Nao podemos dar return ao command nunca
 	i = 0;
@@ -57,7 +59,11 @@ char	*find_command_path(char **myenvp, char *command)
 		if (access(temp, F_OK) == 0)
 		{
 			if (access(temp, X_OK) == 0)
-				return (temp);
+			{
+				stat(temp, &buff);
+				if (S_ISREG(buff.st_mode))
+					return (temp);
+			}
 		}
 		free(temp);
 		return (temp = NULL);
