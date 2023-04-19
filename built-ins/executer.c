@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:44:37 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/19 17:45:11 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/19 18:12:49 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_builtin(char *command)
 	return (0);
 }
 
-void	execute_builtin(char *command, char **myenvp, char **args)
+void	execute_builtin(char *command, char **myenvp __attribute__((unused)), char **args)
 {
 	char *str;
 

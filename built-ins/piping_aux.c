@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/19 17:48:03 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/19 18:11:42 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,8 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid,
 		{
 			if (ft_strncmp("cd", node->args[0], ft_strlen("cd")) == 0)
 				*myenvp = cd(node->args[1], *myenvp);
-			if (ft_strncmp("env", node->args[0], ft_strlen("env")) == 0)
-				env(*myenvp);
 			if (ft_strncmp("unset", node->args[0], ft_strlen("unset")) == 0)
-				unset(&(node->args[1]), *myenvp);
+				*myenvp = unset(&(node->args[1]), *myenvp);
 			if (ft_strncmp("export", node->args[0], ft_strlen("export")) == 0)
 				*myenvp = export(&(node->args[1]), *myenvp);
 		}

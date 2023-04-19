@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:10:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/19 12:47:25 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/19 18:22:58 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*find_command_path(char **myenvp, char *command)
 
 	//nota: Nao podemos dar return ao command nunca
 	i = 0;
-	if (command[0] == '/')
+	if (command[0] == '.' || command[0] == '/')
 	{
 		temp = ft_strdup(command);
 		if (access(temp, F_OK) == 0)
@@ -67,17 +67,6 @@ char	*find_command_path(char **myenvp, char *command)
 		}
 		free(temp);
 		return (temp = NULL);
-	}
-	else if (command[0] == '.' && command[1] == '/')
-	{
-		temp = ft_strdup(command);
-		printf("in find_command_path:%s\n", temp);
-		if (access(temp, F_OK) == 0)
-		{
-			if (access(temp, X_OK) == 0)
-				return (temp);
-		}
-		return (temp);
 	}
 	else
 		temp = ft_strjoin("/", command);
