@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:24:02 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/18 22:54:42 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/19 17:38:35 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ char    *token_updater(char **tokens, char **env, int *var)
 	int				size;
 	char			*str;
 	char			*token;
-	
 	
 	token = tokens[*var];
 	size = get_size(token);

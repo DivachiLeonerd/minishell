@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/16 14:25:46 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/19 17:24:02 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int	main(int argc, char **argv, char **envp)
 	i = 1;
 	(void)argc;
 	(void)argv;
-
 	myenvp = build_envp(envp);
 	command_line = NULL;
 	//returns a empty string, which is different from a NULL
@@ -93,7 +92,11 @@ int	main(int argc, char **argv, char **envp)
 		while (1)
 		{
 			command_line = print_prompt();
-			
+			if (!command_line)
+			{
+				printf("exit\n");
+				exit(0);
+			}
 			if (command_line[0] == '\0')
 				free(command_line);
 			else
