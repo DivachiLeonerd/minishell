@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:43:55 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/16 16:45:03 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/20 16:53:21 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,20 @@ t_tree *find_command_node(int index, t_tree *bintree)
 			i++;
 		else if (PIPE)
 		{
-			if (node->right_branch->tokentype == BUILTIN
-				|| node->right_branch->tokentype == EXECUTABLE)
+			if (node->right_branch)
 			{
-				i++;
-				if (i == index)
-					return (node->right_branch);
+				if (node->right_branch->tokentype == BUILTIN
+					|| node->right_branch->tokentype == EXECUTABLE)
+				{
+					i++;
+					if (i == index)
+						return (node->right_branch);
+				}
+			}
+			else
+			{
+				chad_exitstatus = 2;
+				return (NULL);
 			}
 		}
 		if (node->back != NULL && i < index)

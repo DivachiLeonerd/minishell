@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 17:52:15 by atereso-          #+#    #+#             */
-/*   Updated: 2023/04/19 21:53:39 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/20 11:35:01 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ static void	nintrv_signal_handler(int sig_num)
 {
 	if (sig_num == SIGQUIT || sig_num == SIGINT)
 	{
-		chad_exitstatus = 130;
-		exit(130);
+		chad_exitstatus = 4;
+		exit(4);
 	}
 }
 

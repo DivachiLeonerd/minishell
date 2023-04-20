@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:23:47 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/19 17:33:53 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/20 15:29:08 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void	addtoken_words(char *token, t_tree *last_node)
 {
 	if (!last_node)
 	{
-		perror("Command not found");
+		chad_exitstatus = 2;
 		return ;
 	}
 	last_node->args = add_argstoken(last_node->args, token);
@@ -110,6 +110,10 @@ t_tree	*addtoken_to_tree(char **env, char **tokens)
 		if (tokentype == BUILTIN || tokentype == EXECUTABLE)
 			last_node->args = add_argstoken(last_node->args, token);
 		free(token);
+		// if (chad_exitstatus != 0)
+		// {
+		// 	break ;
+		// }
 	}
 	return (last_node);
 }

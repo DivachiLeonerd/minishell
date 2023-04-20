@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/19 18:11:42 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/20 16:58:21 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,15 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid,
 			// if (return_righttokenid(node) == HEREDOC)
 			//heredoc?
 			// j = i;
-			if (is_builtin((node->args)[0]))
-				execute_builtin((node->args)[0], *myenvp, node->args);
+			if (node)
+			{
+				if (is_builtin((node->args)[0]))
+					execute_builtin((node->args)[0], *myenvp, node->args);
+				else
+					execute_non_builtin((node->args)[0], *myenvp, node->args);
+			}
 			else
-				execute_non_builtin((node->args)[0], *myenvp, node->args);
+				exit(EXIT_FAILURE);
 		}
 		i++;
 	}
@@ -114,6 +119,5 @@ char	**make_pipes(t_tree *bintree, char **myenvp)
 	myenvp = run_pipes(numof_pipes, bintree, pid, &myenvp);
 	free_utils(pipe_fd, numof_pipes);
 	free(pid);
-	// wait_for_children(pid, numof_pipes);
 	return (myenvp);
 }

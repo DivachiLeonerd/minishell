@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/16 14:14:07 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/20 09:34:02 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,18 @@ void	i_dont_know_dude(int tokentype, t_tree *node)
 	(void)node;
 	if (tokentype == WORD)
 	{
-		chad_exitstatus = 10;
-		perror("command cannot be found");
+		chad_exitstatus = 2;
 		node = NULL;
 		return ;
 	}
 }
 
+//this function should be called repeatedly with a different token and tokentype
+//I should add nodes with the tokentype and connect the nodes
+//this is coming from the end of the tree to the beggining
 t_tree	*add_to_tree(int tokentype, t_tree *last_node)
 {
 	t_tree			*node;
-	//this function should be called repeatedly with a different token and tokentype
-	//I should add nodes with the tokentype and connect the nodes
-	//this is coming from the end of the tree to the beggining
 	if (tokentype == -1)
 		return (last_node);
 	node = malloc(sizeof(t_tree));
@@ -40,7 +39,6 @@ t_tree	*add_to_tree(int tokentype, t_tree *last_node)
 	node->args = NULL;
 	node->left_branch = NULL;
 	node->right_branch = NULL;
-	// printf("In add_to_tree():adding a node of %d tokentype value\n", node->tokentype);
 	if (last_node)
 	{
 		node = redir_cond(last_node, node);

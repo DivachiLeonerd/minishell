@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:59 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/19 18:16:40 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/20 09:26:58 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,16 @@ char	*str_expander(char *s, char **env)
 		chad_exitstatus = 69420;
 		return (NULL);
 	}
-	if (ft_strlen(s) == 1 && s[0] == '$')
-		return (s);
 	size = ft_strlen(s);
+	if (size == 1 && s[0] == '$')
+		return (s);
+	if (ft_strncmp(s, "$?", 2) == 0)
+	{
+		free(s);
+		s = ft_itoa(chad_exitstatus);
+		printf("s:%s\n", s);
+		return (s);
+	}
 	if (s[0] == '\"')
 		i++;
 	if (s[i] == '$')

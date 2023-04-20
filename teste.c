@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/19 21:53:08 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/20 16:30:34 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	main(int argc, char **argv, char **envp)
 	//returns a empty string, which is different from a NULL
 	while (i)
 	{
+		errno = 0;
 		bintree = NULL;
 		intr_behaviour(&behaviour);
 		while (1)
@@ -116,12 +117,7 @@ int	main(int argc, char **argv, char **envp)
 			bintree = parser_init(command_line, &myenvp);
 			// print_tree_leftbranch(bintree);
 		}
-		if (!bintree)
-		{
-			errno = 30;
-			// perror("Command not found.");
-		}
-		else
+		if (bintree)
 			myenvp = make_pipes(bintree, myenvp);//command_line a ser executado
 		// printf("we got out of make_pipes()\n");
 		free(command_line);
@@ -129,6 +125,9 @@ int	main(int argc, char **argv, char **envp)
 		free_tree(bintree);
 		// puts("tree has been freed");
 		// printf("\n");
+		printf("chad_exitstatus:%d\n", chad_exitstatus);
+		if (chad_exitstatus != 0)
+			printf("%s\n", strerror(chad_exitstatus));
 	}
 	// printf("we left the matrix\n");
 	free_matrix(myenvp);

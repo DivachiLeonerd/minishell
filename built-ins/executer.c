@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:44:37 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/19 18:12:49 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/20 16:56:44 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,24 @@ void	execute_builtin(char *command, char **myenvp __attribute__((unused)), char 
 
 	if (ft_strncmp("echo", command, ft_strlen("echo")) == 0)
 		ft_echo(args);
-	if (ft_strncmp("env", command, ft_strlen("env")) == 0)
+	else if (ft_strncmp("env", command, ft_strlen("env")) == 0)
 		env(myenvp);
-	if (ft_strncmp("cd", command, ft_strlen("cd")) == 0)
+	else if (ft_strncmp("cd", command, ft_strlen("cd")) == 0)
 		myenvp = cd(args[1], myenvp);
-	if (ft_strncmp("pwd", command, ft_strlen("pwd")) == 0)
+	else if (ft_strncmp("pwd", command, ft_strlen("pwd")) == 0)
 	{
 		str = ft_pwd();
 		printf("%s\n", str);
 		free(str);		
 	}
-	if (ft_strncmp("export", command, ft_strlen("export")) == 0)
+	else if (ft_strncmp("export", command, ft_strlen("export")) == 0)
 		myenvp = export(args, myenvp);
-	if (ft_strncmp("unset", command, ft_strlen("unset")) == 0)
+	else if (ft_strncmp("unset", command, ft_strlen("unset")) == 0)
 		myenvp = unset(args, myenvp);
+	else
+	{
+		chad_exitstatus = 2;
+		strerror(chad_exitstatus);
+	}
 	return ;
 }
