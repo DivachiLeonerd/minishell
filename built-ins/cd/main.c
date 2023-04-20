@@ -12,7 +12,7 @@
 
 #include "built-ins.h"
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	char	**myenvp;
 

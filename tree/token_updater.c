@@ -1,23 +1,22 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   token_updater.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 11:24:02 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/20 09:25:31 by atereso-         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   token_updater.c									:+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2023/02/02 11:24:02 by jbuny-fe		  #+#	#+#			 */
+/*   Updated: 2023/04/20 09:25:31 by atereso-		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "../built-ins/built-ins.h"
 #include "../libft/libft.h"
 
-
-static int      nquoted_size(char *s)
+static int	nquoted_size(char *s)
 {
-	int     i;
+	int		i;
 	int		j;
 
 	i = 0;
@@ -33,10 +32,9 @@ static int      nquoted_size(char *s)
 	return (i);
 }
 
-
-static int      quoted_size(char *s)
+static int	quoted_size(char *s)
 {
-	int     i;
+	int		i;
 
 	i = 1;
 	while (s[i])
@@ -48,8 +46,7 @@ static int      quoted_size(char *s)
 	return (0);
 }
 
-
-static int      get_size(char *s)
+static int	get_size(char *s)
 {
 	if (!s)
 		return (0);
@@ -59,12 +56,12 @@ static int      get_size(char *s)
 		return (nquoted_size(s));
 }
 
-char    *token_updater(char **tokens, char **env, int *var)
+char	*token_updater(char **tokens, char **env, int *var)
 {
 	int				size;
 	char			*str;
 	char			*token;
-	
+
 	token = tokens[*var];
 	size = get_size(token);
 	if (size)
@@ -93,4 +90,3 @@ char    *token_updater(char **tokens, char **env, int *var)
 	free (token);
 	return (str);
 }
-

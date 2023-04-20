@@ -11,17 +11,17 @@
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
-#define BUILTINS_H
+# define BUILTINS_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "../define.h"
-#include "../libft/libft.h"
-#include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include "../define.h"
+# include "../libft/libft.h"
+# include <signal.h>
 
 int		ft_echo(char **args);
 char	**find_env_full_var(char *var_name, char **envp);
-char 	*get_variable_name(char *message);
+char	*get_variable_name(char *message);
 char	*ft_pwd(void);
 char	**cd(char *pathname, char **envp);
 int		env(char **envp);
@@ -30,7 +30,8 @@ int		get_env_fd(char **envp);
 int		how_many_arrays(char **double_ptr);
 char	**build_envp(char **envp);
 char	**unset(char **args, char **envp);
-char	**env_realloc(char **envp,char **new_env, int	numof_new_arrays, char *var);
+char	**env_realloc(char **envp, char **new_env, int numof_new_arrays,
+			char *var);
 void	add_var_to_env(char **new_env, char **old_env, char *var);
 char	**replace_env_var(char **env, char *var);
 void	delete_var_from_env(char **new_env, char **old_env, char *var);

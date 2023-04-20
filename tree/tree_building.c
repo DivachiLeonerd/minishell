@@ -31,6 +31,7 @@ void	i_dont_know_dude(int tokentype, t_tree *node)
 t_tree	*add_to_tree(int tokentype, t_tree *last_node)
 {
 	t_tree			*node;
+
 	if (tokentype == -1)
 		return (last_node);
 	node = malloc(sizeof(t_tree));

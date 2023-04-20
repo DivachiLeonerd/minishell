@@ -14,14 +14,15 @@
 #include "../../tree/parser.h"
 #include "../../minishell.h"
 
-char	**cd (char *pathname, char **envp) // depois temos que usar getcwd() para mudar o prompt
+// depois temos que usar getcwd() para mudar o prompt
+char	**cd(char *pathname, char **envp)
 {
-	int	ret;
+	int		ret;
 	char	*old_pwd;
 	char	*pwd;
 	char	*temp;
 	char	*aux;
-	
+
 	ret = 1;
 	old_pwd = getcwd(NULL, 0);
 	if (!old_pwd)

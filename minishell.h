@@ -11,31 +11,31 @@
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
-#include <curses.h>
-#include <term.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <signal.h>
-#include <fcntl.h>
-#include <string.h>
-#include <errno.h>
-#include <dirent.h>
-#include <sys/stat.h>
-#include <sys/ioctl.h>
-#include <termios.h>
-#include <termcap.h>
-#include "./libft/libft.h"
-#include "./tree/parser.h"
-#include "./built-ins/built-ins.h"
-#include "./built-ins/piping.h"
-#include "define.h"
+# include <curses.h>
+# include <term.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <signal.h>
+# include <fcntl.h>
+# include <string.h>
+# include <errno.h>
+# include <dirent.h>
+# include <sys/stat.h>
+# include <sys/ioctl.h>
+# include <termios.h>
+# include <termcap.h>
+# include "./libft/libft.h"
+# include "./tree/parser.h"
+# include "./built-ins/built-ins.h"
+# include "./built-ins/piping.h"
+# include "define.h"
 
 typedef struct s_controller
 {

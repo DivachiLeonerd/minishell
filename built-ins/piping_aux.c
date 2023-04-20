@@ -32,7 +32,7 @@ static void	wait_for_children(int *pid, int i)
 {
 	if (pid[0] == 0)
 		exit(0);
-	if (i > 0 && pid[i - 1] != 0 )
+	if (i > 0 && pid[i - 1] != 0)
 	{
 		wait(NULL);
 	}
@@ -61,12 +61,13 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid,
 {
 	int		i;
 	t_tree	*node;
-	char 	*buf[200];
+	char	*buf[200];
 
 	i = 0;
 	while (i <= numof_pipes)
 	{
-		node = find_command_node(i, bintree);//command index is the position of each command in command line
+		node = find_command_node(i, bintree);
+		//command index is the position of each command in command line
 		if (numof_pipes == 0)
 		{
 			if (ft_strncmp("cd", node->args[0], ft_strlen("cd")) == 0)
@@ -86,7 +87,8 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid,
 			// 	input_redirection(STDIN_FILENO, node);
 			if (return_righttokenid(node) == HEREDOC)
 			{
-				read(node->heredoc->pipe_fd[0], buf,node->heredoc->bytes_stored);
+				read(node->heredoc->pipe_fd[0], buf,
+					node->heredoc->bytes_stored);
 				write(1, buf, node->heredoc->bytes_stored);
 			}
 			// j = i;
@@ -115,7 +117,8 @@ char	**make_pipes(t_tree *bintree, char **myenvp)
 
 	i = 0;
 	numof_pipes = how_many_pipes(bintree);
-	pid = malloc((numof_pipes + 1) * sizeof(int));//if there is 3 processes then we will need only 2 pipes
+	pid = malloc((numof_pipes + 1) * sizeof(int));
+	//if there is 3 processes then we will need only 2 pipes
 	pipe_fd = pipe_creation(numof_pipes);
 	initialize_forking_processes(pid, numof_pipes + 1);
 	while (pipe_fd && i <= numof_pipes)

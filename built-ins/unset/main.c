@@ -15,8 +15,11 @@
 int	main(int argc, char **argv, char **envp)
 {
 	char	**myenvp;
-	char	*name = "MYVAR=afonso";
-	//tip: only the last variable will change unless the program needs to replace a variable
+	char	*name;
+
+	name = "MYVAR=afonso";
+		//tip: only the last variable will change unless the program
+		//needs to replace a variable
 	printf("Building envp copy\n");
 	myenvp = build_envp(envp);
 	printf("\n\nPrinting myenvp....\n\n");

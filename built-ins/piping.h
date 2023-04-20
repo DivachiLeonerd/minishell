@@ -11,16 +11,15 @@
 /* ************************************************************************** */
 
 #ifndef PIPING_H
-#define PIPING_H
+# define PIPING_H
 
-#include "../define.h"
-#include "../libft/libft.h"
-#include <stdint.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <unistd.h>
-
+# include "../define.h"
+# include "../libft/libft.h"
+# include <stdint.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <unistd.h>
 
 int		return_righttokenid(t_tree *command_node);
 t_tree	*find_first_command(t_tree *bintree);

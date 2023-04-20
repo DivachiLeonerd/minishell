@@ -14,10 +14,10 @@
 
 //function that creates all pipes and returns the int**
 
-int **pipe_creation(int how_many_pipes)
+int	**pipe_creation(int how_many_pipes)
 {
-	int **pipe_fd;
-	int i;
+	int	**pipe_fd;
+	int	i;
 
 	i = 0;
 	if (!how_many_pipes)
@@ -32,11 +32,12 @@ int **pipe_creation(int how_many_pipes)
 	return (pipe_fd);
 }
 
-int output_redirection(int fd1, t_tree *node, int token_type)
+int	output_redirection(int fd1, t_tree *node, int token_type)
 {
-	char buf[200];
-	int fd2;
-	ssize_t readbytes;
+	char	buf[200];
+	int		fd2;
+	ssize_t	readbytes;
+
 	if (token_type == O_REDIR)
 		fd2 = open(node->args[0] /*filename*/, O_CREAT, O_WRONLY);
 	else if (token_type == O_APPEND)
@@ -53,6 +54,7 @@ int output_redirection(int fd1, t_tree *node, int token_type)
 	close(fd2);
 	return (0);
 }
+
 // pipe_fd[0] is the read part of the pipe where u read FROM the pipe
 //pipe_fd[1] is the write part of the pipe where u write TO the pipe
 int	piping(int *pid, int **pipe_fd, int num_of_pipes, int index)
@@ -75,10 +77,10 @@ int	piping(int *pid, int **pipe_fd, int num_of_pipes, int index)
 	return (0);
 }
 
-t_tree *find_command_node(int index, t_tree *bintree)
+t_tree	*find_command_node(int index, t_tree *bintree)
 {
-	int i;
-	t_tree *node;
+	int		i;
+	t_tree	*node;
 
 	i = -1;
 	node = find_first_command(bintree);
@@ -110,9 +112,9 @@ t_tree *find_command_node(int index, t_tree *bintree)
 	return (node);
 }
 
-void initialize_forking_processes(int *pid, int numof_processes)
+void	initialize_forking_processes(int *pid, int numof_processes)
 {
-	int i;
+	int	i;
 
 	i = numof_processes - 1;
 	// printf("numof_processes%d\n", numof_processes);
@@ -124,5 +126,5 @@ void initialize_forking_processes(int *pid, int numof_processes)
 			break ;
 		i--;
 	}
-	return;
+	return ;
 }

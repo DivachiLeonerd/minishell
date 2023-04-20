@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	int		*exit_status;
 	pid_t	pid;

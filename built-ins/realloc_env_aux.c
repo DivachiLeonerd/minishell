@@ -14,7 +14,7 @@
 
 void	add_var_to_env(char **new_env, char **old_env, char *var)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (old_env[i])
@@ -29,8 +29,8 @@ void	add_var_to_env(char **new_env, char **old_env, char *var)
 
 char	**replace_env_var(char **env, char *var)
 {
-	int i;
-	char *new_name;
+	int		i;
+	char	*new_name;
 
 	i = 0;
 	new_name = get_variable_name(var);
@@ -49,8 +49,8 @@ char	**replace_env_var(char **env, char *var)
 
 void	delete_var_from_env(char **new_env, char **old_env, char *var)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;

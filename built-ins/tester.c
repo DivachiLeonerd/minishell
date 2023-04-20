@@ -18,7 +18,7 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char **myenvp;
+	char	**myenvp;
 
 	myenvp = build_envp(envp);
 	printf("myenvp:%p\n", myenvp);

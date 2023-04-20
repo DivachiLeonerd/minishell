@@ -15,18 +15,16 @@
 #include <stdio.h>
 #include "../minishell.h"
 
-t_tree *parser_init(char *s, char ***env)
+t_tree	*parser_init(char *s, char ***env)
 {
-	t_tree *bintree;
-	char **tokens;
+	t_tree		*bintree;
+	char		**tokens;
 
 	bintree = NULL;
 	if (syntax_checker(s) != 0)
 		return (NULL);
 	tokens = ft_divide_tokens(s, ' ');
 	bintree = addtoken_to_tree(*env, tokens);
-	// printf("%s\n", bintree->args[0]);
-	// printf("%s\n", bintree->args[1]);
 	bintree = find_topof_tree(bintree);
 	free(tokens);
 	return (bintree);

@@ -12,18 +12,16 @@
 
 #include "../built-ins.h"
 
-
 //echo tem que poder usar a flag "-n" que faz com que echo
 //não printe \n no final da string escrita
 //echo tem de conseguir printar com quotes e single quotes
 //e saber printar env vars se tiverem '$' e todos os ficheiros se tiver '*'.
 
-char *get_variable_name(char *message)
+char	*get_variable_name(char *message)
 {
-	//message: MYVAR=NAME
 	int		i;
 	char	*var_name;
-
+	//message: MYVAR=NAME
 	i = 0;
 	if (!message || message[i] == 0)
 		return (NULL);
@@ -35,13 +33,11 @@ char *get_variable_name(char *message)
 	return (var_name);
 }
 
-char **find_env_full_var(char *message, char **envp)
+char	**find_env_full_var(char *message, char **envp)
 {
-	//message: MYVAR=value
-
 	char	*var_name;
 	int		i;
-
+	//message: MYVAR=value
 	i = 0;
 	var_name = get_variable_name(message);
 	while (envp[i])
@@ -76,7 +72,8 @@ int	ft_echo(char **args)
 		printf("\n");
 		return (0);
 	}
-	if (numberof_args == 2 && ft_strncmp(args[1], "-n", ft_strlen(args[1])) == 0)
+	if (numberof_args == 2 && ft_strncmp(args[1], "-n",
+			ft_strlen(args[1])) == 0)
 		return (0);
 	printf("\033[1;33m");
 	// isto bem feito era ter um array com todas as flags e ver

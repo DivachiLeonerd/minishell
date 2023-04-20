@@ -54,9 +54,7 @@ char	**add_argstoken(char **args, char *token)
 		i++;
 	}
 	new_args[i] = ft_strdup(token);
-
 	new_args[++i] = NULL;
-
 	if (size)
 		free_matrix(args);
 	return (new_args);

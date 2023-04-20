@@ -12,8 +12,8 @@
 
 #include "built-ins.h"
 
-//the purpose of this function will be to receive the binary tree output and put it in the 
-//appropriate functions
+//the purpose of this function will be to receive the binary 
+//tree output and put it in the appropriate functions
 
 int	is_builtin(char *command)
 {
@@ -29,9 +29,10 @@ int	is_builtin(char *command)
 	return (0);
 }
 
-void	execute_builtin(char *command, char **myenvp __attribute__((unused)), char **args)
+void	execute_builtin(char *command, char **myenvp __attribute__((unused)),
+		char **args)
 {
-	char *str;
+	char	*str;
 
 	if (ft_strncmp("echo", command, ft_strlen("echo")) == 0)
 		ft_echo(args);
@@ -43,7 +44,7 @@ void	execute_builtin(char *command, char **myenvp __attribute__((unused)), char 
 	{
 		str = ft_pwd();
 		printf("%s\n", str);
-		free(str);		
+		free(str);
 	}
 	else if (ft_strncmp("export", command, ft_strlen("export")) == 0)
 		myenvp = export(args, myenvp);

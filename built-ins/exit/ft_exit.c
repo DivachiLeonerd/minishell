@@ -19,10 +19,10 @@
 // int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact)
 // int	kill(pid_t pid, int sig)
 
-static void    intrv_signal_handler(int sig_num)
+static void	intrv_signal_handler(int sig_num)
 {
-	char *p;
-	
+	char	*p;
+
 	if (sig_num == SIGINT)
 	{
 		printf("\n");

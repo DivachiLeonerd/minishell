@@ -58,7 +58,8 @@ char	**build_envp(char **envp)
 	return (myenvp);
 }
 
-char	**env_realloc(char **envp,char **new_env, int	numof_new_arrays, char *var)
+char	**env_realloc(char **envp, char **new_env,
+		int numof_new_arrays, char *var)
 {
 	int		len;
 
@@ -88,7 +89,6 @@ void	free_matrix(char **envp)
 
 	j = 0;
 	i = how_many_arrays(envp);
-	
 	while (j < i)
 	{
 		free(envp[j]);
