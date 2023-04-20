@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/20 16:58:21 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/20 19:34:50 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,9 @@ static void	free_utils(int **pipe_fd, int numof_pipes)
 char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid,
 			char ***myenvp)
 {
-	int	i;
-	t_tree *node;
+	int		i;
+	t_tree	*node;
+	char 	*buf[200];
 
 	i = 0;
 	while (i <= numof_pipes)
@@ -83,8 +84,11 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid,
 			// 	output_redirection(STDOUT_FILENO, node->right_branch, O_APPEND);
 			// if (return_righttokenid(node) == I_REDIR)
 			// 	input_redirection(STDIN_FILENO, node);
-			// if (return_righttokenid(node) == HEREDOC)
-			//heredoc?
+			if (return_righttokenid(node) == HEREDOC)
+			{
+				read(node->heredoc->pipe_fd[0], buf,node->heredoc->bytes_stored);
+				write(1, buf, node->heredoc->bytes_stored);
+			}
 			// j = i;
 			if (node)
 			{
@@ -119,5 +123,6 @@ char	**make_pipes(t_tree *bintree, char **myenvp)
 	myenvp = run_pipes(numof_pipes, bintree, pid, &myenvp);
 	free_utils(pipe_fd, numof_pipes);
 	free(pid);
+	chad_exitstatus = 0;
 	return (myenvp);
 }

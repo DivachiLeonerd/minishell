@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:43:55 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/20 16:53:21 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/20 18:41:44 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ t_tree *find_command_node(int index, t_tree *bintree)
 			}
 			else
 			{
-				chad_exitstatus = 2;
+				chad_exitstatus = 127;
 				return (NULL);
 			}
 		}

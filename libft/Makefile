@@ -6,7 +6,7 @@
 #    By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/10 17:21:03 by atereso-          #+#    #+#              #
-#    Updated: 2023/04/20 15:31:46 by atereso-         ###   ########.fr        #
+#    Updated: 2023/04/20 19:37:29 by atereso-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJS = ${SRCS:.c=.o}
 BONUS = ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c
 BONUS_OBJS = ${BONUS:.c=.o}
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -g -Wall -Wextra -Werror
 RM = rm -f
 
 all: bonus

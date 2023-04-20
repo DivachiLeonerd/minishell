@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:23:47 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/20 15:29:08 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/20 19:40:22 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ char	**add_argstoken(char **args, char *token)
 static void	addtoken_heredoc(char **env, char **tokens,
 	int *controller, t_tree *last_node)
 {
-	printf("here controller is: %d\n", *controller);
 	char	*token;
 
 	token = token_updater(tokens, env, controller);
@@ -80,7 +79,7 @@ static void	addtoken_words(char *token, t_tree *last_node)
 {
 	if (!last_node)
 	{
-		chad_exitstatus = 2;
+		chad_exitstatus = 127;
 		return ;
 	}
 	last_node->args = add_argstoken(last_node->args, token);
@@ -101,12 +100,12 @@ t_tree	*addtoken_to_tree(char **env, char **tokens)
 	{
 		token = token_updater(tokens, env, &controller);
 		tokentype = get_token_type(token, env);
-		if (tokentype == HEREDOC)
-			addtoken_heredoc(env, tokens, &controller, last_node);
-		else if (tokentype == WORD)
+		if (tokentype == WORD)
 			addtoken_words(token, last_node);
 		else if (NODE_WORTHY)
 			last_node = add_to_tree(tokentype, last_node);
+		if (tokentype == HEREDOC)
+			addtoken_heredoc(env, tokens, &controller, last_node);
 		if (tokentype == BUILTIN || tokentype == EXECUTABLE)
 			last_node->args = add_argstoken(last_node->args, token);
 		free(token);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:59:26 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/18 16:43:10 by afonso           ###   ########.fr       */
+/*   Updated: 2023/04/20 19:47:45 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ ssize_t	get_heredoc_input(t_tree *node, char *delimiter)
 	int		size_read;
 	int		ret;
 
-	node->args[0] = delimiter;
+	node->heredoc->delimiter = delimiter;
 	i = 0;
 	while (i < 200)
 		buf[i++] = 0;
@@ -47,7 +47,7 @@ ssize_t	get_heredoc_input(t_tree *node, char *delimiter)
 	while (1)
 	{
 		size_read = read(0, buf, 200);
-		if (ft_strncmp(&(buf[0]), node->args[0],
+		if (ft_strncmp(&(buf[0]), node->heredoc->delimiter,
 				ft_strlen(buf) - 1) == 0)
 			break ;
 		write(node->heredoc->pipe_fd[1], buf, size_read);

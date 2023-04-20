@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:59 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/18 23:02:20 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/20 18:44:04 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	*no_mem(void *p)
 {
 	if (!p)
 	{
-		ft_putendl_fd("No more available memory for minishell!", 2);
-		chad_exitstatus = EXIT_FAILURE;
+		chad_exitstatus = 12;
+		printf("%s\n", strerror(chad_exitstatus));
 		return (NULL);
 	}
 	return (p);

@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/20 16:30:34 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/20 18:39:31 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,9 @@ int	main(int argc, char **argv, char **envp)
 		free_tree(bintree);
 		// puts("tree has been freed");
 		// printf("\n");
-		printf("chad_exitstatus:%d\n", chad_exitstatus);
-		if (chad_exitstatus != 0)
-			printf("%s\n", strerror(chad_exitstatus));
+		// printf("chad_exitstatus:%d\n", chad_exitstatus);
+		if (chad_exitstatus != 0 && i == 1)
+			printf("status:%s\n", strerror(chad_exitstatus));
 	}
 	// printf("we left the matrix\n");
 	free_matrix(myenvp);

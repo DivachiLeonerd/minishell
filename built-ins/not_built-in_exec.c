@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:10:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/20 15:31:08 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/20 17:47:41 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char	*find_command_path(char **myenvp, char *command)
 					return (temp);
 			}
 		}
+		chad_exitstatus = 13;
 		free(temp);
 		return (temp = NULL);
 	}

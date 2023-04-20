@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:44:37 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/20 16:56:44 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/20 17:25:26 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,5 @@ void	execute_builtin(char *command, char **myenvp __attribute__((unused)), char 
 		myenvp = export(args, myenvp);
 	else if (ft_strncmp("unset", command, ft_strlen("unset")) == 0)
 		myenvp = unset(args, myenvp);
-	else
-	{
-		chad_exitstatus = 2;
-		strerror(chad_exitstatus);
-	}
 	return ;
 }
