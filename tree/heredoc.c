@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:59:26 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/20 19:47:45 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/21 15:53:18 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,42 +20,43 @@ t_heredoc	*make_heredoc(void)
 {
 	t_heredoc	*new_heredoc;
 
-	new_heredoc = malloc (sizeof(t_heredoc));
+	new_heredoc = (t_heredoc *)malloc(sizeof(t_heredoc));
 	if (new_heredoc == NULL)
 	{
 		perror("Couldn't allocate heredoc");
 		return (NULL);
 	}
+	new_heredoc->delimiter = NULL;
 	pipe(new_heredoc->pipe_fd);
 	return (new_heredoc);
 }
 
-ssize_t	get_heredoc_input(t_tree *node, char *delimiter)
+ssize_t	get_heredoc_input(t_heredoc *new_heredoc, char *delimiter)
 {
 	char	buf[200];
 	int		i;
-	int		size_read;
+	ssize_t	size_read;
 	int		ret;
 
-	node->heredoc->delimiter = delimiter;
+	new_heredoc->delimiter = delimiter;
 	i = 0;
 	while (i < 200)
 		buf[i++] = 0;
-	i = 0;
 	ret = 0;
 	size_read = 0;
 	while (1)
 	{
+		i = 0;
+		write(1, ">", 1);
 		size_read = read(0, buf, 200);
-		if (ft_strncmp(&(buf[0]), node->heredoc->delimiter,
-				ft_strlen(buf) - 1) == 0)
+		if (ft_strncmp(buf, new_heredoc->delimiter, size_read - 1) == 0)
 			break ;
-		write(node->heredoc->pipe_fd[1], buf, size_read);
+		write(new_heredoc->pipe_fd[1], buf, size_read);
 		while (buf[i] && i < 200)
 			buf[i++] = 0;
 		ret += size_read;
-		i = 0;
 	}
+	// write(new_heredoc->pipe_fd[1], "\04\04", 2);
 	return ((ssize_t)ret);
 }
 

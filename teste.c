@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/20 18:39:31 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/21 12:34:35 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,25 @@
 // 	return ;
 // }
 
-char	*print_prompt(void)
+char	*print_prompt(char **myenvp)
 {
 	char	*pwd;
 	char	*aux;
-	
+	size_t	size;
+
 	pwd = ft_pwd();
 	printf("\033[1;32m");
 	printf(PROMPT);
 	printf("\033[1;34m");
-	if (ft_strncmp(pwd, "/home/afonso", ft_strlen(pwd)) == 0)
+	aux = str_expander(ft_strdup("$HOME"), myenvp);
+	if (ft_strncmp(pwd, aux, ft_strlen(aux)) == 0)
 	{
+		size = ft_strlen(aux);
+		free(aux);
+		aux = ft_substr(pwd, size, ft_strlen(pwd) - ft_strlen(aux));
 		free(pwd);
-		pwd = ft_strdup("~");
+		pwd = ft_strjoin("~", aux);
+		free(aux);
 	}
 	printf("%s\033[0m$", pwd);
 	aux = readline(" ");
@@ -96,7 +102,7 @@ int	main(int argc, char **argv, char **envp)
 		intr_behaviour(&behaviour);
 		while (1)
 		{
-			command_line = print_prompt();
+			command_line = print_prompt(myenvp);
 			if (!command_line)
 			{
 				printf("exit\n");

@@ -6,14 +6,14 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:28:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/20 19:39:54 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/21 14:50:26 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
 #ifndef DEFINE_H
 # define DEFINE_H
+
+#include <stdlib.h>
 
 typedef struct s_heredoc
 {
@@ -40,7 +40,7 @@ typedef struct s_tree
 # define BUILTIN 6
 # define EXECUTABLE 7
 # define WORD 8
-# define NODE_WORTHY tokentype != WORD
+# define NODE_WORTHY tokentype != WORD && tokentype != HEREDOC
 # define PROMPT "GigaShell:"
 # define COMMAND (node->tokentype == BUILTIN || node->tokentype == EXECUTABLE)
 # define REDIR (node->tokentype == I_REDIR || node->tokentype == O_REDIR)

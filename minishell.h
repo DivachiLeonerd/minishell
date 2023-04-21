@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:19:15 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/19 21:41:19 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/21 12:31:49 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ typedef struct s_controller
 	t_tree	*last_node;
 }t_controller;
 
-char	*print_prompt(void);
+char	*print_prompt(char **envp);
 
 #endif

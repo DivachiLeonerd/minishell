@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/20 09:34:02 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/21 16:00:44 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_tree	*add_to_tree(int tokentype, t_tree *last_node)
 	node->args = NULL;
 	node->left_branch = NULL;
 	node->right_branch = NULL;
+	node->heredoc = NULL;
 	if (last_node)
 	{
 		node = redir_cond(last_node, node);

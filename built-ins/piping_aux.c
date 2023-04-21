@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/20 19:34:50 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/21 16:21:26 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid,
 {
 	int		i;
 	t_tree	*node;
-	char	*buf[200];
+	char	buf[200];
 
+	(void)buf;
 	i = 0;
 	while (i <= numof_pipes)
 	{
@@ -77,21 +78,18 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid,
 			if (ft_strncmp("export", node->args[0], ft_strlen("export")) == 0)
 				*myenvp = export(&(node->args[1]), *myenvp);
 		}
+		if (return_righttokenid(node) == O_REDIR)
+			output_redirection(STDOUT_FILENO, node->right_branch, O_REDIR);
+		// if (return_righttokenid(node) == O_APPEND)
+		// 	output_redirection(STDOUT_FILENO, node->right_branch, O_APPEND);
+		// if (return_righttokenid(node) == I_REDIR)
+		// 	input_redirection(STDIN_FILENO, node);
 		if (pid[i] == 0)
 		{
-			if (return_righttokenid(node) == O_REDIR)
-				output_redirection(STDOUT_FILENO, node->right_branch, O_REDIR);
-			// if (return_righttokenid(node) == O_APPEND)
-			// 	output_redirection(STDOUT_FILENO, node->right_branch, O_APPEND);
-			// if (return_righttokenid(node) == I_REDIR)
-			// 	input_redirection(STDIN_FILENO, node);
-			if (return_righttokenid(node) == HEREDOC)
+			if (node->heredoc)
 			{
-				read(node->heredoc->pipe_fd[0], buf,
-					node->heredoc->bytes_stored);
-				write(1, buf, node->heredoc->bytes_stored);
+				dup2(node->heredoc->pipe_fd[0], STDIN_FILENO);
 			}
-			// j = i;
 			if (node)
 			{
 				if (is_builtin((node->args)[0]))
@@ -104,7 +102,11 @@ char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid,
 		}
 		i++;
 	}
+	printf("helo\n");
+	node = find_command_node(0, bintree);
+	// close(node->heredoc->pipe_fd[1]);
 	wait_for_children(pid, i);
+	printf("adeus\n");
 	return (*myenvp);
 }
 
