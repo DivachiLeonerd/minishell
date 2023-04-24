@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:23:47 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/21 15:26:20 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/23 16:51:58 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_tree	*addtoken_to_tree(char **env, char **tokens)
 		else if (tokentype == HEREDOC)
 			addtoken_heredoc(env, tokens, &controller, last_node);
 		else if (NODE_WORTHY)
-			last_node = add_to_tree(tokentype, last_node);
+			last_node = add_to_tree(tokentype, last_node);//gotta remake add_to_tree()
 		if (tokentype == BUILTIN || tokentype == EXECUTABLE)
 			last_node->args = add_argstoken(last_node->args, token);
 		free(token);

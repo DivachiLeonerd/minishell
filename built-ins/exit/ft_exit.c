@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 17:52:15 by atereso-          #+#    #+#             */
-/*   Updated: 2023/04/20 11:35:01 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/21 18:22:05 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ static void	intrv_signal_handler(int sig_num)
 		free (p);
 	}
 	if (sig_num == SIGQUIT)
+	{
+		printf("sigquit\n");
 		return ;
+	}
 	return ;
 }
 

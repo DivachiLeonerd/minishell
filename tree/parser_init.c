@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:35 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/20 09:56:22 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/24 14:47:21 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,21 @@
 
 t_tree	*parser_init(char *s, char ***env)
 {
-	t_tree		*bintree;
+	t_tree		*monotree;
 	char		**tokens;
+	int			i;
 
-	bintree = NULL;
-	if (syntax_checker(s) != 0)
-		return (NULL);
+	i = 0;
+	monotree = NULL;
 	tokens = ft_divide_tokens(s, ' ');
-	bintree = addtoken_to_tree(*env, tokens);
-	bintree = find_topof_tree(bintree);
+	while (syntax_error(syntax_checker(get_token_type(tokens[i++], env))) == 0)
+		;
+	if (tokens[i] != NULL)
+	{
+		free_matrix(tokens);
+		return (NULL);
+	}
+	monotree = addtoken_to_tree(*env, tokens);
 	free(tokens);
-	return (bintree);
+	return (monotree);
 }

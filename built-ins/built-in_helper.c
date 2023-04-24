@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 10:24:14 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/15 12:00:01 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/23 16:20:07 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ char	**env_realloc(char **envp, char **new_env,
 	else
 		delete_var_from_env(new_env, envp, var);
 	free_matrix(envp);
-	// env(*new_env);
 	envp = NULL;
 	return (new_env);
 }

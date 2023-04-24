@@ -6,26 +6,13 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:59 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/20 17:15:55 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/23 16:14:44 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "../built-ins/built-ins.h"
 #include "../define.h"
-
-char	*join_tokens(char *s1, char *s2, int i)
-{
-	char	*new;
-
-	new = NULL;
-	if (s1 && s2)
-		new = no_mem(ft_strjoin(s1, s2));
-	free(s1);
-	if (i)
-		free(s2);
-	return (new);
-}
 
 //expands string wrapped in double quotes and with a '$'
 char	*str_expander(char *s, char **env)
