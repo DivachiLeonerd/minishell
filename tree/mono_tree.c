@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 15:32:04 by atereso-          #+#    #+#             */
-/*   Updated: 2023/04/24 16:01:21 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/24 19:43:09 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //create a node
 
-t_tree *create_node(int tokentype)
+t_tree *mono_create_node(int tokentype)
 {
 	static int last_node;
 	t_tree		*node;
@@ -25,38 +25,41 @@ t_tree *create_node(int tokentype)
 	node->tokentype = tokentype;
 	return (node);
 }
-	node->tokentype = tokentype;
-	return (node);
+
+t_tree	*mono_last(t_tree *head)
+{
+	t_tree	*pointer;
+
+	if (!head)
+		return (NULL);
+	pointer = head;
+	while (pointer->next)
+		pointer = pointer->next;
+	return (pointer);
 }
 
-void	mono_add_back(t_list **lst, t_list *new)
+//join node to back of list 
+void	mono_add_back(t_tree **head, t_tree *new)
 {
-	t_list	*last_position;
+	t_tree	*last_position;
 
-	if (lst)
+	if (head)
 	{
-		if (*lst)
+		if (*head)
 		{
-			last_position = ft_lstlast(*lst);
+			last_position = mono_last(head);
 			last_position->next = new;
 		}
 		else
-			*lst = new;
+			*head = new;
 		new->next = NULL;
 	}
 	return ;
 }
 
-
-//join node to back of list 
-void	mono_add_back(t_tree **head)
+t_tree	*add_to_tree(int tokentype, t_tree *last_node)
 {
-    t_tree	*node;
-
-	node = *head;
-	//function goes to end of list
-}
-//done!
-    
+	mono_add_back(&last_node, mono_create_node(tokentype));
+	return (mono_last(last_node));
 }
 //done!

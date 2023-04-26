@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:28:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/21 14:50:26 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/04/24 19:08:53 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ typedef struct s_tree
 	int				tokentype;
 	char			**args;
 	t_heredoc		*heredoc;
-	struct s_tree	*left_branch;
-	struct s_tree	*right_branch;
-	struct s_tree	*back;
+	struct s_tree	*next;
 }t_tree;
 
 # define I_REDIR 1
@@ -41,7 +39,7 @@ typedef struct s_tree
 # define EXECUTABLE 7
 # define WORD 8
 # define NODE_WORTHY tokentype != WORD && tokentype != HEREDOC
-# define PROMPT "GigaShell:"
+# define PROMPT "pekenakonxa:"
 # define COMMAND (node->tokentype == BUILTIN || node->tokentype == EXECUTABLE)
 # define REDIR (node->tokentype == I_REDIR || node->tokentype == O_REDIR)
 
