@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 19:19:45 by atereso-          #+#    #+#             */
-/*   Updated: 2023/05/02 22:22:14 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/02 22:54:28 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,18 @@ int	make_child(t_tree *node)
 	return (pid);
 }
 
-void	ft_child(t_tree *node, int command_num, t_tree *bintree, int **pipe_fd)
+void	ft_child(t_tree *node, int command_num, t_tree *bintree, int *pipe_fd)
 {
 	int	pid;
 	if (command_num > 0)
 	{
-		pipe_fd[0][0] = dup(pipe_fd[1][0]);
-		pipe(pipe_fd[1]);
+		dup2(pipe_fd[0], STDIN_FILENO);
+		close(pipe_fd[0]);
+		pipe(pipe_fd);
 	}
 	if (node->back && node->back->tokentype == PIPE)
 	{
-		pipe(pipe_fd[1]);
-		close(pipe_fd[1][0]);
+		pipe(pipe_fd);
 		multiple_processes(++command_num, bintree);
 	}
 	//process instructions here
@@ -43,7 +43,18 @@ void	ft_child(t_tree *node, int command_num, t_tree *bintree, int **pipe_fd)
 
 void	ft_parent(int pid, int **pipe_fd)
 {
-	//dup2
+	//dup2 all new fd's and close obsolete ones
+	if (pipe_fd[0] > 0)
+	{
+		dup2(pipe_fd[0], STDIN_FILENO);
+		close(pipe_fd[0]);
+	}
+	if (pipe_fd[1] > 0)
+	{
+		dup2(pipe_fd[1], STDOUT_FILENO);
+		close(pipe_fd[1]);
+	}	
+
 	waitpid(pid, NULL, 0);
 	return ;
 }
@@ -51,9 +62,11 @@ void	ft_parent(int pid, int **pipe_fd)
 void	multiple_processes(int command_num, t_tree *bintree)
 {
 	int	pid;
-	int	pipe_fd[2][2];
+	int	pipe_fd[2];
 	t_tree *command_node;
 
+	pipe_fd[0] = -2;
+	pipe_fd[1] = -2;
 	command_node = find_command_node(command_num, bintree);	
 	if (command_node)
 	{
