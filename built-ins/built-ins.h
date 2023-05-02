@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:18:23 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/03 16:02:24 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/02 22:32:21 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ char	**replace_env_var(char **env, char *var);
 void	delete_var_from_env(char **new_env, char **old_env, char *var);
 int		is_builtin(char *command);
 int		execute_non_builtin(char *command_name, char **myenvp, char **argv);
-int		is_builtin(char *command);
 void	ft_exit(void);
 void	intr_behaviour(struct sigaction *act);
 void	nintr_behaviour(struct sigaction *act);

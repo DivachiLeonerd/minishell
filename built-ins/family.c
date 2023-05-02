@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 19:19:45 by atereso-          #+#    #+#             */
-/*   Updated: 2023/05/02 18:18:30 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/02 22:22:14 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,28 @@ int	make_child(t_tree *node)
 	return (pid);
 }
 
-void	ft_child(t_tree *node, int command_num, t_tree *bintree)
+void	ft_child(t_tree *node, int command_num, t_tree *bintree, int **pipe_fd)
 {
 	int	pid;
-	int pipe_fd[2][2];
-	//process instructions here
-	if (node->back && node->back->tokentype == PIPE)
-		pipe(pipe_fd[0]);
+	if (command_num > 0)
+	{
+		pipe_fd[0][0] = dup(pipe_fd[1][0]);
+		pipe(pipe_fd[1]);
+	}
 	if (node->back && node->back->tokentype == PIPE)
 	{
-		if (node->back->left_branch == node)
-			node = node->back->right_branch;
-		else if (node->back->right_branch == node)
-			node = node->back->back->right_branch;
+		pipe(pipe_fd[1]);
+		close(pipe_fd[1][0]);
 		multiple_processes(++command_num, bintree);
 	}
-	return ;
+	//process instructions here
+	run_process();
+	exit(127);//command not found because we have tried everything
 }
 
-void	ft_parent(int pid)
+void	ft_parent(int pid, int **pipe_fd)
 {
+	//dup2
 	waitpid(pid, NULL, 0);
 	return ;
 }
@@ -54,11 +56,18 @@ void	multiple_processes(int command_num, t_tree *bintree)
 
 	command_node = find_command_node(command_num, bintree);	
 	if (command_node)
+	{
 		pid = make_child(command_node);
+	}
 	if (pid == 0)
-		ft_child(command_node, command_num,bintree);
+	{
+		
+		ft_child(command_node, command_num, bintree, pipe_fd);
+	}
 	//the parent waits for the child before running
 	else
-		ft_parent(pid);
+	{
+		ft_parent(pid, pipe_fd);
+	}
 	return ;
 }

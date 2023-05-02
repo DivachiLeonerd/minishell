@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/02 13:08:55 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/02 22:30:55 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,17 @@ int	how_many_pipes(t_tree *bintree)
 		node = node->left_branch;
 	}
 	return (numof_pipes);
+}
+
+void	run_processes(t_tree *node, char **myenvp)
+{
+	redirections_handler();
+	heredoc_handler();
+	if (node->tokentype == BUILTIN)
+		exit(execute_builtin((node->args)[0], myenvp , node->args));
+	else if (node->tokentype == EXECUTABLE)
+		exit(execute_non_builtin((node->args)[0], myenvp, node->args));
+	return ;
 }
 
 char	**make_processes(t_tree *bintree, char **myenvp, int command_num)

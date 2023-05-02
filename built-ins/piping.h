@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:46:35 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/01 19:23:39 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/02 22:33:12 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 int		return_righttokenid(t_tree *command_node);
 t_tree	*find_first_command(t_tree *bintree);
-void	execute_builtin(char *command, char **myenvp, char **args);
+int		execute_builtin(char *command, char **myenvp, char **args);
 int		is_builtin(char *command);
 void	make_and_run_pipes(t_tree *bintree, char **myenvp);
 int		**pipe_creation(int how_many_pipes);
