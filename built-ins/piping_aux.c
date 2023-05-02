@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/21 16:21:26 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/02 13:08:55 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,106 +28,24 @@ int	how_many_pipes(t_tree *bintree)
 	return (numof_pipes);
 }
 
-static void	wait_for_children(int *pid, int i)
+char	**make_processes(t_tree *bintree, char **myenvp, int command_num)
 {
-	if (pid[0] == 0)
-		exit(0);
-	if (i > 0 && pid[i - 1] != 0)
-	{
-		wait(NULL);
-	}
-	if (pid[i - 1] == 0)
-		exit(0);
-	return ;
-}
-
-static void	free_utils(int **pipe_fd, int numof_pipes)
-{
-	int	i;
-
-	i = numof_pipes - 1;
-	while (pipe_fd && i >= 0)
-	{
-		close(pipe_fd[i][0]);
-		free(pipe_fd[i]);
-		i--;
-	}
-	free(pipe_fd);
-	return ;
-}
-
-char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid,
-			char ***myenvp)
-{
-	int		i;
-	t_tree	*node;
-	char	buf[200];
-
-	(void)buf;
-	i = 0;
-	while (i <= numof_pipes)
-	{
-		node = find_command_node(i, bintree);
-		//command index is the position of each command in command line
-		if (numof_pipes == 0)
-		{
-			if (ft_strncmp("cd", node->args[0], ft_strlen("cd")) == 0)
-				*myenvp = cd(node->args[1], *myenvp);
-			if (ft_strncmp("unset", node->args[0], ft_strlen("unset")) == 0)
-				*myenvp = unset(&(node->args[1]), *myenvp);
-			if (ft_strncmp("export", node->args[0], ft_strlen("export")) == 0)
-				*myenvp = export(&(node->args[1]), *myenvp);
-		}
-		if (return_righttokenid(node) == O_REDIR)
-			output_redirection(STDOUT_FILENO, node->right_branch, O_REDIR);
-		// if (return_righttokenid(node) == O_APPEND)
-		// 	output_redirection(STDOUT_FILENO, node->right_branch, O_APPEND);
-		// if (return_righttokenid(node) == I_REDIR)
-		// 	input_redirection(STDIN_FILENO, node);
-		if (pid[i] == 0)
-		{
-			if (node->heredoc)
-			{
-				dup2(node->heredoc->pipe_fd[0], STDIN_FILENO);
-			}
-			if (node)
-			{
-				if (is_builtin((node->args)[0]))
-					execute_builtin((node->args)[0], *myenvp, node->args);
-				else
-					execute_non_builtin((node->args)[0], *myenvp, node->args);
-			}
-			else
-				exit(EXIT_FAILURE);
-		}
-		i++;
-	}
-	printf("helo\n");
-	node = find_command_node(0, bintree);
-	// close(node->heredoc->pipe_fd[1]);
-	wait_for_children(pid, i);
-	printf("adeus\n");
-	return (*myenvp);
-}
-
-char	**make_pipes(t_tree *bintree, char **myenvp)
-{
-	int		i;
 	int		numof_pipes;
-	int		**pipe_fd;
-	int		*pid;
+	int		pid;
+	t_tree	*node;
 
-	i = 0;
 	numof_pipes = how_many_pipes(bintree);
-	pid = malloc((numof_pipes + 1) * sizeof(int));
-	//if there is 3 processes then we will need only 2 pipes
-	pipe_fd = pipe_creation(numof_pipes);
-	initialize_forking_processes(pid, numof_pipes + 1);
-	while (pipe_fd && i <= numof_pipes)
-		piping(pid, pipe_fd, numof_pipes, i++);
-	myenvp = run_pipes(numof_pipes, bintree, pid, &myenvp);
-	free_utils(pipe_fd, numof_pipes);
-	free(pid);
-	chad_exitstatus = 0;
+	//check if the one command is a builtin and if it is, just run it
+	if (check_one_command_line(bintree))
+	{
+		run_single_builtin();
+		return ;
+	}
+	multiple_processes(command_num, bintree);
+	// go through tree, if there's a pipe "behind" our command we pipe, dup and close useless
+	
+	//get everything until a pipe, including redirs
+
+	//pipe if there is one [pipe] and close everything useless
 	return (myenvp);
 }
