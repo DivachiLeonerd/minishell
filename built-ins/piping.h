@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:46:35 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/02 22:33:12 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:23:35 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,5 @@ int		how_many_pipes(t_tree *bintree);
 char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid, char ***myenvp);
 t_tree	*find_first_command(t_tree *bintree);
 char	**make_processes(t_tree *bintree, char **myenvp, int command_num);
+void	multiple_processes(int command_num, t_tree *bintree);
 #endif

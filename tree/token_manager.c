@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:23:47 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/21 15:26:20 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/08 18:28:50 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,17 +99,13 @@ t_tree	*addtoken_to_tree(char **env, char **tokens)
 		tokentype = get_token_type(token, env);
 		if (tokentype == WORD)
 			addtoken_words(token, last_node);
-		else if (tokentype == HEREDOC)
-			addtoken_heredoc(env, tokens, &controller, last_node);
 		else if (NODE_WORTHY)
 			last_node = add_to_tree(tokentype, last_node);
+		if (tokentype == HEREDOC)
+			addtoken_heredoc(env, tokens, &controller, last_node);
 		if (tokentype == BUILTIN || tokentype == EXECUTABLE)
 			last_node->args = add_argstoken(last_node->args, token);
 		free(token);
-		// if (chad_exitstatus != 0)
-		// {
-		// 	break ;
-		// }
 	}
 	return (last_node);
 }

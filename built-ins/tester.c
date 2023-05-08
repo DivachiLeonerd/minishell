@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 10:04:42 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/02 23:43:52 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/05 18:55:45 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,33 +20,33 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	**myenvp;
 	int		pid;
-	int		fd;
-	int		fd2;
+	int		pipe_fd[2];
+	char	*buf;
 
-	fd2 = dup(STDOUT_FILENO);
-	fd = open("./ola", O_WRONLY | O_CREAT);
-	printf("%d\n", fd);
-	dup2(fd, STDOUT_FILENO);
+	pipe(pipe_fd);
 	pid = fork();
 	if (pid == -1)
 		return (1);
 	if (pid == 0)
 	{
-		dup2(fd2, STDOUT_FILENO);
-		printf("fd2:%d\n", fd2);
-		printf("I'm in child\n");
-		close(fd);
+		printf("IM PARENT\n");
+		dup2(pipe_fd[1], STDOUT_FILENO);
+		close(pipe_fd[1]);
+		printf("message to parent\n");
 		close(STDOUT_FILENO);
-		close(fd2);
-		return (0);
+		close(pipe_fd[0]);
 	}
 	else
 	{
-		waitpid(pid,NULL,0);
-		printf("IM PARENT\n");
-		close(STDOUT_FILENO);
-		close(fd);
-		close(fd2);
+		waitpid(pid, NULL, 0);
+		dup2(pipe_fd[0], STDIN_FILENO);
+		close(pipe_fd[0]);
+		printf("I'm in child\n");
+		buf = readline("NULL: ");
+		printf("%s\n", buf);
+		free(buf);
+		close(STDIN_FILENO);
+		close(pipe_fd[1]);
 	}
 	return (0);
 }

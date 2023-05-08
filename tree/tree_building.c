@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/21 16:00:44 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/08 20:10:54 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,11 @@ int	check_direction(int direction, t_tree *node)
 
 static void	free_node(t_tree *node)
 {
-	// if (node->heredoc)
-	// {
-	// 	free(node->heredoc->pipe_fd);
-	// }
+	if (node->heredoc)
+	{
+		free(node->heredoc->pipe_fd);
+		free(node->heredoc->delimiter);
+	}
 	// printf("node type:%d\n", node->tokentype);
 	if (node->args)
 		free_matrix(node->args);

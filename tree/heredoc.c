@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:59:26 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/21 15:53:18 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/08 19:01:32 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ ssize_t	get_heredoc_input(t_heredoc *new_heredoc, char *delimiter)
 			buf[i++] = 0;
 		ret += size_read;
 	}
-	// write(new_heredoc->pipe_fd[1], "\04\04", 2);
+	close (new_heredoc->pipe_fd[1]);
 	return ((ssize_t)ret);
 }
 
@@ -87,4 +87,10 @@ void	close_heredocs(t_tree *bintree)
 	}
 	//Maybe i also free them along with pipe closure
 	return ;
+}
+
+void	heredoc_handler(t_heredoc *heredoc)
+{
+	dup2(heredoc->pipe_fd[0], STDIN_FILENO);
+	close(heredoc->pipe_fd[0]);
 }

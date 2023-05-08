@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:43:55 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/20 18:41:44 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/08 18:52:03 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,6 @@ int	**pipe_creation(int how_many_pipes)
 		i++;
 	}
 	return (pipe_fd);
-}
-
-int	output_redirection(int fd1, t_tree *node, int token_type)
-{
-	char	buf[200];
-	int		fd2;
-	ssize_t	readbytes;
-
-	if (token_type == O_REDIR)
-		fd2 = open(node->args[0] /*filename*/, O_CREAT, O_WRONLY);
-	else if (token_type == O_APPEND)
-		fd2 = open(node->args[0], O_CREAT, O_WRONLY, O_APPEND);
-	else
-		perror("Token type was neither redirect nor append");
-	readbytes = read(fd1, buf, 200);
-	if (readbytes == -1)
-	{
-		perror("Failed read() instruction in redirection");
-		return (-1);
-	}
-	write(fd2, buf, readbytes);
-	close(fd2);
-	return (0);
 }
 
 // pipe_fd[0] is the read part of the pipe where u read FROM the pipe

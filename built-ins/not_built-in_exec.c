@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:10:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/20 17:47:41 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/08 19:11:55 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,6 @@ int	execute_non_builtin(char *command_name, char **myenvp, char **args)
 	if (pathname != NULL)
 		execve(pathname, args, myenvp);
 		//execve should free all memory from process after running
-	perror("Couldn't find command");
-	return -1;
+	perror("command not found: ");
+	return (127);
 }
