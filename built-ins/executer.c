@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:44:37 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/02 22:31:29 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/09 19:32:57 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_builtin(char *command)
 	return (0);
 }
 
-int	execute_builtin(char *command, char **myenvp __attribute__((unused)),
+char	**execute_builtin(char *command, char **myenvp,
 		char **args)
 {
 	char	*str;
@@ -47,8 +47,8 @@ int	execute_builtin(char *command, char **myenvp __attribute__((unused)),
 		free(str);
 	}
 	else if (ft_strncmp("export", command, ft_strlen("export")) == 0)
-		myenvp = export(args, myenvp);
+		myenvp = export(&(args[1]), myenvp);
 	else if (ft_strncmp("unset", command, ft_strlen("unset")) == 0)
-		myenvp = unset(args, myenvp);
-	return (0);
+		myenvp = unset(&(args[0]), myenvp);
+	return (myenvp);
 }

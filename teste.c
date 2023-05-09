@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/21 12:34:35 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:10:19 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int	main(int argc, char **argv, char **envp)
 			// print_tree_leftbranch(bintree);
 		}
 		if (bintree)
-			myenvp = make_pipes(bintree, myenvp);//command_line a ser executado
+			myenvp = make_processes(bintree, myenvp);//command_line a ser executado
 		// printf("we got out of make_pipes()\n");
 		free(command_line);
 		command_line = NULL;

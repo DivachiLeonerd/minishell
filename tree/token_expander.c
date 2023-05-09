@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:59 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/20 17:15:55 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/09 19:26:31 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*str_expander(char *s, char **env)
 	if (s[i] == '$')
 	{
 		temp = ft_substr(s, i, size);//token = "PWD"
-		full_name = find_env_full_var(temp, env);//full_name = "PWD=./"
+		full_name = find_env_full_var(&(temp[1]), env);//full_name = "PWD=./"
 		//printf("%p\n", *full_name);
 		free(temp);
 		if (!full_name)

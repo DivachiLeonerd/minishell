@@ -6,7 +6,7 @@
 #    By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/15 15:45:01 by afonso            #+#    #+#              #
-#    Updated: 2023/04/19 23:45:14 by atereso-         ###   ########.fr        #
+#    Updated: 2023/05/09 16:13:47 by atereso-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ HEADER := -I./ -I./ -I./built-ins/ -I/libft/ -I./tree/
 LIB := -L./ -ltree -lbuilt-in -lft -lreadline
 OBJDIR:= ./Objects
 BIOBJ:= ./built-ins/built-in_objs
-OBJS:= 
+OBJS:= free_all_resources.o run_single_builtin.o
 OBJS_built-in:=
 #OBJS_T :=
 CC := cc
@@ -37,8 +37,8 @@ minishell: built-in tree
 	@${CC} ${CFLAGS} ${NAME}.c ${OBJS} ${HEADER} -o ${NAME}
 	@mv *.o ./Objects
 
-test: libbuilt-in.a libtree.a libft.a
-	@${CC} ${CFLAGS} teste.c ${LIB} ${HEADER} -o minitester
+test: ${OBJS} libbuilt-in.a libtree.a libft.a
+	@${CC} ${CFLAGS} teste.c ${LIB} ${HEADER} ${OBJS} -o minitester
 	
 clean:
 	@${RM} *.o

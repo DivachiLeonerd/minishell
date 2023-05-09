@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:25:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/18 12:40:05 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/09 19:24:49 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,13 @@ char	**find_env_full_var(char *message, char **envp)
 	var_name = get_variable_name(message);
 	while (envp[i])
 	{
-		if (ft_strncmp(envp[i], &(var_name[1]), ft_strlen(var_name) - 1) == 0)
+		if (ft_strncmp(envp[i], &(var_name[0]), ft_strlen(var_name) - 1) == 0)
 			break ;
 		i++;
 	}
 	if (envp[i] == NULL)
 	{
+		printf("var_name: %s\n", var_name);
 		free(var_name);
 		return ((char **)0);
 	}

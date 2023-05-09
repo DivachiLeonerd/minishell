@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:19:15 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/08 21:23:56 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:12:27 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,5 @@ typedef struct s_controller
 }t_controller;
 
 char	*print_prompt(char **envp);
-void	free_all_resources(char **myenvp, t_tree *bintree);
+void	free_all_resources(char **myenvp, t_tree *bintree, int **pipe_fd);
 #endif

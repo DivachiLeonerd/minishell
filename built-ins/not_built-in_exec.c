@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:10:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/08 19:11:55 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/09 18:07:58 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,8 @@ int	execute_non_builtin(char *command_name, char **myenvp, char **args)
 	char	*pathname;
 
 	pathname = find_command_path(myenvp, command_name);
-	// printf("I'm about to execute %s\n", pathname);
 	free(command_name);
 	if (pathname != NULL)
 		execve(pathname, args, myenvp);
-		//execve should free all memory from process after running
-	perror("command not found: ");
 	return (127);
 }

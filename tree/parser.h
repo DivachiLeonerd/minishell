@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_init.c                                      :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:35 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/20 09:56:22 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:11:05 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ void		*no_mem(void *p);
 char		*str_expander(char *s, char **env);
 void		free_tree(t_tree *bintree);
 t_tree		*find_topof_tree(t_tree *bintree);
+void		heredoc_handler(t_heredoc *heredoc);
 // void		close_heredocs(t_heredoc **all_heredocs);
 #endif

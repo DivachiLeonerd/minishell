@@ -5,6 +5,7 @@
 		"built-ins.h": "c",
 		"piping.h": "c",
 		"fcntl.h": "c",
-		"types.h": "c"
+		"types.h": "c",
+		"string.h": "c"
 	}
 }
