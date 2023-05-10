@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/09 18:05:55 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:37:18 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char	**make_processes(t_tree *bintree, char **myenvp)
 	int		pid;
 	t_tree *node;
 
+	pid = -1;
 	numof_pipes = how_many_pipes(bintree);
 	node = find_command_node(0, bintree);
 	//check if the one command is a builtin and if it is, just run it
@@ -61,7 +62,9 @@ char	**make_processes(t_tree *bintree, char **myenvp)
  
 	pid = fork();
 	if (pid == 0)
+	{
 		multiple_processes(0, bintree, myenvp);
+	}
 	else
 	{
 		printf("im main()\n");

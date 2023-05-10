@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 04:00:45 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/09 15:08:21 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:35:17 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	dup_iostream(int **pipe_fd, int command_num, t_tree *node)
 {
 	
+	printf("In process %s:\npipe_fd[1][1]:%d\npipe_fd[1[0]:%d\npipe_fd[0][0]:%d\npipe_fd[0][1]:%d\n",node->args[0], pipe_fd[1][1], pipe_fd[1][0], pipe_fd[0][1], pipe_fd[0][0]);
 	if (command_num == 0)
 	{
 		close(pipe_fd[0][0]);

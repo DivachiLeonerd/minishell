@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 19:19:45 by atereso-          #+#    #+#             */
-/*   Updated: 2023/05/09 18:28:36 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:51:04 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ static int	make_child(t_tree *node, int **pipe_fd, int command_num, t_tree *bint
 	}
 	if (pid == -1)
 		perror("You are unforkable\n");
-	if (pid == 0)
+	if (pid == 0 || node->back->back == NULL)
 	{
 		pipe_fd[1][0] = pipe_fd[0][0];
 		pipe_fd[1][1] = pipe_fd[0][1];
-		multiple_processes(++command_num, bintree, myenvp);
+		if (pid == 0)
+			multiple_processes(++command_num, bintree, myenvp);
 	}
 	return (pid);
 }
@@ -56,11 +57,11 @@ static int	ft_child(t_tree *node, int command_num, int **pipe_fd, char **myenvp)
 	return (ret);//command not found because we have tried everything
 }
 
-static void	ft_parent(int pid, char **myenvp, t_tree *bintree, int **pipe_fd)
+static void	ft_parent(int pid, int **pipe_fd)
 {
 	perror("im in parent");
+	free_all_resources(pipe_fd);
 	waitpid(pid, NULL, 0);
-	free_all_resources(myenvp, bintree, pipe_fd);
 	return ;
 }
 
@@ -78,12 +79,10 @@ void	multiple_processes(int command_num, t_tree *bintree, char **myenvp)
 	command_node = find_command_node(command_num, bintree);	
 	if (command_node)
 	{
-		printf("going for make_child()\n");
-		pid = make_child(command_node, pipe_fd, command_num, bintree, myenvp);
-		printf("exTITed make_child()\n");
+		if (command_node->back && command_node->back->back)
+			pid = make_child(command_node, pipe_fd, command_num, bintree, myenvp);
 	}
 	ft_child(command_node, command_num, pipe_fd, myenvp);
-	//the parent waits for the child before running
-	ft_parent(pid,myenvp, bintree, pipe_fd);
+	ft_parent(pid, pipe_fd);
 	return ;
 }
