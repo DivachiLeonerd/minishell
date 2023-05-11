@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/10 15:37:18 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/11 12:52:26 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char	**make_processes(t_tree *bintree, char **myenvp)
 {
 	int		numof_pipes;
 	int		pid;
+	int		**pipe_fd;
 	t_tree *node;
 
 	pid = -1;
@@ -63,12 +64,17 @@ char	**make_processes(t_tree *bintree, char **myenvp)
 	pid = fork();
 	if (pid == 0)
 	{
-		multiple_processes(0, bintree, myenvp);
+		pipe_fd = malloc(2 * sizeof(int *));
+		pipe_fd[0] = malloc(2 * sizeof(int));
+		pipe_fd[1] = malloc(2 * sizeof(int));
+		multiple_processes(0, bintree, myenvp, pipe_fd);
+		exit(0);
 	}
 	else
 	{
 		printf("im main()\n");
 		waitpid(pid, NULL, 0);
+		printf("main()isn't waiting anymore\n");
 	}
 	// go through tree, if there's a pipe "behind" our command we pipe, dup and close useless
 	

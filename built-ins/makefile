@@ -6,7 +6,7 @@
 #    By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 10:45:02 by afonso            #+#    #+#              #
-#    Updated: 2023/05/10 11:20:38 by atereso-         ###   ########.fr        #
+#    Updated: 2023/05/11 10:56:59 by atereso-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ ${NAME}: ftecho ftcd ftpwd ftexport ftunset ftenv  fthelper ftexit ../tree/parse
 	@mv ../tree/parser_utils.o built-in_objs
 	@cd built-in_objs && ar rcs ${NAME} ${ALL_OBJS} ${BUILTIN_HELPER}
 testb: all
-	@${CC}  tester.c -g  ${HEADER} ${LIB} -o tester
+	@${CC}  tester.c -g  ${HEADER} ${LIB} -o tester -fsanitize=address
 
 ftecho:
 	@${CC} ${CFLAGS} echo/echo.c -c
