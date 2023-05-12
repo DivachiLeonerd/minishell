@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:46:35 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/11 12:42:35 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:32:06 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		how_many_pipes(t_tree *bintree);
 char	**run_pipes(int numof_pipes, t_tree *bintree, int *pid, char ***myenvp);
 t_tree	*find_first_command(t_tree *bintree);
 void	dup_iostream(int **pipe_fd, int command_num, t_tree *node);
-void	redirections_handler(int **pipe_fd, int tokentype, t_tree *node);
+void	redirections_handler(t_tree *command_node);
 int		run_processes(t_tree *node, char **myenvp);
 void	multiple_processes(int command_num, t_tree *bintree, char **myenvp, int **pipe_fd);
 char    **run_single_builtin(t_tree *bintree, char **myenvp);

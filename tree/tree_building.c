@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/08 20:10:54 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:11:23 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	free_node(t_tree *node)
 		free(node->heredoc->pipe_fd);
 		free(node->heredoc->delimiter);
 	}
-	// printf("node type:%d\n", node->tokentype);
+	printf("node type:%d\n", node->tokentype);
 	if (node->args)
 		free_matrix(node->args);
 	free(node);
@@ -91,7 +91,7 @@ void	free_tree(t_tree *bintree)
 	while (bintree->back != NULL) //tries to find the first position of the tree
 		bintree = bintree->back;
 	node = bintree;
-	while (node->left_branch != NULL)
+	while (node != NULL)
 	{
 		// printf("we are freeing tree\n");
 		if (check_direction(RIGHT, node) == 0)
@@ -112,7 +112,7 @@ void	free_tree(t_tree *bintree)
 			node = node->left_branch;
 			free_node(aux);
 		}
+		node = node->left_branch;
 	}
-	free_node(node);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 15:14:40 by atereso-          #+#    #+#             */
-/*   Updated: 2023/05/09 19:10:08 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:42:16 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	**run_single_builtin(t_tree *bintree, char **myenvp)
 		pid = fork();
 		if (pid == 0)
 		{
+			redirections_handler(bintree);
 			execute_non_builtin(bintree->args[0], myenvp, bintree->args);
 			return (myenvp);
 		}
@@ -33,7 +34,7 @@ char	**run_single_builtin(t_tree *bintree, char **myenvp)
 	if (is_builtin(bintree->args[0]))
 	{
 		free(name);
-		printf("executing single built in\n");
+		redirections_handler(bintree);
 		return (execute_builtin(bintree->args[0], myenvp, bintree->args));
 	}
 	return (myenvp);

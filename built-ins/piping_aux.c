@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/11 12:52:26 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:51:44 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	run_processes(t_tree *node, char **myenvp)
 {
 	if (node->tokentype == BUILTIN)
 	{
-		perror("U r builtin");
+		// perror("U r builtin");
 		execute_builtin((node->args)[0], myenvp , node->args);
 		return (0);
 	}
@@ -58,7 +58,10 @@ char	**make_processes(t_tree *bintree, char **myenvp)
 	//check if the one command is a builtin and if it is, just run it
 	if (numof_pipes == 0 && COMMAND)
 	{
-		return (run_single_builtin(node,myenvp));
+		pid = dup(STDOUT_FILENO);
+		myenvp = run_single_builtin(node,myenvp);
+		dup2(pid, STDOUT_FILENO);
+		return (myenvp);
 	}
  
 	pid = fork();
@@ -72,14 +75,9 @@ char	**make_processes(t_tree *bintree, char **myenvp)
 	}
 	else
 	{
-		printf("im main()\n");
+		// printf("im main()\n");
 		waitpid(pid, NULL, 0);
-		printf("main()isn't waiting anymore\n");
+		// printf("main()isn't waiting anymore\n");
 	}
-	// go through tree, if there's a pipe "behind" our command we pipe, dup and close useless
-	
-	//get everything until a pipe, including redirs
-
-	//pipe if there is one [pipe] and close everything useless
 	return (myenvp);
 }

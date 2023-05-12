@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 19:19:45 by atereso-          #+#    #+#             */
-/*   Updated: 2023/05/11 12:52:33 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:43:39 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static int	make_child(t_tree *node, int **pipe_fd, int command_num, t_tree *bint
 	if ((node->back && node->back->right_branch == node && node->back->back) || command_num == 0)
 	{
 		pipe(pipe_fd[0]);
-		printf("im forking\n");
 		pid = fork();
 	}
 	if (pid == -1)
@@ -40,31 +39,28 @@ static int	ft_child(t_tree *node, int command_num, int **pipe_fd, char **myenvp)
 	t_tree *aux;
 	int		ret;
 	//process instructions here
-	printf("Hello There! My name is %s\n", node->args[0]);
 	dup_iostream(pipe_fd, command_num, node);
 	aux = node;
 	while (node->right_branch)
 	{
 		node = node->right_branch;
 		if (REDIR || node->tokentype == APPEND)
-			redirections_handler(pipe_fd, node->tokentype, node);
+			redirections_handler(node);
 		if (node->tokentype == HEREDOC)
 			heredoc_handler(node->heredoc);
 	}
 	node = aux;
 	ret = run_processes(node, myenvp);
-	printf("ret is %d\n", ret);
-	// free_all_resources(myenvp, bintree, pipe_fd);
 	return (ret);//command not found because we have tried everything
 }
 
 static void	ft_parent(int pid, int **pipe_fd)
 {
-	perror("im in parent");
 	close(STDOUT_FILENO);
+	close(STDIN_FILENO);
 	waitpid(pid, NULL, 0);
 	free_all_resources(pipe_fd);
-	return ;
+	exit(0);
 }
 
 void	multiple_processes(int command_num, t_tree *bintree, char **myenvp, int **pipe_fd)
@@ -80,7 +76,6 @@ void	multiple_processes(int command_num, t_tree *bintree, char **myenvp, int **p
 			pid = make_child(command_node, pipe_fd, command_num, bintree, myenvp);
 	}
 	ft_child(command_node, command_num, pipe_fd, myenvp);
-	printf("%s is now waiting\n", command_node->args[0]);
 	ft_parent(pid, pipe_fd);
 	return ;
 }

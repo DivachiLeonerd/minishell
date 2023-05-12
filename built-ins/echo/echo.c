@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:25:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/09 19:24:49 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/12 17:55:59 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int	ft_echo(char **args)
 	if (numberof_args == 2 && ft_strncmp(args[1], "-n",
 			ft_strlen(args[1])) == 0)
 		return (0);
-	printf("\033[1;33m");
 	// isto bem feito era ter um array com todas as flags e ver
 	//se n existe nehuma non-flag presente mas como só temos
 	// q fazer uma flag.....
@@ -99,7 +98,6 @@ int	ft_echo(char **args)
 		if (args[i])
 			printf(" ");
 	}
-	printf("\033[0m");
 	if (ft_strncmp(args[1], "-n", ft_strlen(args[1])) != 0)
 		printf("\n");
 	return (0);

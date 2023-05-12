@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 04:00:45 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/10 15:35:17 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/12 17:51:44 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	dup_iostream(int **pipe_fd, int command_num, t_tree *node)
 {
 	
-	printf("In process %s:\npipe_fd[1][1]:%d\npipe_fd[1[0]:%d\npipe_fd[0][0]:%d\npipe_fd[0][1]:%d\n",node->args[0], pipe_fd[1][1], pipe_fd[1][0], pipe_fd[0][1], pipe_fd[0][0]);
 	if (command_num == 0)
 	{
 		close(pipe_fd[0][0]);
@@ -40,11 +39,12 @@ void	dup_iostream(int **pipe_fd, int command_num, t_tree *node)
 	return ;
 }
 
-static int	output_redirection(int fd, t_tree *node, int token_type)
+static int	output_redirection(int fd, t_tree *node)
 {
-	if (token_type == O_REDIR)
+	perror("output redir");
+	if (node->tokentype == O_REDIR)
 		fd = open(node->args[0] /*filename*/, O_CREAT | O_WRONLY);
-	else if (token_type == O_APPEND)
+	else if (node->tokentype == APPEND)
 		fd = open(node->args[0], O_CREAT  | O_WRONLY | O_APPEND);
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
@@ -60,11 +60,20 @@ static int	input_redirection(int fd, t_tree *node, int token_type)
 	return (0);
 }
 
-void	redirections_handler(int **pipe_fd, int tokentype, t_tree *node)
+void	redirections_handler(t_tree *node)
 {
-	if (tokentype == I_REDIR)
-		input_redirection(pipe_fd[1][0], node, tokentype);
-	if (tokentype == O_REDIR || tokentype == APPEND)
-		output_redirection(pipe_fd[0][1], node, tokentype);
+	t_tree *aux;
+
+	aux = node;
+	printf("redirects happening\n");
+	while (aux->right_branch)
+	{
+		aux = aux->right_branch;
+		printf("right_branch_tk:%d\n", node->tokentype);
+		if (aux->tokentype == I_REDIR)
+			input_redirection(STDIN_FILENO, aux, aux->tokentype);
+		if (aux->tokentype == O_REDIR || aux->tokentype == APPEND)
+			output_redirection(STDOUT_FILENO, aux);
+	}
 	return ;
 }
