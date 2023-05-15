@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:59:26 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/15 16:43:20 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/15 20:04:03 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ ssize_t	get_heredoc_input(t_heredoc *new_heredoc, char *delimiter)
 	int		ret;
 
 	new_heredoc->delimiter = delimiter;
-	printf("delimiter:%s\n", delimiter);
 	i = 0;
 	while (i < 200)
 		buf[i++] = 0;
