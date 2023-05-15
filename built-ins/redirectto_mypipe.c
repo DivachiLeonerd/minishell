@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 04:00:45 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/12 17:51:44 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:55:58 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,18 @@ static int	output_redirection(int fd, t_tree *node)
 {
 	perror("output redir");
 	if (node->tokentype == O_REDIR)
-		fd = open(node->args[0] /*filename*/, O_CREAT | O_WRONLY);
+		fd = open(node->args[0] /*filename*/, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	else if (node->tokentype == APPEND)
-		fd = open(node->args[0], O_CREAT  | O_WRONLY | O_APPEND);
+		fd = open(node->args[0], O_CREAT  | O_WRONLY | O_APPEND, 0666);
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	return (0);
 }
 
-static int	input_redirection(int fd, t_tree *node, int token_type)
+static int	input_redirection(int fd, t_tree *node)
 {
-	if (token_type == I_REDIR)
-		fd = open(node->args[0] /*filename*/, O_CREAT | O_RDONLY);
+	if (node->tokentype == I_REDIR)
+		fd = open(node->args[0] /*filename*/, O_CREAT | O_RDONLY, 0666);
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 	return (0);
@@ -65,13 +65,11 @@ void	redirections_handler(t_tree *node)
 	t_tree *aux;
 
 	aux = node;
-	printf("redirects happening\n");
 	while (aux->right_branch)
 	{
 		aux = aux->right_branch;
-		printf("right_branch_tk:%d\n", node->tokentype);
 		if (aux->tokentype == I_REDIR)
-			input_redirection(STDIN_FILENO, aux, aux->tokentype);
+			input_redirection(STDIN_FILENO, aux);
 		if (aux->tokentype == O_REDIR || aux->tokentype == APPEND)
 			output_redirection(STDOUT_FILENO, aux);
 	}

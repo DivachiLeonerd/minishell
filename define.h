@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:28:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/09 18:21:41 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:15:02 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_tree
 # define NODE_WORTHY tokentype != WORD
 # define PROMPT "PequenaConcha:"
 # define COMMAND (node->tokentype == BUILTIN || node->tokentype == EXECUTABLE)
-# define REDIR (node->tokentype == I_REDIR || node->tokentype == O_REDIR)
+# define REDIR (node->tokentype == I_REDIR || node->tokentype == O_REDIR || node->tokentype == APPEND)
 
 void	free_matrix(char **envp);
 char	*find_command_path(char **myenvp, char *command);

@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/12 16:11:23 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:57:34 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ static void	free_node(t_tree *node)
 		free(node->heredoc->pipe_fd);
 		free(node->heredoc->delimiter);
 	}
-	printf("node type:%d\n", node->tokentype);
 	if (node->args)
 		free_matrix(node->args);
 	free(node);
@@ -91,19 +90,19 @@ void	free_tree(t_tree *bintree)
 	while (bintree->back != NULL) //tries to find the first position of the tree
 		bintree = bintree->back;
 	node = bintree;
-	while (node != NULL)
+	while (1)
 	{
 		// printf("we are freeing tree\n");
-		if (check_direction(RIGHT, node) == 0)
+		temp = node;
+		while (check_direction(RIGHT, node) == 0)
 		{
-			temp = node;
-			while (check_direction(RIGHT, node) == 0)
-				node = node->right_branch;
+			node = node->right_branch;
 			while (node != temp)
 			{
 				aux = node;
 				node = node->back;
 				free_node(aux);
+				node->right_branch = NULL;
 			}
 		}
 		if (check_direction(LEFT, node) == 0)
@@ -111,8 +110,12 @@ void	free_tree(t_tree *bintree)
 			aux = node;
 			node = node->left_branch;
 			free_node(aux);
+			node->back = NULL;
 		}
-		node = node->left_branch;
+		if (node->left_branch)
+			node = node->left_branch;
+		else
+			return (free_node(node));
 	}
 	return ;
 }

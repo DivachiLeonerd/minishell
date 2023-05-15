@@ -6,7 +6,7 @@
 #    By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/06 12:24:32 by afonso            #+#    #+#              #
-#    Updated: 2023/05/10 11:20:33 by atereso-         ###   ########.fr        #
+#    Updated: 2023/05/15 11:32:04 by atereso-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ all: ${NAME}
 ${NAME}: ${OBJS}
 	@ar -rcs ${NAME} ${OBJS}
 .c.o:
-	@${CC} ${FLAGS} -c $< -o ${<:.c=.o} ${HEADER}
+	@${CC} ${CFLAGS} -c $< -o ${<:.c=.o} ${HEADER}
 
 clean:
 	@${RM} *.o
