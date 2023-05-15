@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:35 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/05/09 15:11:05 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:52:56 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void		create_right_node(t_tree *previous, t_tree *node);
 t_tree		*add_to_tree(int tokentype, t_tree *last_node);
 t_tree		*pipes_cond(int tokentype, t_tree *aux, t_tree *node);
 t_tree		*redir_cond(t_tree *aux, t_tree *node);
+t_tree		*heredoc_cond(t_tree *last_node, t_tree *node);
 t_heredoc	*make_heredoc(void);
 ssize_t		get_heredoc_input(t_heredoc *heredoc, char *delimiter);
 t_tree		*addtoken_to_tree(char **env, char **tokens);
@@ -42,5 +43,6 @@ char		*str_expander(char *s, char **env);
 void		free_tree(t_tree *bintree);
 t_tree		*find_topof_tree(t_tree *bintree);
 void		heredoc_handler(t_heredoc *heredoc);
+int			check_direction(int direction, t_tree *node);
 // void		close_heredocs(t_heredoc **all_heredocs);
 #endif

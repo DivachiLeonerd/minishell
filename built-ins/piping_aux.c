@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/15 11:57:05 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:31:05 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	run_processes(t_tree *node, char **myenvp)
 	}
 	else if (node->tokentype == EXECUTABLE)
 	{
-		perror("im exec");
+		// perror("im exec");
 		execute_non_builtin((node->args)[0], myenvp, node->args);
 		return(127);
 	}
@@ -49,8 +49,10 @@ char	**make_processes(t_tree *bintree, char **myenvp)
 {
 	int		numof_pipes;
 	int		pid;
+	int		fd1;
+	int		fd0;
 	int		**pipe_fd;
-	t_tree *node;
+	t_tree 	*node;
 
 	pid = -1;
 	numof_pipes = how_many_pipes(bintree);
@@ -58,9 +60,11 @@ char	**make_processes(t_tree *bintree, char **myenvp)
 	//check if the one command is a builtin and if it is, just run it
 	if (numof_pipes == 0 && COMMAND)
 	{
-		pid = dup(STDOUT_FILENO);
-		myenvp = run_single_builtin(node,myenvp);
-		dup2(pid, STDOUT_FILENO);
+		fd1 = dup(STDOUT_FILENO);
+		fd0 = dup(STDIN_FILENO);
+		myenvp = run_single_builtin(node, myenvp);
+		dup2(fd1, STDOUT_FILENO);
+		dup2(fd0, STDIN_FILENO);
 		return (myenvp);
 	}
  

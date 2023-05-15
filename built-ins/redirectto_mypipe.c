@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 04:00:45 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/15 11:55:58 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:41:56 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	dup_iostream(int **pipe_fd, int command_num, t_tree *node)
 
 static int	output_redirection(int fd, t_tree *node)
 {
-	perror("output redir");
+	// perror("output redir");
 	if (node->tokentype == O_REDIR)
 		fd = open(node->args[0] /*filename*/, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	else if (node->tokentype == APPEND)
@@ -72,6 +72,8 @@ void	redirections_handler(t_tree *node)
 			input_redirection(STDIN_FILENO, aux);
 		if (aux->tokentype == O_REDIR || aux->tokentype == APPEND)
 			output_redirection(STDOUT_FILENO, aux);
+		if (aux->tokentype == HEREDOC)
+			heredoc_handler(aux->heredoc);
 	}
 	return ;
 }
