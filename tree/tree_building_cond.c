@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 09:48:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/15 16:38:28 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:08:09 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,16 @@ t_tree	*pipes_cond(int tokentype, t_tree *last_node, t_tree *node)
 	}
 	if (tokentype == PIPE)
 	{
-		last_node->back = node;
-		node->left_branch = last_node;
+		if (last_node->back && last_node->back->tokentype == PIPE)
+		{
+			last_node->back->back = node;
+			last_node->back->back->left_branch = last_node->back;
+		}
+		else
+		{
+			last_node->back = node;
+			node->left_branch = last_node;
+		}
 	}
 	return (node);
 }
