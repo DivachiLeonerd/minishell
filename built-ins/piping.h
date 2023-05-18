@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:46:35 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/17 17:30:06 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:50:14 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 int		return_righttokenid(t_tree *command_node);
 t_tree	*find_first_command(t_tree *bintree);
-char	**execute_builtin(char *command, char **args);
+int		execute_builtin(char *command, char **args);
 int		is_builtin(char *command);
 void	make_and_run_pipes(t_tree *bintree);
 int		**pipe_creation(int how_many_pipes);
@@ -37,6 +37,6 @@ void	dup_iostream(int **pipe_fd, int command_num, t_tree *node);
 void	redirections_handler(t_tree *command_node);
 int		run_processes(t_tree *node);
 void	multiple_processes(int command_num, t_tree *bintree, int **pipe_fd);
-char    **run_single_builtin(t_tree *bintree);
+int		run_single_builtin(t_tree *bintree);
 char	**make_processes(t_tree *bintree);
 #endif

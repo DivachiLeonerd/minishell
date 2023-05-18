@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/18 12:01:20 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:53:04 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,9 @@ char	*print_prompt(int r_flag)
 	char	*pwd;
 	char	*aux;
 	size_t	size;
+	int		len;
 
-	pwd = ft_pwd();
+	pwd = getcwd(NULL, 0);
 	printf("\033[1;32m");
 	printf(PROMPT);
 	printf("\033[1;34m");
@@ -69,8 +70,9 @@ char	*print_prompt(int r_flag)
 	if (ft_strncmp(pwd, aux, ft_strlen(aux)) == 0)
 	{
 		size = ft_strlen(aux);
+		len = ft_strlen(aux);
 		free(aux);
-		aux = ft_substr(pwd, size, ft_strlen(pwd) - ft_strlen(aux));
+		aux = ft_substr(pwd, size, ft_strlen(pwd) - len);
 		free(pwd);
 		pwd = ft_strjoin("~", aux);
 		free(aux);
@@ -94,12 +96,12 @@ int	main(int argc, char **argv, char **envp)
 	i = 1;
 	(void)argc;
 	(void)argv;
+	printf("pid: %d\n", getpid());
 	g_struct.myenvp = build_envp(envp);
 	command_line = NULL;
 	//returns a empty string, which is different from a NULL
 	while (i)
 	{
-		errno = 0;
 		bintree = NULL;
 		intr_behaviour(&behaviour);
 		while (1)

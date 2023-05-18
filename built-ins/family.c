@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 19:19:45 by atereso-          #+#    #+#             */
-/*   Updated: 2023/05/18 15:43:44 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:37:22 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,9 @@ static int	make_child(t_tree *node, int **pipe_fd, int command_num, t_tree *bint
 }
 
 
-static int	ft_child(t_tree *node, int command_num, int **pipe_fd)
+static void	ft_child(t_tree *node, int command_num, int **pipe_fd)
 {
 	t_tree *aux;
-	int		ret;
 	//process instructions here
 	dup_iostream(pipe_fd, command_num, node);
 	aux = node;
@@ -51,17 +50,18 @@ static int	ft_child(t_tree *node, int command_num, int **pipe_fd)
 			heredoc_handler(node->heredoc);
 	}
 	node = aux;
-	ret = run_processes(node);
-	return (ret);//command not found because we have tried everything
+	exit(run_processes(node));
 }
 
 static void	ft_parent(int pid, int **pipe_fd)
 {
+	int	error_num;
+	
 	close(STDOUT_FILENO);
 	close(STDIN_FILENO);
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &error_num, 0);
 	free_all_resources(pipe_fd);
-	exit(0);
+	exit(error_num);
 }
 
 void	multiple_processes(int command_num, t_tree *bintree, int **pipe_fd)

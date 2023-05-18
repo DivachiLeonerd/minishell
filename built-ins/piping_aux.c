@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/17 18:30:42 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:51:50 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,12 @@ int	run_processes(t_tree *node)
 	if (node->tokentype == BUILTIN)
 	{
 		// perror("U r builtin");
-		execute_builtin((node->args)[0], node->args);
-		return (0);
+		return (execute_builtin((node->args)[0], node->args));
 	}
 	else if (node->tokentype == EXECUTABLE)
 	{
 		// perror("im exec");
-		execute_non_builtin((node->args)[0], node->args);
-		return(127);
+		return(execute_non_builtin((node->args)[0], node->args));
 	}
 	return (0);
 }
@@ -62,7 +60,7 @@ char	**make_processes(t_tree *bintree)
 	{
 		fd1 = dup(STDOUT_FILENO);
 		fd0 = dup(STDIN_FILENO);
-		g_struct.myenvp = run_single_builtin(node);
+		g_struct.chad_exitstatus = run_single_builtin(node);
 		dup2(fd1, STDOUT_FILENO);
 		dup2(fd0, STDIN_FILENO);
 		return (g_struct.myenvp);
@@ -75,12 +73,11 @@ char	**make_processes(t_tree *bintree)
 		pipe_fd[0] = malloc(2 * sizeof(int));
 		pipe_fd[1] = malloc(2 * sizeof(int));
 		multiple_processes(0, bintree, pipe_fd);
-		exit(0);
 	}
 	else
 	{
 		// printf("im main()\n");
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &(g_struct.chad_exitstatus), 0);
 		// printf("main()isn't waiting anymore\n");
 	}
 	return (g_struct.myenvp);

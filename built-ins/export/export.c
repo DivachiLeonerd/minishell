@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:05:47 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/17 18:17:10 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:34:14 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 // 	return (fd);
 // }
 
-char	**export(char **args)
+int	export(char **args)
 {
 	char	**var;
 	char	*new_var;
@@ -38,5 +38,5 @@ char	**export(char **args)
 	else
 		new_env = env_realloc(g_struct.myenvp, new_env, 0, args[0]);
 	free(new_var);
-	return (new_env);
+	return (errno);
 }
