@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 19:19:45 by atereso-          #+#    #+#             */
-/*   Updated: 2023/05/18 11:19:21 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 15:43:44 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	make_child(t_tree *node, int **pipe_fd, int command_num, t_tree *bint
 {
 	int	pid;
 
+	pid = -2;
 	if ((node->back && node->back->right_branch == node && node->back->back) || command_num == 0)
 	{
 		pipe(pipe_fd[0]);
@@ -76,6 +77,7 @@ void	multiple_processes(int command_num, t_tree *bintree, int **pipe_fd)
 			pid = make_child(command_node, pipe_fd, command_num, bintree);
 	}
 	ft_child(command_node, command_num, pipe_fd);
-	ft_parent(pid, pipe_fd);
+	if (pid != -2)
+		ft_parent(pid, pipe_fd);
 	return ;
 }
