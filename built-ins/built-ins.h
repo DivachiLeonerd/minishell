@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:18:23 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/09 19:21:23 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:12:24 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,23 @@
 # include <signal.h>
 
 int		ft_echo(char **args);
-char	**find_env_full_var(char *var_name, char **envp);
+char	**find_env_full_var(char *var_name);
 char	*get_variable_name(char *message);
 char	*ft_pwd(void);
-char	**cd(char *pathname, char **envp);
-int		env(char **envp);
-char	**export(char **args, char **envp);
+char	**cd(char *pathname);
+int		env(void);
+char	**export(char **args);
 int		get_env_fd(char **envp);
 int		how_many_arrays(char **double_ptr);
 char	**build_envp(char **envp);
-char	**unset(char **args, char **envp);
+char	**unset(char **args);
 char	**env_realloc(char **envp, char **new_env, int numof_new_arrays,
 			char *var);
 void	add_var_to_env(char **new_env, char **old_env, char *var);
 char	**replace_env_var(char **env, char *var);
 void	delete_var_from_env(char **new_env, char **old_env, char *var);
 int		is_builtin(char *command);
-int		execute_non_builtin(char *command_name, char **myenvp, char **argv);
+int		execute_non_builtin(char *command_name, char **argv);
 void	ft_exit(void);
 void	intr_behaviour(struct sigaction *act);
 void	nintr_behaviour(struct sigaction *act);

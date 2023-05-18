@@ -6,15 +6,16 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:59 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/20 18:44:04 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:20:29 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "../built-ins/built-ins.h"
 #include "../define.h"
+#include "../minishell.h"
 
-int	get_token_type(char *token, char **myenvp)
+int	get_token_type(char *token)
 {
 	int		token_size;
 	char	*aux;
@@ -44,7 +45,7 @@ int	get_token_type(char *token, char **myenvp)
 	if (is_builtin(token))
 		return (BUILTIN);
 	else
-		aux = find_command_path(myenvp, token);
+		aux = find_command_path(token);
 	if (aux)
 	{
 		free(aux);
@@ -57,8 +58,8 @@ void	*no_mem(void *p)
 {
 	if (!p)
 	{
-		chad_exitstatus = 12;
-		printf("%s\n", strerror(chad_exitstatus));
+		g_struct.chad_exitstatus = 12;
+		printf("%s\n", strerror(g_struct.chad_exitstatus));
 		return (NULL);
 	}
 	return (p);

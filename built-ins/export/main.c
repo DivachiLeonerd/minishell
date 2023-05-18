@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 17:46:47 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/03 15:07:07 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:19:18 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	**myenvp;
+	char	**g_struct.myenvp;
 	int		i;
 	int		j;
 
-	myenvp = build_envp(envp);
-	myenvp = export(&(argv[1]), myenvp);
-	env(myenvp);
+	g_struct.myenvp = build_envp(envp);
+	g_struct.myenvp = export(&(argv[1]), g_struct.myenvp);
+	env(g_struct.myenvp);
 	printf("\n**************\n\n");
-	myenvp = export(&(argv[2]), myenvp);
-	env(myenvp);
-	free_matrix(myenvp);
+	g_struct.myenvp = export(&(argv[2]), g_struct.myenvp);
+	env(g_struct.myenvp);
+	free_matrix(g_struct.myenvp);
 	return (0);
 }

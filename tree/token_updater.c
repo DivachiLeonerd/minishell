@@ -56,7 +56,7 @@ static int	get_size(char *s)
 		return (nquoted_size(s));
 }
 
-char	*token_updater(char **tokens, char **env, int *var)
+char	*token_updater(char **tokens, int *var)
 {
 	int				size;
 	char			*str;
@@ -71,12 +71,12 @@ char	*token_updater(char **tokens, char **env, int *var)
 		{
 			str = no_mem(ft_substr(token, 1, size - 1));
 			if (token[0] != '\'')
-				str = str_expander(str, env);
+				str = str_expander(str);
 		}
 		else if (ft_chrcmp('$', token))
 		{
 			str = no_mem(ft_substr(token, 0, size));
-			str = str_expander(str, env);
+			str = str_expander(str);
 		}
 		else
 			str = no_mem(ft_substr(token, 0, size));

@@ -6,12 +6,12 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:05:47 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/09 19:31:37 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:17:10 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../built-ins.h"
-
+#include "../../minishell.h"
 // int	get_env_fd(char **envp)
 // {
 // 	int fd;
@@ -24,19 +24,19 @@
 // 	return (fd);
 // }
 
-char	**export(char **args, char **myenvp)
+char	**export(char **args)
 {
 	char	**var;
 	char	*new_var;
 	char	**new_env;
 	//variable == "NAME=VALUE"
 	new_env = NULL;
-	var = find_env_full_var(args[0], myenvp);
+	var = find_env_full_var(args[0]);
 	new_var = ft_strdup(args[0]);
 	if (var == NULL) //if var not found
-		new_env = env_realloc(myenvp, new_env, 1, args[0]);
+		new_env = env_realloc(g_struct.myenvp, new_env, 1, args[0]);
 	else
-		new_env = env_realloc(myenvp, new_env, 0, args[0]);
+		new_env = env_realloc(g_struct.myenvp, new_env, 0, args[0]);
 	free(new_var);
 	return (new_env);
 }

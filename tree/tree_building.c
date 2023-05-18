@@ -6,20 +6,21 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/15 17:56:00 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:12:16 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "../built-ins/piping.h"
 #include "../define.h"
+#include "minishell.h"
 
 void	i_dont_know_dude(int tokentype, t_tree *node)
 {
 	(void)node;
 	if (tokentype == WORD)
 	{
-		chad_exitstatus = 2;
+		g_struct.chad_exitstatus = 2;
 		node = NULL;
 		return ;
 	}

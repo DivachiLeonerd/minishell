@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:10:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/09 18:07:58 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:09:12 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	free_all_paths(char **all_paths)
 // 	return (temp);
 // }
 
-char	*find_command_path(char **myenvp, char *command)
+char	*find_command_path(char *command)
 {
 	int			i;
 	char		**all_paths;
@@ -65,15 +65,15 @@ char	*find_command_path(char **myenvp, char *command)
 					return (temp);
 			}
 		}
-		chad_exitstatus = 13;
+		g_struct.chad_exitstatus = 13;
 		free(temp);
 		return (temp = NULL);
 	}
 	else
 		temp = ft_strjoin("/", command);
-	while (ft_strncmp("PATH=", myenvp[i], 4) != 0)
+	while (ft_strncmp("PATH=", g_struct.myenvp[i], 4) != 0)
 		i++;
-	all_paths = ft_split(myenvp[i], ':');
+	all_paths = ft_split(g_struct.myenvp[i], ':');
 	i = 0;
 	while (all_paths[i])
 	{
@@ -98,13 +98,13 @@ char	*find_command_path(char **myenvp, char *command)
 	return (command_path);
 }
 
-int	execute_non_builtin(char *command_name, char **myenvp, char **args)
+int	execute_non_builtin(char *command_name, char **args)
 {
 	char	*pathname;
 
-	pathname = find_command_path(myenvp, command_name);
+	pathname = find_command_path(command_name);
 	free(command_name);
 	if (pathname != NULL)
-		execve(pathname, args, myenvp);
+		execve(pathname, args, g_struct.myenvp);
 	return (127);
 }

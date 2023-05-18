@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:19:15 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/11 17:08:25 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:56:22 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@
 # include "./built-ins/piping.h"
 # include "define.h"
 
-typedef struct s_controller
+typedef struct g_controller
 {
-	int		token_updater;
-	t_tree	*last_node;
-}t_controller;
+	int		chad_exitstatus;
+	char	**myenvp;
+}g_controller;
 
-char	*print_prompt(char **envp);
+extern g_controller g_struct;
+
+char	*print_prompt(int flag);
 void	free_all_resources(int **pipe_fd);
 #endif

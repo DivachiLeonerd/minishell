@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:28:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/15 20:02:08 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:32:26 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,8 @@ typedef struct s_tree
 # define PROMPT "PequenaConcha:"
 # define COMMAND (node->tokentype == BUILTIN || node->tokentype == EXECUTABLE)
 # define REDIR (node->tokentype == I_REDIR || node->tokentype == O_REDIR || node->tokentype == APPEND || node->tokentype == HEREDOC)
+# define SPECIAL_TOKEN (tokentype == PIPE || tokentype == I_REDIR || tokentype == O_REDIR || tokentype == APPEND || tokentype == HEREDOC)
 
 void	free_matrix(char **envp);
-char	*find_command_path(char **myenvp, char *command);
+char	*find_command_path(char *command);
 #endif
-
-extern int	chad_exitstatus;

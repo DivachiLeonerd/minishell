@@ -6,12 +6,13 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 10:24:14 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/09 19:21:38 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:30:15 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "built-ins.h"
 #include "../tree/parser.h"
+#include "../minishell.h"
 
 void	free_bad_env_build(char **envp, int failed_index)
 {
@@ -35,27 +36,26 @@ int	how_many_arrays(char **double_ptr)
 
 char	**build_envp(char **envp)
 {
-	char	**myenvp;
 	int		i;
 	int		len;
 
 	i = 0;
 	len = how_many_arrays(envp);
-	myenvp = malloc((len + 1) * sizeof(char *));
-	if (myenvp == NULL)
+	g_struct.myenvp = malloc((len + 1) * sizeof(char *));
+	if (g_struct.myenvp == NULL)
 		return (NULL);
-	myenvp[len] = NULL;
+	g_struct.myenvp[len] = NULL;
 	while (i < len)
 	{
-		myenvp[i] = ft_strdup(envp[i]);
-		if (myenvp[i] == NULL)
+		g_struct.myenvp[i] = ft_strdup(envp[i]);
+		if (g_struct.myenvp[i] == NULL)
 		{
-			free_bad_env_build(myenvp, i);
+			free_bad_env_build(g_struct.myenvp, i);
 			return (NULL);
 		}
 		i++;
 	}
-	return (myenvp);
+	return (g_struct.myenvp);
 }
 
 char	**env_realloc(char **envp, char **new_env,

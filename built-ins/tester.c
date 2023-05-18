@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 10:04:42 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/11 12:12:09 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:19:18 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	**myenvp;
+	char	**g_struct.myenvp;
 	int		pid;
 	int		**pipe_fd;
 	char	*buf;

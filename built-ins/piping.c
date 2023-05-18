@@ -6,12 +6,12 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:43:55 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/15 11:05:56 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:06:36 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "piping.h"
-
+#include "../minishell.h"
 //function that creates all pipes and returns the int**
 
 int	**pipe_creation(int how_many_pipes)
@@ -79,7 +79,7 @@ t_tree	*find_command_node(int index, t_tree *bintree)
 			}
 			else
 			{
-				chad_exitstatus = 127;
+				g_struct.chad_exitstatus = 127;
 				return (NULL);
 			}
 		}

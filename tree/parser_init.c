@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:35 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/05/15 11:11:38 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:23:12 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include "../minishell.h"
 
-t_tree	*parser_init(char *s, char ***env)
+t_tree	*parser_init(char *s)
 {
 	t_tree		*bintree;
 	char		**tokens;
@@ -24,7 +24,7 @@ t_tree	*parser_init(char *s, char ***env)
 	if (syntax_checker(s) != 0)
 		return (NULL);
 	tokens = ft_divide_tokens(s, ' ');
-	bintree = addtoken_to_tree(*env, tokens);
+	bintree = addtoken_to_tree(tokens);
 	bintree = find_topof_tree(bintree);
 	free(tokens);
 	return (bintree);

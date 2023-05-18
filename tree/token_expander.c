@@ -6,13 +6,14 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:59 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/05/09 19:26:31 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:20:50 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "../built-ins/built-ins.h"
 #include "../define.h"
+#include "minishell.h"
 
 char	*join_tokens(char *s1, char *s2, int i)
 {
@@ -28,7 +29,7 @@ char	*join_tokens(char *s1, char *s2, int i)
 }
 
 //expands string wrapped in double quotes and with a '$'
-char	*str_expander(char *s, char **env)
+char	*str_expander(char *s)
 {
 	size_t	size;
 	char	*temp;
@@ -40,7 +41,7 @@ char	*str_expander(char *s, char **env)
 	if (!s)
 	{
 		perror("What a grave mistake in str_expander()");
-		chad_exitstatus = 69420;
+		g_struct.chad_exitstatus = 69420;
 		return (NULL);
 	}
 	size = ft_strlen(s);
@@ -49,7 +50,7 @@ char	*str_expander(char *s, char **env)
 	if (ft_strncmp(s, "$?", 2) == 0)
 	{
 		free(s);
-		s = ft_itoa(chad_exitstatus);
+		s = ft_itoa(g_struct.chad_exitstatus);
 		return (s);
 	}
 	if (s[0] == '\"')
@@ -57,7 +58,7 @@ char	*str_expander(char *s, char **env)
 	if (s[i] == '$')
 	{
 		temp = ft_substr(s, i, size);//token = "PWD"
-		full_name = find_env_full_var(&(temp[1]), env);//full_name = "PWD=./"
+		full_name = find_env_full_var(&(temp[1]));//full_name = "PWD=./"
 		//printf("%p\n", *full_name);
 		free(temp);
 		if (!full_name)

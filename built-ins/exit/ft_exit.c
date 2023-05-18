@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 17:52:15 by atereso-          #+#    #+#             */
-/*   Updated: 2023/05/08 20:04:04 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 12:04:28 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,9 @@ static void	intrv_signal_handler(int sig_num)
 
 	if (sig_num == SIGINT)
 	{
-		printf("\n");
-		printf("\033[1;32m");
-		printf(PROMPT);
-		printf("\033[0m");
-		p = ft_pwd();
-		if (ft_strncmp(p, "/home/afonso", ft_strlen(p)) == 0)
-		{
-			free(p);
-			p = ft_strdup("~");
-		}
-		printf("\033[1;34m%s\033[0m$ ", p);
+		write(1, "\n", 1);
+		p = print_prompt(0);
+		printf(" ");
 		free (p);
 	}
 	if (sig_num == SIGQUIT)
@@ -47,7 +39,7 @@ static void	nintrv_signal_handler(int sig_num)
 {
 	if (sig_num == SIGQUIT || sig_num == SIGINT)
 	{
-		chad_exitstatus = 4;
+		g_struct.chad_exitstatus = 4;
 		exit(4);
 	}
 }

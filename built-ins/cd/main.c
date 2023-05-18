@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:21:44 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/30 11:43:05 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:19:18 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	**myenvp;
+	char	**g_struct.myenvp;
 
-	myenvp = build_envp(envp);
-	env(myenvp);
+	g_struct.myenvp = build_envp(envp);
+	env(g_struct.myenvp);
 	cd(argv[1]);
 	printf("\n\nnew_PWD:");
 	ft_pwd();
 	printf("\n\nCheck new PWD in env:\n\n");
-	env(myenvp);
-	free_matrix(myenvp);
+	env(g_struct.myenvp);
+	free_matrix(g_struct.myenvp);
 	return (0);
 }

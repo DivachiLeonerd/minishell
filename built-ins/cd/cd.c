@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:19:20 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/20 17:19:52 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:21:25 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../../minishell.h"
 
 // depois temos que usar getcwd() para mudar o prompt
-char	**cd(char *pathname, char **envp)
+char	**cd(char *pathname)
 {
 	int		ret;
 	char	*old_pwd;
@@ -28,12 +28,12 @@ char	**cd(char *pathname, char **envp)
 	if (!old_pwd)
 	{
 		free(old_pwd);
-		return (envp);
+		return (g_struct.myenvp);
 	}
 	if (!pathname)
 	{
 		pathname = ft_strdup("$HOME");
-		pathname = str_expander(pathname, envp);
+		pathname = str_expander(pathname);
 	/* 	if (pathname[0] == '~')
 		{
 			ft_strjoin(pathname, "")
@@ -41,13 +41,13 @@ char	**cd(char *pathname, char **envp)
 		errno = 0;
 		ret = chdir(pathname);
 		if (errno != 0)
-			chad_exitstatus = errno;
+			g_struct.chad_exitstatus = errno;
 		free(pathname);
 	}
 	else if (pathname[0] == '~')
 	{
 		temp = ft_strdup("$HOME");
-		temp = str_expander(temp, envp);
+		temp = str_expander(temp);
 		aux = ft_strdup(pathname);
 		pwd = ft_substr(aux, 1, ft_strlen(aux) - 1);
 		free(aux);
@@ -56,7 +56,7 @@ char	**cd(char *pathname, char **envp)
 		errno = 0;
 		ret = chdir(pathname);
 		if (errno != 0)
-			chad_exitstatus = errno;
+			g_struct.chad_exitstatus = errno;
 		free(aux);
 		free(pwd);
 	}
@@ -65,21 +65,21 @@ char	**cd(char *pathname, char **envp)
 		errno = 0;
 		ret = chdir(pathname);
 		if (errno != 0)
-			chad_exitstatus = errno;
+			g_struct.chad_exitstatus = errno;
 	}
 	if (!ret)
 	{
 		temp = ft_strjoin("OLDPWD=", old_pwd);
 		free(old_pwd);
-		envp = export(&temp, envp);
+		g_struct.myenvp = export(&temp);
 		free(temp);
 		pwd = getcwd(NULL, 0);
 		temp = ft_strjoin("PWD=", pwd);
 		free(pwd);
-		envp = export(&temp, envp);
+		g_struct.myenvp = export(&temp);
 		free(temp);
 	}
 	else
 		free(old_pwd);
-	return (envp);
+	return (g_struct.myenvp);
 }

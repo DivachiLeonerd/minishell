@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 18:27:46 by afonso            #+#    #+#             */
-/*   Updated: 2022/12/19 11:44:30 by afonso           ###   ########.fr       */
+/*   Updated: 2023/05/17 17:19:18 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	**myenvp;
+	char	**g_struct.myenvp;
 
-	myenvp = build_envp(envp);
-	ft_pwd(argv, myenvp);
-	env(myenvp);
+	g_struct.myenvp = build_envp(envp);
+	ft_pwd(argv, g_struct.myenvp);
+	env(g_struct.myenvp);
 	cd("../");
-	ft_pwd(argv, myenvp);
+	ft_pwd(argv, g_struct.myenvp);
 	return (0);
 }

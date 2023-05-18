@@ -6,12 +6,12 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:25:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/12 17:55:59 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:14:15 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../built-ins.h"
-
+#include "../../minishell.h"
 //echo tem que poder usar a flag "-n" que faz com que echo
 //não printe \n no final da string escrita
 //echo tem de conseguir printar com quotes e single quotes
@@ -33,27 +33,27 @@ char	*get_variable_name(char *message)
 	return (var_name);
 }
 
-char	**find_env_full_var(char *message, char **envp)
+char	**find_env_full_var(char *message)
 {
 	char	*var_name;
 	int		i;
 	//message: MYVAR=value
 	i = 0;
 	var_name = get_variable_name(message);
-	while (envp[i])
+	while (g_struct.myenvp[i])
 	{
-		if (ft_strncmp(envp[i], &(var_name[0]), ft_strlen(var_name) - 1) == 0)
+		if (ft_strncmp(g_struct.myenvp[i], &(var_name[0]), ft_strlen(var_name) - 1) == 0)
 			break ;
 		i++;
 	}
-	if (envp[i] == NULL)
+	if (g_struct.myenvp[i] == NULL)
 	{
 		printf("var_name: %s\n", var_name);
 		free(var_name);
 		return ((char **)0);
 	}
 	free(var_name);
-	return (&(envp[i]));
+	return (&(g_struct.myenvp[i]));
 }
 
 int	ft_echo(char **args)

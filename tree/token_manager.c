@@ -6,13 +6,13 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:23:47 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/05/15 11:56:54 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:22:38 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "../built-ins/built-ins.h"
-
+#include "minishell.h"
 int	token_manager(char *token)
 {
 	int		i;
@@ -60,12 +60,12 @@ char	**add_argstoken(char **args, char *token)
 	return (new_args);
 }
 
-static void	addtoken_heredoc(char **env, char **tokens,
+static void	addtoken_heredoc(char **tokens,
 	int *controller, t_tree *last_node)
 {
 	char	*token;
 
-	token = token_updater(tokens, env, controller);
+	token = token_updater(tokens, controller);
 	last_node->heredoc = make_heredoc();
 	last_node->heredoc->bytes_stored = get_heredoc_input(last_node->heredoc, token);
 	free(token);
@@ -76,35 +76,47 @@ static void	addtoken_words(char *token, t_tree *last_node)
 {
 	if (!last_node)
 	{
-		chad_exitstatus = 127;
+		g_struct.chad_exitstatus = 127;
 		return ;
 	}
 	last_node->args = add_argstoken(last_node->args, token);
 	return ;
 }
 
-t_tree	*addtoken_to_tree(char **env, char **tokens)
+t_tree	*addtoken_to_tree(char **tokens)
 {
+	int		i;
 	int		controller;
 	t_tree	*last_node;
 	char	*token;
 	int		tokentype;
 
+	i = 0;
 	tokentype = 0;
 	controller = 0;
 	last_node = NULL;
+	//echo ola  > file1 echo | cat
 	while (tokentype != -1)
 	{
-		token = token_updater(tokens, env, &controller);
-		tokentype = get_token_type(token, env);
+		token = token_updater(tokens, &controller);
+		tokentype = get_token_type(token);
+		if (((tokentype == BUILTIN || tokentype == EXECUTABLE) && i == 1))
+			tokentype = WORD;
+		else if (NODE_WORTHY)
+		{
+			if (tokentype == PIPE)
+				i = 0;
+			last_node = add_to_tree(tokentype, last_node);
+		}
 		if (tokentype == WORD)
 			addtoken_words(token, last_node);
-		else if (NODE_WORTHY)
-			last_node = add_to_tree(tokentype, last_node);
 		if (tokentype == HEREDOC)
-			addtoken_heredoc(env, tokens, &controller, last_node);
-		if (tokentype == BUILTIN || tokentype == EXECUTABLE)
+			addtoken_heredoc(tokens, &controller, last_node);
+		if ((tokentype == BUILTIN || tokentype == EXECUTABLE) && i == 0)
+		{
+			i = 1;
 			last_node->args = add_argstoken(last_node->args, token);
+		}
 		free(token);
 	}
 	return (last_node);

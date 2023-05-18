@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/15 16:31:05 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:30:42 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,24 @@ int	how_many_pipes(t_tree *bintree)
 	return (numof_pipes);
 }
 
-int	run_processes(t_tree *node, char **myenvp)
+int	run_processes(t_tree *node)
 {
 	if (node->tokentype == BUILTIN)
 	{
 		// perror("U r builtin");
-		execute_builtin((node->args)[0], myenvp , node->args);
+		execute_builtin((node->args)[0], node->args);
 		return (0);
 	}
 	else if (node->tokentype == EXECUTABLE)
 	{
 		// perror("im exec");
-		execute_non_builtin((node->args)[0], myenvp, node->args);
+		execute_non_builtin((node->args)[0], node->args);
 		return(127);
 	}
 	return (0);
 }
 
-char	**make_processes(t_tree *bintree, char **myenvp)
+char	**make_processes(t_tree *bintree)
 {
 	int		numof_pipes;
 	int		pid;
@@ -62,10 +62,10 @@ char	**make_processes(t_tree *bintree, char **myenvp)
 	{
 		fd1 = dup(STDOUT_FILENO);
 		fd0 = dup(STDIN_FILENO);
-		myenvp = run_single_builtin(node, myenvp);
+		g_struct.myenvp = run_single_builtin(node);
 		dup2(fd1, STDOUT_FILENO);
 		dup2(fd0, STDIN_FILENO);
-		return (myenvp);
+		return (g_struct.myenvp);
 	}
  
 	pid = fork();
@@ -74,7 +74,7 @@ char	**make_processes(t_tree *bintree, char **myenvp)
 		pipe_fd = malloc(2 * sizeof(int *));
 		pipe_fd[0] = malloc(2 * sizeof(int));
 		pipe_fd[1] = malloc(2 * sizeof(int));
-		multiple_processes(0, bintree, myenvp, pipe_fd);
+		multiple_processes(0, bintree, pipe_fd);
 		exit(0);
 	}
 	else
@@ -83,5 +83,5 @@ char	**make_processes(t_tree *bintree, char **myenvp)
 		waitpid(pid, NULL, 0);
 		// printf("main()isn't waiting anymore\n");
 	}
-	return (myenvp);
+	return (g_struct.myenvp);
 }

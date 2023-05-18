@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:35 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/05/15 15:52:56 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:23:21 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ t_tree		*redir_cond(t_tree *aux, t_tree *node);
 t_tree		*heredoc_cond(t_tree *last_node, t_tree *node);
 t_heredoc	*make_heredoc(void);
 ssize_t		get_heredoc_input(t_heredoc *heredoc, char *delimiter);
-t_tree		*addtoken_to_tree(char **env, char **tokens);
+t_tree		*addtoken_to_tree(char **tokens);
 int			token_manager(char *token);
-char		*token_updater(char **tokens, char **env, int *i);
-int			get_token_type(char *token, char **env);
-t_tree		*parser_init(char *s, char ***env);
+char		*token_updater(char **tokens, int *i);
+int			get_token_type(char *token);
+t_tree		*parser_init(char *s);
 int			syntax_checker(char *line);
 void		*no_mem(void *p);
-char		*str_expander(char *s, char **env);
+char		*str_expander(char *s);
 void		free_tree(t_tree *bintree);
 t_tree		*find_topof_tree(t_tree *bintree);
 void		heredoc_handler(t_heredoc *heredoc);
