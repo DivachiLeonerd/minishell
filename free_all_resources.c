@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_all_resources.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 11:49:39 by afonso            #+#    #+#             */
-/*   Updated: 2022/12/13 11:51:31 by afonso           ###   ########.fr       */
+/*   Created: 2023/05/08 20:04:19 by atereso-          #+#    #+#             */
+/*   Updated: 2023/05/11 17:19:17 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../built-ins.h"
+#include "./minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+void	free_all_resources(int **pipe_fd)
 {
-	return (env(envp));
+    free(pipe_fd[0]);
+    free(pipe_fd[1]);
+    free(pipe_fd);
 }

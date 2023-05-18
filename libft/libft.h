@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 16:06:29 by atereso-          #+#    #+#             */
-/*   Updated: 2023/03/06 16:46:58 by afonso           ###   ########.fr       */
+/*   Updated: 2023/04/19 19:34:27 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ int			ft_isdigit(int c);
 int			ft_isalnum(int c);
 int			ft_isascii(int ch);
 int			ft_isprint(int ch);
-int			ft_chrncmp(char c, char *s);
+int			ft_chrcmp(char c, char *s);
 size_t		ft_strlen(const char *str);
+int			ft_smol_strlen(const char *str);
 void		*ft_memset(void *mem_loc, int c, size_t n);
 void		ft_bzero(void *s, size_t n);
 void		*ft_memcpy(void *dest, const void *src, size_t n);
@@ -54,6 +55,7 @@ void		ft_putchar_fd(char c, int fd);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
+char		**ft_divide_tokens(char const *s, char c);
 
 typedef struct s_list
 {

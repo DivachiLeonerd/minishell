@@ -1,89 +1,75 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_expander.c                                     :+:      :+:    :+:   */
+/*   token_expander.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbuny-fe <jbuny-fe@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:59 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/02/02 11:23:02 by jbuny-fe         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:20:50 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "parser.h"
 #include "../built-ins/built-ins.h"
+#include "../define.h"
+#include "minishell.h"
 
-static int      word_size(char *s)
+char	*join_tokens(char *s1, char *s2, int i)
 {
-    int     i;
+	char	*new;
 
-    i = 0;
-    while (s[i])
-    {
-        if (s[i] == '$')
-            return i;
-        i++;
-    }
-    return i;
+	new = NULL;
+	if (s1 && s2)
+		new = no_mem(ft_strjoin(s1, s2));
+	free(s1);
+	if (i)
+		free(s2);
+	return (new);
 }
 
-
-char *join_tokens(char *s1, char *s2, int i)
+//expands string wrapped in double quotes and with a '$'
+char	*str_expander(char *s)
 {
-    char    *new;
+	size_t	size;
+	char	*temp;
+	char	**full_name;
+	int		i;
 
-    new = NULL;
-    if (s1 && s2)
-        new = no_mem(ft_strjoin(s1, s2));
-    free(s1);
-    if (i)
-        free(s2);
-    return (new);
-}
-
-
-char    *str_expander(char *s, t_list *env)
-{
-    char    *token;
-    int     size;
-    int     i;
-
-    token = NULL;
-    i = 0;
-    if (!s)
-    {
-        perror("What a grave mistake in str_expander()");
-        exit(69420);
-    }
-    while (s[i])
-    {
-        if (s[i] != '$')
-        {
-            size = word_size(s);
-            token = join_tokens(token, );
-            i += size;
-        }
-        else if (s[i] == '$' && s[i + 1] && (s[i + 1] == '?'))
-        {
-            token = join_tokens(token, ft_itoa(errno), 1);
-            i += 1;
-        }
-        else if (s[i] == '$')
-            size += ft_strlen(*(find_env_full_var(s, env)));
-    if (s[i] == '$')
+	i = 0;
+	temp = NULL;
+	if (!s)
 	{
-        // token = cifrão_expander(s, token, &i, env); maybe? Uma função que o echo possa chamar também?
-		i++;
-		var_value = find_env_full_var(&(s[i]), envp);
-		if (var_value[0] == NULL)
-			write(1, "$", 1);
-		printf("%s", var_value[0]);
-		while (s[i] != ' ' && s[i] != 0)
-			i++;
+		perror("What a grave mistake in str_expander()");
+		g_struct.chad_exitstatus = 69420;
+		return (NULL);
 	}
-		ft_echo(&(s[i]), env, flag);
-    }
-    free(s);
-    return (token);
+	size = ft_strlen(s);
+	if (size == 1 && s[0] == '$')
+		return (s);
+	if (ft_strncmp(s, "$?", 2) == 0)
+	{
+		free(s);
+		s = ft_itoa(g_struct.chad_exitstatus);
+		return (s);
+	}
+	if (s[0] == '\"')
+		i++;
+	if (s[i] == '$')
+	{
+		temp = ft_substr(s, i, size);//token = "PWD"
+		full_name = find_env_full_var(&(temp[1]));//full_name = "PWD=./"
+		//printf("%p\n", *full_name);
+		free(temp);
+		if (!full_name)
+		{
+			free(s);
+			return (NULL);
+		}
+		temp = ft_substr(*full_name, size, ft_strlen(*full_name) - size);
+		free(s);
+		// printf("str_expander():%s\n", temp);
+		return (temp);
+	}
+	return (s);
 }

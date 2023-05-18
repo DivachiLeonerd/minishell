@@ -3,39 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   built-ins.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:18:23 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/06 16:57:51 by afonso           ###   ########.fr       */
+/*   Updated: 2023/05/17 18:12:24 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
-#define BUILTINS_H
+# define BUILTINS_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "../libft/libft.h"
-
+# include <stdio.h>
+# include <stdlib.h>
+# include "../define.h"
+# include "../libft/libft.h"
+# include <signal.h>
 
 int		ft_echo(char **args);
-char	**find_env_full_var(char *var_name, char **envp);
-char 	*get_variable_name(char *message);
-char	**ft_pwd(char **envp);
-int		cd(char *pathname);
-int		env(char **envp);
-char	**export(char **args, char **envp);
+char	**find_env_full_var(char *var_name);
+char	*get_variable_name(char *message);
+char	*ft_pwd(void);
+char	**cd(char *pathname);
+int		env(void);
+char	**export(char **args);
 int		get_env_fd(char **envp);
 int		how_many_arrays(char **double_ptr);
 char	**build_envp(char **envp);
-char	**unset(char **args, char **envp);
-char	**env_realloc(char **envp, int	numof_new_arrays, char *var);
-void	free_env(char **envp);
-int		add_var_to_env(char **new_env, char **old_env, char *var);
-int		replace_env_var(char **new_env, char **old_env, char *var);
-int		delete_var_from_env(char **new_env, char **old_env, char *var);
+char	**unset(char **args);
+char	**env_realloc(char **envp, char **new_env, int numof_new_arrays,
+			char *var);
+void	add_var_to_env(char **new_env, char **old_env, char *var);
+char	**replace_env_var(char **env, char *var);
+void	delete_var_from_env(char **new_env, char **old_env, char *var);
 int		is_builtin(char *command);
-int		execute_non_builtin(char *command_name, char **myenvp, char **argv);
-int		is_builtin(char *command);
+int		execute_non_builtin(char *command_name, char **argv);
+void	ft_exit(void);
+void	intr_behaviour(struct sigaction *act);
+void	nintr_behaviour(struct sigaction *act);
 
 #endif

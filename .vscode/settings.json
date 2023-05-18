@@ -1,6 +1,12 @@
 {
 	"files.associations": {
 		"libft.h": "c",
-		"cstdlib": "c"
+		"cstdlib": "c",
+		"built-ins.h": "c",
+		"piping.h": "c",
+		"fcntl.h": "c",
+		"types.h": "c",
+		"string.h": "c",
+		"minishell.h": "c"
 	}
 }

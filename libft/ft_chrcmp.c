@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_chrcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 11:49:39 by afonso            #+#    #+#             */
-/*   Updated: 2022/12/13 11:51:31 by afonso           ###   ########.fr       */
+/*   Created: 2023/03/23 16:30:58 by atereso-          #+#    #+#             */
+/*   Updated: 2023/03/23 17:47:12 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../built-ins.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+int	ft_chrcmp(char c, char *s)
 {
-	return (env(envp));
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
 }

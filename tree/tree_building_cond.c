@@ -3,59 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   tree_building_cond.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 09:48:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/16 19:51:06 by afonso           ###   ########.fr       */
+/*   Updated: 2023/05/16 17:33:37 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
 //PIPES
-t_tree	*pipes_cond(int tokentype, t_tree *aux, t_tree *node)
+t_tree	*pipes_cond(int tokentype, t_tree *last_node, t_tree *node)
 {
-	if (aux->tokentype == PIPE && COMMAND)
-			aux->right_branch = node;
+	if (last_node->tokentype == PIPE && COMMAND)
+	{
+		last_node->right_branch = node;
+		node->back = last_node;
+	}
 	if (tokentype == PIPE)
-		aux->back = node;
+	{
+		if (last_node->back && last_node->back->tokentype == PIPE)
+		{
+			last_node->back->back = node;
+			last_node->back->back->left_branch = last_node->back;
+		}
+		else
+		{
+			last_node->back = node;
+			node->left_branch = last_node;
+		}
+	}
 	return (node);
 }
+
 //REDIRECTS
-t_tree	*redir_cond(t_tree *aux, t_tree *node)
+t_tree	*redir_cond(t_tree *last_node, t_tree *node)
 {
 	//if tokentype != REDIR but last token == REDIR
-	if (!REDIR && (aux->tokentype == 0 || aux->tokentype == 1))
+	if (!REDIR && (last_node->tokentype == I_REDIR
+			|| last_node->tokentype == O_REDIR
+			|| last_node->tokentype == APPEND
+			|| last_node->tokentype == HEREDOC))
 	{
-		//go back in the tree until aux == COMMAND
-		while (!(aux->tokentype == 5 || aux->tokentype == 6))
-			aux = aux->back;
+		//go back in the tree until last_node == COMMAND
+		while (!(last_node->tokentype == I_REDIR
+				|| last_node->tokentype == O_REDIR)
+				|| last_node->tokentype == APPEND
+				|| last_node->tokentype == HEREDOC)
+			last_node = last_node->back;
 		//if there's a pipe behind the command, go back
-		if (aux->back != NULL && aux->back->tokentype == PIPE)
-			aux = aux->back;
-		//return aux in the pipe or command position
-		return (aux);
+		if (last_node->back != NULL && last_node->back->tokentype == PIPE)
+			last_node = last_node->back;
+		//return last_node in the pipe or command position
+		return (last_node);
 	}
 	//or tokentype is redir
-	else if (REDIR)
-			aux->right_branch = node;
+	else if (REDIR || node->tokentype == HEREDOC)
+	{
+		last_node->right_branch = node;
+		node->back = last_node;
+	}
 	//return it in the last redir position
 	return (node);
 }
-//COMMANDS
 
-//HEREDOC
-t_tree	*heredoc_cond(int tokentype, t_tree *aux, t_tree *node, char *delimiter)
-{
-	if (tokentype == HEREDOC)
-	{
-		node->heredoc = make_heredoc();
-		node->heredoc->delimiter = delimiter;
-		get_heredoc_input(node->heredoc, node->heredoc->delimiter/*represents delimiter*/);
-	}
-	else
-		node->heredoc = NULL;
-	aux->back = node;
-	return (node);
-}
 //ETC...

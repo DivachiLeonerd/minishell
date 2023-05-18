@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 11:48:03 by afonso            #+#    #+#             */
-/*   Updated: 2023/03/06 16:33:34 by afonso           ###   ########.fr       */
+/*   Updated: 2023/05/09 15:04:33 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	return_righttokenid(t_tree *command_node)
 {
+	if (!command_node)
+		return (-1);
 	if (command_node->right_branch == NULL)
 		return (0);
 	else
@@ -29,3 +31,4 @@ t_tree	*find_first_command(t_tree *bintree)
 		node = node->left_branch;
 	return (node);
 }
+

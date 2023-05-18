@@ -3,27 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 18:19:46 by afonso            #+#    #+#             */
-/*   Updated: 2023/01/28 17:31:06 by afonso           ###   ########.fr       */
+/*   Updated: 2023/05/17 18:20:11 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../built-ins.h"
+#include "../../minishell.h"
 
-char	**unset(char **args, char **envp)
+char	**unset(char **args)
 {
 	char	**name;
 	char	**myenvp;
 	char	*variable;
 
+	myenvp = NULL;
+	if (!args[1])
+	{
+		return (g_struct.myenvp);
+	}
 	variable = args[1];
-	name = find_env_full_var(variable, envp);
-	if (name == 0)
-		return (0);
+	name = find_env_full_var(variable);
+	if (name == NULL)
+		return (g_struct.myenvp);
 	else
-		myenvp = env_realloc(envp, -1, variable);
-	free_env(envp);
-	return (myenvp);
+		g_struct.myenvp = env_realloc(g_struct.myenvp, myenvp, -1, variable);
+	return (g_struct.myenvp);
 }

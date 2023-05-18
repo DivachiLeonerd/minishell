@@ -3,27 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:25:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/02/16 11:49:16 by afonso           ###   ########.fr       */
+/*   Updated: 2023/05/17 18:14:15 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../built-ins.h"
-
-
+#include "../../minishell.h"
 //echo tem que poder usar a flag "-n" que faz com que echo
 //não printe \n no final da string escrita
 //echo tem de conseguir printar com quotes e single quotes
 //e saber printar env vars se tiverem '$' e todos os ficheiros se tiver '*'.
 
-char *get_variable_name(char *message)
+char	*get_variable_name(char *message)
 {
-	//message: MYVAR=NAME
 	int		i;
 	char	*var_name;
-
+	//message: MYVAR=NAME
 	i = 0;
 	if (!message || message[i] == 0)
 		return (NULL);
@@ -35,36 +33,37 @@ char *get_variable_name(char *message)
 	return (var_name);
 }
 
-char **find_env_full_var(char *message, char **envp)
+char	**find_env_full_var(char *message)
 {
-	//message: MYVAR=value
-
 	char	*var_name;
 	int		i;
-
+	//message: MYVAR=value
 	i = 0;
 	var_name = get_variable_name(message);
-	while (envp[i])
+	while (g_struct.myenvp[i])
 	{
-		if (ft_strncmp(envp[i], var_name, ft_strlen(var_name)) == 0)
+		if (ft_strncmp(g_struct.myenvp[i], &(var_name[0]), ft_strlen(var_name) - 1) == 0)
 			break ;
 		i++;
 	}
-	if (envp[i] == NULL)
+	if (g_struct.myenvp[i] == NULL)
 	{
+		printf("var_name: %s\n", var_name);
 		free(var_name);
 		return ((char **)0);
 	}
 	free(var_name);
-	return (&(envp[i]));
+	return (&(g_struct.myenvp[i]));
 }
 
 int	ft_echo(char **args)
 {
 	int	numberof_args;
 	int	i;
+	int	j;
+
 	numberof_args = how_many_arrays(args);
-	if (numberof_args > 3 || numberof_args < 1)
+	if (numberof_args < 1)
 	{
 		printf("\n");
 		return (-1);
@@ -74,28 +73,31 @@ int	ft_echo(char **args)
 		printf("\n");
 		return (0);
 	}
+	if (numberof_args == 2 && ft_strncmp(args[1], "-n",
+			ft_strlen(args[1])) == 0)
+		return (0);
 	// isto bem feito era ter um array com todas as flags e ver
 	//se n existe nehuma non-flag presente mas como só temos
 	// q fazer uma flag.....
-	i = 1;
-	if (numberof_args >= 2)
+	i = 0;
+	j = 0;
+	if (numberof_args > 2 && args[1][0] == '-')
 	{
-		if (args[1][0] == '-')
-		{
-			while (args[1][i])
-			{
-				if (args[1][i] != 'n')
-					break ;
-				else
-					i++;
-			}
-		}	
+		i = 1;
+		j = 1;
+		while (args[1][j] && args[1][j] == 'n')
+			j++;
+		if (args[1][j] && args[1][j] != 'n')
+			printf("%s", args[1]);
 	}
-	if (args[1][i] == 0 && numberof_args == 2)
-		return (0);
-	else if (args[1][i] != 0 && numberof_args == 3)
-		printf("%s ", args[1]);
-	printf("%s", args[numberof_args - 1]);
+	i += 1;
+	while (args[i])
+	{
+		printf("%s", args[i]);
+		i++;
+		if (args[i])
+			printf(" ");
+	}
 	if (ft_strncmp(args[1], "-n", ft_strlen(args[1])) != 0)
 		printf("\n");
 	return (0);

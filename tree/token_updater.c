@@ -1,22 +1,22 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   token_updater.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: afonso <afonso@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 11:24:02 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/03/03 20:11:22 by afonso           ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   token_updater.c									:+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2023/02/02 11:24:02 by jbuny-fe		  #+#	#+#			 */
+/*   Updated: 2023/04/20 09:25:31 by atereso-		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "../built-ins/built-ins.h"
+#include "../libft/libft.h"
 
-
-static int      nquoted_size(char *s)
+static int	nquoted_size(char *s)
 {
-	int     i;
+	int		i;
 	int		j;
 
 	i = 0;
@@ -25,68 +25,68 @@ static int      nquoted_size(char *s)
 	{
 		if (ft_chrcmp(s[i], "\'") && ft_chrcmp(s[i], "\""))
 			j++;
-		if (j = 2)
+		if (j == 2)
 			return (i);
 		i++;
 	}
 	return (i);
 }
 
-
-static int      quoted_size(char *s)
+static int	quoted_size(char *s)
 {
-	int     i;
+	int		i;
 
 	i = 1;
 	while (s[i])
 	{
-		if (s[0] == s[i]);
-			return (i + 1);
+		if (s[0] == s[i])
+			return (i);
 		i++;
 	}
 	return (0);
 }
 
-
-static int      get_size(char *s)
+static int	get_size(char *s)
 {
+	if (!s)
+		return (0);
 	if (ft_chrcmp(s[0], "\'\""))
 		return (quoted_size(s));
 	else
 		return (nquoted_size(s));
 }
 
-
-char    *token_updater(char **tokens, char **env)
+char	*token_updater(char **tokens, int *var)
 {
-	static int		i;
 	int				size;
 	char			*str;
-	char			*new_token;
 	char			*token;
-	
-	token = tokens[i];
+
+	token = tokens[*var];
 	size = get_size(token);
 	if (size)
 	{
 		if (ft_chrcmp('\'', token)
-			&& ft_chrcmp('\"', token))
+			|| ft_chrcmp('\"', token))
 		{
-			str = no_mem(ft_substr(token, 1, size - 2));
-			if (token[0] == '\"')
-				str = str_expander(str, env);
+			str = no_mem(ft_substr(token, 1, size - 1));
+			if (token[0] != '\'')
+				str = str_expander(str);
 		}
-		else
+		else if (ft_chrcmp('$', token))
 		{
 			str = no_mem(ft_substr(token, 0, size));
-			str = str_expander(str, env);
+			str = str_expander(str);
 		}
-		new_token = ft_strjoin(new_token, str);
+		else
+			str = no_mem(ft_substr(token, 0, size));
 	}
 	else
-		new_token = add_char_to_str(new_token, token[i]); //have to make add_char_to_str func
-	i++;
+	{
+		free(token);
+		return (NULL);
+	}
+	*var += 1;
 	free (token);
-	return (new_token);
+	return (str);
 }
-
