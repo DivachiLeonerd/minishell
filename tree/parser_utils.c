@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:59 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/05/18 11:20:29 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 18:10:39 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	*no_mem(void *p)
 	if (!p)
 	{
 		g_struct.chad_exitstatus = 12;
-		printf("%s\n", strerror(g_struct.chad_exitstatus));
 		return (NULL);
 	}
 	return (p);

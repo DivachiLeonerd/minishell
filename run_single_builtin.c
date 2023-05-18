@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 15:14:40 by atereso-          #+#    #+#             */
-/*   Updated: 2023/05/18 17:50:03 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:33:10 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ int	run_single_builtin(t_tree *bintree)
 			return (0);
 		}
 		else
+		{
+			g_struct.behaviour.sa_handler = SIG_IGN;
+			sigaction(SIGINT, &(g_struct.behaviour), NULL);
 			waitpid(pid, NULL, 0);
+		}
     }
 	if (is_builtin(bintree->args[0]))
 	{

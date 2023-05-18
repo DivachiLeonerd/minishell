@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:19:20 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/18 17:40:42 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 18:30:02 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	cd(char *pathname)
 	char	*temp;
 	char	*aux;
 
-	ret = 1;
+	errno = 0;
 	old_pwd = getcwd(NULL, 0);
 	if (!old_pwd)
 	{
@@ -34,10 +34,12 @@ int	cd(char *pathname)
 	{
 		pathname = ft_strdup("$HOME");
 		pathname = str_expander(pathname);
-		errno = 0;
-		ret = chdir(pathname);
+		chdir(pathname);
 		if (errno != 0)
+		{
+			free(old_pwd);
 			return (errno);
+		}
 		free(pathname);
 	}
 	else if (pathname[0] == '~')
@@ -59,13 +61,13 @@ int	cd(char *pathname)
 	else
 	{
 		ret = chdir(pathname);
+		free(old_pwd);
 		if (errno != 0)
 			return (errno);
 	}
 	if (!ret)
 	{
 		temp = ft_strjoin("OLDPWD=", old_pwd);
-		free(old_pwd);
 		export(&temp);
 		free(temp);
 		pwd = getcwd(NULL, 0);

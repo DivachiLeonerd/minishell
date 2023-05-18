@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/18 17:53:04 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:37:30 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,20 +90,18 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_tree				*bintree;
 	char				*command_line;
-	struct sigaction	behaviour;
 	int					i;
 
 	i = 1;
 	(void)argc;
 	(void)argv;
-	printf("pid: %d\n", getpid());
 	g_struct.myenvp = build_envp(envp);
 	command_line = NULL;
 	//returns a empty string, which is different from a NULL
 	while (i)
 	{
 		bintree = NULL;
-		intr_behaviour(&behaviour);
+		intr_behaviour(&(g_struct.behaviour));
 		while (1)
 		{
 			command_line = print_prompt(1);
@@ -122,24 +120,15 @@ int	main(int argc, char **argv, char **envp)
 		else
 			i = 0 ;
 		if (i == 1)
-		{
-			nintr_behaviour(&behaviour);
 			bintree = parser_init(command_line);
-			// print_tree_leftbranch(bintree);
-		}
 		if (bintree)
-			g_struct.myenvp = make_processes(bintree);//command_line a ser executado
-		// printf("we got out of make_pipes()\n");
+			g_struct.myenvp = make_processes(bintree);
 		free(command_line);
 		command_line = NULL;
 		free_tree(bintree);
-		// puts("tree has been freed");
-		// printf("\n");
-		// printf("chad_exitstatus:%d\n", chad_exitstatus);
 		if (g_struct.chad_exitstatus != 0 && i == 1)
 			printf("status:%s\n", strerror(g_struct.chad_exitstatus));
 	}
-	// printf("we left the matrix\n");
 	free_matrix(g_struct.myenvp);
 	exit(0);
 	return (0);

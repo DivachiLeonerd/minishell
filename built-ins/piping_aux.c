@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/18 17:51:50 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:32:40 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,9 @@ int	how_many_pipes(t_tree *bintree)
 int	run_processes(t_tree *node)
 {
 	if (node->tokentype == BUILTIN)
-	{
-		// perror("U r builtin");
 		return (execute_builtin((node->args)[0], node->args));
-	}
 	else if (node->tokentype == EXECUTABLE)
-	{
-		// perror("im exec");
 		return(execute_non_builtin((node->args)[0], node->args));
-	}
 	return (0);
 }
 
@@ -69,6 +63,7 @@ char	**make_processes(t_tree *bintree)
 	pid = fork();
 	if (pid == 0)
 	{
+		nintr_behaviour(&(g_struct.behaviour));
 		pipe_fd = malloc(2 * sizeof(int *));
 		pipe_fd[0] = malloc(2 * sizeof(int));
 		pipe_fd[1] = malloc(2 * sizeof(int));
@@ -76,7 +71,8 @@ char	**make_processes(t_tree *bintree)
 	}
 	else
 	{
-		// printf("im main()\n");
+		g_struct.behaviour.sa_handler = SIG_IGN;
+		sigaction(SIGINT, &(g_struct.behaviour), NULL);
 		waitpid(pid, &(g_struct.chad_exitstatus), 0);
 		// printf("main()isn't waiting anymore\n");
 	}

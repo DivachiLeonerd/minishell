@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 19:19:45 by atereso-          #+#    #+#             */
-/*   Updated: 2023/05/18 17:37:22 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 18:04:00 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	make_child(t_tree *node, int **pipe_fd, int command_num, t_tree *bint
 		pid = fork();
 	}
 	if (pid == -1)
-		perror("You are unforkable\n");
+		return (-1);
 	if (pid == 0 || (node->back->back == NULL && command_num != 0))
 	{
 		pipe_fd[1][0] = pipe_fd[0][0];

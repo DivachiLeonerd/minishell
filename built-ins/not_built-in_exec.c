@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:10:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/17 18:09:12 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 18:19:35 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,6 @@ int	execute_non_builtin(char *command_name, char **args)
 	pathname = find_command_path(command_name);
 	free(command_name);
 	if (pathname != NULL)
-		execve(pathname, args, g_struct.myenvp);
+		return (execve(pathname, args, g_struct.myenvp));
 	return (127);
 }

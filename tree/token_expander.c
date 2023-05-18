@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:59 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/05/18 11:20:50 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/18 18:08:23 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ char	*str_expander(char *s)
 	temp = NULL;
 	if (!s)
 	{
-		perror("What a grave mistake in str_expander()");
 		g_struct.chad_exitstatus = 69420;
 		return (NULL);
 	}
