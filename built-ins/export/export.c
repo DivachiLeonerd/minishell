@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:05:47 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/19 16:33:12 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/19 20:05:40 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	export(char **args)
 	char	*new_var;
 	char	**new_env;
 	//variable == "NAME=VALUE"
+	errno = 0;
 	new_env = NULL;
 	var = find_env_full_var(args[0]);
 	new_var = ft_strdup(args[0]);

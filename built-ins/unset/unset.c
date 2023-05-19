@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 18:19:46 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/18 17:46:56 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/19 20:05:56 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	unset(char **args)
 	char	**myenvp;
 	char	*variable;
 
+	errno = 0;
 	myenvp = NULL;
 	if (!args[1])
 		return (0);
