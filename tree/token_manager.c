@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:23:47 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/05/18 11:22:38 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/19 18:15:36 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ t_tree	*addtoken_to_tree(char **tokens)
 	tokentype = 0;
 	controller = 0;
 	last_node = NULL;
-	//echo ola  > file1 echo | cat
 	while (tokentype != -1)
 	{
 		token = token_updater(tokens, &controller);

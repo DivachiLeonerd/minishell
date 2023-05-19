@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/19 15:33:05 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/19 19:15:25 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static char	*homedir_subst(char *pwd)
 		free(aux);
 		return (pwd);
 	}
+	free(aux);
 	return (pwd);
 }
 
