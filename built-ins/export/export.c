@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 12:05:47 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/18 17:34:14 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:33:12 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	export(char **args)
 	var = find_env_full_var(args[0]);
 	new_var = ft_strdup(args[0]);
 	if (var == NULL) //if var not found
-		new_env = env_realloc(g_struct.myenvp, new_env, 1, args[0]);
+		g_struct.myenvp = env_realloc(g_struct.myenvp, new_env, 1, args[0]);
 	else
-		new_env = env_realloc(g_struct.myenvp, new_env, 0, args[0]);
+		g_struct.myenvp = env_realloc(g_struct.myenvp, new_env, 0, args[0]);
 	free(new_var);
 	return (errno);
 }

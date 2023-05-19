@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:25:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/17 18:14:15 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:34:57 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ char	**find_env_full_var(char *message)
 	}
 	if (g_struct.myenvp[i] == NULL)
 	{
-		printf("var_name: %s\n", var_name);
 		free(var_name);
 		return ((char **)0);
 	}
