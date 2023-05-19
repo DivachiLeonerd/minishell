@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:35 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/05/18 16:58:16 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/19 19:59:39 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_tree	*parser_init(char *s)
 	if (syntax_checker(s) != 0)
 		return (NULL);
 	tokens = ft_divide_tokens(s, ' ');
+	if (tokens[0] == '|')
+		return (NULL);
 	// if (validate_commands(tokens))
 	// {
 	// 	g_struct.chad_exitstatus = 127;
