@@ -6,81 +6,47 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/18 19:37:30 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/19 14:21:06 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//Ignore this file for now
-// int main(void)
-// {
-// 	char	*line;
-// 	int		exit_status;
-// 	pid_t 	pid;
-
-// 	pid  = fork();
-// 	line = 0;
-// 	if (pid == 0)
-// 		exit (20);
-// 	else
-// 	{
-// 		waitpid(pid, &errno, WEXITSTATUS(errno));
-// 		printf("errno:%d\n", errno >> 8);
-// 		return (errno >> 8);
-// 	}
-// }
-// static	void	print_tree_leftbranch(t_tree *bintree)
-// {
-// 	t_tree *tree;
-
-// 	tree = bintree;
-// 	while (tree != NULL)
-// 	{
-// 		printf("******************************");
-// 		if (tree->args)
-// 			printf("%s_node:******************************\n", tree->args[0]);
-// 		printf("tree_tokentype:%d\n", tree->tokentype);
-// 		if (tree->back && tree->back->args)
-// 			printf("node->back:%s\n", tree->back->args[0]);
-// 		else if (tree->back)
-// 			printf("node->back:%p, tokentype:%d\n", tree->back, tree->back->tokentype);
-// 		if (tree->left_branch && tree->left_branch->args)
-// 		printf("tree->left_branch:%s\n", tree->left_branch->args[0]);
-// 		if (tree->right_branch && tree->right_branch->args)
-// 			printf("tree->right_branch:%s\n", tree->right_branch->args[0]);
-// 		printf("************************************************************\n");
-// 		tree = tree->left_branch;
-// 	}
-// 	return ;
-// }
+static char	*homedir_subst(char *pwd)
+{
+	char *aux;
+	size_t	size;
+	
+	aux = str_expander(ft_strdup("$HOME"));
+	if (ft_strncmp(pwd, aux, ft_strlen(aux)) == 0)
+	{
+		size = ft_strlen(aux);
+		free(aux);
+		aux = ft_substr(pwd, size, ft_strlen(pwd) - size);
+		free(pwd);
+		pwd = ft_strjoin("~", aux);
+		free(aux);
+		return (pwd);
+	}
+	return (pwd);
+}
 
 char	*print_prompt(int r_flag)
 {
 	char	*pwd;
 	char	*aux;
-	size_t	size;
-	int		len;
+	char	prompt[200];
 
 	pwd = getcwd(NULL, 0);
-	printf("\033[1;32m");
-	printf(PROMPT);
-	printf("\033[1;34m");
-	aux = str_expander(ft_strdup("$HOME"));
-	if (ft_strncmp(pwd, aux, ft_strlen(aux)) == 0)
-	{
-		size = ft_strlen(aux);
-		len = ft_strlen(aux);
-		free(aux);
-		aux = ft_substr(pwd, size, ft_strlen(pwd) - len);
-		free(pwd);
-		pwd = ft_strjoin("~", aux);
-		free(aux);
-	}
-	printf("%s\033[0m$", pwd);
+	pwd = homedir_subst(pwd);
+	aux = ft_strjoin(PROMPT, pwd);
+	free(pwd);
+	pwd = ft_strjoin(aux, "\033[0m$ ");
+	free(aux);
+	ft_strlcpy(prompt, pwd, ft_strlen(pwd) + 1);
 	free(pwd);
 	if (r_flag)
-		aux = readline(" ");
+		aux = readline(prompt);
 	else
 		return (NULL);
 	return (aux);
