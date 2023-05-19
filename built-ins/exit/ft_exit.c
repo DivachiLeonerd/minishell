@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 17:52:15 by atereso-          #+#    #+#             */
-/*   Updated: 2023/05/18 19:25:42 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/19 15:32:31 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,12 @@
 
 static void	intrv_signal_handler(int sig_num)
 {
-	char	*p;
 
 	if (sig_num == SIGINT)
 	{
 		
 		write(1, "\n", 1);
-		p = print_prompt(0);
-		printf(" ");
-		free (p);
+		print_prompt(0);
 	}
 	if (sig_num == SIGQUIT)
 		return ;

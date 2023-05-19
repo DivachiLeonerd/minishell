@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/19 14:21:06 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/19 15:33:05 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ char	*print_prompt(int r_flag)
 	if (r_flag)
 		aux = readline(prompt);
 	else
+	{
+		printf("%s", prompt);
 		return (NULL);
+	}
 	return (aux);
 }
 g_controller g_struct;
