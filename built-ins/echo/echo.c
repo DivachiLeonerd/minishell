@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:25:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/19 16:34:57 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/22 00:39:30 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ char	**find_env_full_var(char *message)
 	//message: MYVAR=value
 	i = 0;
 	var_name = get_variable_name(message);
+	
 	while (g_struct.myenvp[i])
 	{
-		if (ft_strncmp(g_struct.myenvp[i], &(var_name[0]), ft_strlen(var_name) - 1) == 0)
+		if (ft_strncmp(g_struct.myenvp[i], &(var_name[0]), ft_strlen(var_name)) == 0)
 			break ;
 		i++;
 	}

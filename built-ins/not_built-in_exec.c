@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 12:10:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/18 18:19:35 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/21 23:06:50 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ char	*find_command_path(char *command)
 		if (access(command_path, F_OK) == 0 && (ft_strnstr(command_path,
 					"..", ft_strlen("..")) == 0))
 		{
-			// printf("o comando existe\n");
+			//printf("o comando existe\n");
 			if (access(command_path, X_OK) == 0)
 			{
-				// printf("e é executavel\n");
+				//printf("e é executavel\n");
 				break ;
 			}
 		}
@@ -105,6 +105,6 @@ int	execute_non_builtin(char *command_name, char **args)
 	pathname = find_command_path(command_name);
 	free(command_name);
 	if (pathname != NULL)
-		return (execve(pathname, args, g_struct.myenvp));
+		return(execve(pathname, args, g_struct.myenvp));
 	return (127);
 }

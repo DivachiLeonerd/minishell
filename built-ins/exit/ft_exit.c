@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 17:52:15 by atereso-          #+#    #+#             */
-/*   Updated: 2023/05/19 15:32:31 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/22 00:22:36 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,16 @@
 #include "../../define.h"
 #include "../../minishell.h"
 #include <errno.h>
-//we need exit built-in so we can free all resources before we exit
-
-// int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact)
-// int	kill(pid_t pid, int sig)
 
 static void	intrv_signal_handler(int sig_num)
 {
-
 	if (sig_num == SIGINT)
 	{
-		
+		rl_replace_line("", 0);
 		write(1, "\n", 1);
-		print_prompt(0);
+		rl_on_new_line();
+		rl_redisplay();
 	}
-	if (sig_num == SIGQUIT)
-		return ;
 	return ;
 }
 

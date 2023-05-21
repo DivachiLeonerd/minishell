@@ -64,22 +64,29 @@ char	*token_updater(char **tokens, int *var)
 
 	token = tokens[*var];
 	size = get_size(token);
+	printf("token:%s and size:%d\n", token, size);
 	if (size)
 	{
 		if (ft_chrcmp('\'', token)
 			|| ft_chrcmp('\"', token))
 		{
-			str = no_mem(ft_substr(token, 1, size - 1));
+			str = no_mem(ft_substr(token, 1, (size_t)size - 1));
+			printf("str in print 2 is: %s\n", str);
 			if (token[0] != '\'')
 				str = str_expander(str);
+			else
+				str = no_mem(ft_substr(token, 1, (size_t)size - 1));
 		}
 		else if (ft_chrcmp('$', token))
 		{
-			str = no_mem(ft_substr(token, 0, size));
-			str = str_expander(str);
+			str = no_mem(ft_substr(token, 0, (size_t)size));
+			if (token[0] != '\'')
+				str = str_expander(str);
+			printf("str in print 3 is: %s\n", str);
 		}
 		else
-			str = no_mem(ft_substr(token, 0, size));
+			str = no_mem(ft_substr(token, 0, (size_t)size));
+		printf("str in print 4 is: %s\n", str);
 	}
 	else
 	{

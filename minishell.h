@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:19:15 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/18 19:03:38 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/21 23:51:15 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@
 
 typedef struct g_controller
 {
-	int				chad_exitstatus;
-	char			**myenvp;
-	struct sigaction behaviour;
+	int					chad_exitstatus;
+	char				**myenvp;
+	struct sigaction	behaviour;
+	char				*command_line;
 }g_controller;
 
 extern g_controller g_struct;
