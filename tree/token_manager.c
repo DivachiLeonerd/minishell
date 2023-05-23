@@ -101,6 +101,7 @@ t_tree	*addtoken_to_tree(char **tokens)
 	{
 		token = token_updater(tokens, &controller);
 		tokentype = get_token_type(token);
+		printf("tokentype:%d\n", tokentype);
 		if (((tokentype == BUILTIN || tokentype == EXECUTABLE) && i == 1))
 			tokentype = WORD;
 		else if (NODE_WORTHY)
@@ -120,6 +121,5 @@ t_tree	*addtoken_to_tree(char **tokens)
 		}
 		free(token);
 	}
-	printf("nodetype:%d\n", tokentype);
 	return (last_node);
 }

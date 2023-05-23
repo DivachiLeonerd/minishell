@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:46:35 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/18 17:50:14 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:46:29 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ void	redirections_handler(t_tree *command_node);
 int		run_processes(t_tree *node);
 void	multiple_processes(int command_num, t_tree *bintree, int **pipe_fd);
 int		run_single_builtin(t_tree *bintree);
-char	**make_processes(t_tree *bintree);
+void	make_processes(t_tree *bintree);
 #endif

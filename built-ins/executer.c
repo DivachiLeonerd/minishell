@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:44:37 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/18 17:50:27 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:11:20 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,19 @@ int	execute_builtin(char *command, char **args)
 	int		ret;
 
 	ret = 0;
-	if (ft_strncmp("echo", command, ft_strlen("echo")) == 0)
+	if (ft_strncmp("echo", command, ft_strlen(args[0])) == 0)
 		ret = ft_echo(args);
-	else if (ft_strncmp("env", command, ft_strlen("env")) == 0)
+	else if (ft_strncmp("env", command, ft_strlen(args[0])) == 0)
 		ret = env();
-	else if (ft_strncmp("cd", command, ft_strlen("cd")) == 0)
+	else if (ft_strncmp("cd", command, ft_strlen(args[0])) == 0)
 		ret = cd(args[1]);
-	else if (ft_strncmp("pwd", command, ft_strlen("pwd")) == 0)
+	else if (ft_strncmp("pwd", command, ft_strlen(args[0])) == 0)
 	{
 		ret = ft_pwd();
 	}
-	else if (ft_strncmp("export", command, ft_strlen("export")) == 0)
+	else if (ft_strncmp("export", command, ft_strlen(args[0])) == 0)
 		ret = export(&(args[1]));
-	else if (ft_strncmp("unset", command, ft_strlen("unset")) == 0)
+	else if (ft_strncmp("unset", command, ft_strlen(args[0])) == 0)
 		ret = unset(&(args[0]));
 	return (ret);
 }

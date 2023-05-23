@@ -6,7 +6,7 @@
 #    By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/15 15:45:01 by afonso            #+#    #+#              #
-#    Updated: 2023/05/10 11:20:28 by atereso-         ###   ########.fr        #
+#    Updated: 2023/05/23 10:40:15 by atereso-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,15 @@ CC := cc
 CFLAGS := -g -Wall -Wextra -Werror  -ggdb -fsanitize=address
 RM := rm -f
 
-all: minishell
-	printf("Its done")
+all: ${NAME}
+	printf "Its done\n"
+
+${NAME}: ${OBJS} libbuilt-in.a libtree.a libft.a
+	@${CC} ${CFLAGS} teste.c ${LIB} ${HEADER} ${OBJS} -o ${NAME}
+	mkdir -p Objects
+	@mv *.o ./Objects/
+	${MAKE} -s clean
+
 libft.a:
 	@${MAKE} -C ./libft/ all && cd ./libft && mv libft.a ../
 
@@ -32,10 +39,6 @@ libbuilt-in.a:
 
 libtree.a:
 	@${MAKE} -C ./tree all && cd ./tree && mv libtree.a ../
-	
-minishell: built-in tree
-	@${CC} ${CFLAGS} ${NAME}.c ${OBJS} ${HEADER} -o ${NAME}
-	@mv *.o ./Objects
 
 test: ${OBJS} libbuilt-in.a libtree.a libft.a
 	@${CC} ${CFLAGS} teste.c ${LIB} ${HEADER} ${OBJS} -o minitester
@@ -55,4 +58,4 @@ re: fclean test
 	${MAKE} -s clean
 	printf "Its done\n"
 
- .PHONY:linux test fclean clean re
+ .PHONY:all test fclean clean re libtree.a libbuilt-in.a libft.a

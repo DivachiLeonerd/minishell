@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/22 00:23:33 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:50:25 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*command_line;
 	t_tree	*bintree;
 	int		i;
-	int		pid;
+	// int		pid;
 
 	i = 1;
 	(void)argc;
@@ -92,23 +92,23 @@ int	main(int argc, char **argv, char **envp)
 			i = 0 ;
 		if (i == 1)
 		{
-			pid = fork();
-			if (pid == 0)
-			{
-				nintr_behaviour(&(g_struct.behaviour));
+			//pid = fork();
+			// if (pid == 0)
+			// {
+			// 	nintr_behaviour(&(g_struct.behaviour));
 				bintree = parser_init(command_line);
-			}
+			// }
 		}
-		if (pid)
-		{
-			g_struct.behaviour.sa_handler = SIG_IGN;
-			sigaction(SIGINT, &(g_struct.behaviour), NULL);
-			waitpid(pid, NULL, 0);
-			free(command_line);
-			continue ;
-		}
+		// if (pid)
+		// {
+		// 	g_struct.behaviour.sa_handler = SIG_IGN;
+		// 	sigaction(SIGINT, &(g_struct.behaviour), NULL);
+		// 	waitpid(pid, NULL, 0);
+		// 	free(command_line);
+		// 	continue ;
+		// }
 		if (bintree)
-			g_struct.myenvp = make_processes(bintree);
+			make_processes(bintree);
 		free(command_line);
 		command_line = NULL;
 		free_tree(bintree);

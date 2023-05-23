@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/21 23:11:24 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:52:13 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ int	run_processes(t_tree *node)
 	return (0);
 }
 
-char	**make_processes(t_tree *bintree)
+void	make_processes(t_tree *bintree)
 {
 	int		numof_pipes;
 	int		fd1;
 	int		fd0;
+	int		pid;
 	int		**pipe_fd;
 	t_tree 	*node;
 
@@ -55,12 +56,18 @@ char	**make_processes(t_tree *bintree)
 		g_struct.chad_exitstatus = run_single_builtin(node);
 		dup2(fd1, STDOUT_FILENO);
 		dup2(fd0, STDIN_FILENO);
+		return ;
+	}
+	pid = fork();
+	if (pid == 0)
+	{
+		pipe_fd = malloc(2 * sizeof(int *));
+		pipe_fd[0] = malloc(2 * sizeof(int));
+		pipe_fd[1] = malloc(2 * sizeof(int));
+		multiple_processes(0, bintree, pipe_fd);
 		exit(0);
 	}
-	pipe_fd = malloc(2 * sizeof(int *));
-	pipe_fd[0] = malloc(2 * sizeof(int));
-	pipe_fd[1] = malloc(2 * sizeof(int));
-	multiple_processes(0, bintree, pipe_fd);
+	waitpid(pid, NULL, 0);
+	return ;
 	// printf("main()isn't waiting anymore\n");
-	exit(0);
 }

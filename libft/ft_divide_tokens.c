@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 10:16:20 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/20 13:02:09 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:06:21 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ char	**ft_divide_tokens(char const *s, char c)
 	i = 0;
 	while (*s)
 	{
-		if (*s == '\"' || *s == '\'')
+		if (*s == '\"')
 		{
 			s++;
 			str = (char *)s;
-			while (*s && (*s != '\"' && *s != '\''))
+			while (*s && (*s != '\"'))
 				s++;
 			dst[i] = (char *)malloc(s - str + 1);
 			if (!dst)

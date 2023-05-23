@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:19:20 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/22 00:52:49 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:05:12 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,12 @@ int	cd(char *pathname)
 	}
 	else
 	{
-		printf("pathname:%s\n", pathname);
 		ret = chdir(pathname);
-		printf("ret:%d\n", ret);
-		free(old_pwd);
-		if (errno != 0)
-			return (errno);
 	}
-	if (!ret)
+	if (ret == 0)
 	{
 		temp = ft_strjoin("OLDPWD=", old_pwd);
+		free(old_pwd);
 		export(&temp);
 		free(temp);
 		pwd = getcwd(NULL, 0);
@@ -77,6 +73,8 @@ int	cd(char *pathname)
 		free(pwd);
 		export(&temp);
 		free(temp);
+		if (errno != 0)
+			return (errno);
 	}
 	else
 		free(old_pwd);
