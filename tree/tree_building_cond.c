@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 09:48:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/16 17:33:37 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/23 17:14:39 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ t_tree	*redir_cond(t_tree *last_node, t_tree *node)
 		//go back in the tree until last_node == COMMAND
 		while (!(last_node->tokentype == I_REDIR
 				|| last_node->tokentype == O_REDIR)
-				|| last_node->tokentype == APPEND
-				|| last_node->tokentype == HEREDOC)
+			|| last_node->tokentype == APPEND
+			|| last_node->tokentype == HEREDOC)
 			last_node = last_node->back;
 		//if there's a pipe behind the command, go back
 		if (last_node->back != NULL && last_node->back->tokentype == PIPE)

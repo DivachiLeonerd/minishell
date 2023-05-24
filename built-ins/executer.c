@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:44:37 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/17 18:30:08 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:11:20 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,24 @@ int	is_builtin(char *command)
 	return (0);
 }
 
-char	**execute_builtin(char *command, char **args)
+int	execute_builtin(char *command, char **args)
 {
-	char	*str;
+	int		ret;
 
-	if (ft_strncmp("echo", command, ft_strlen("echo")) == 0)
-		ft_echo(args);
-	else if (ft_strncmp("env", command, ft_strlen("env")) == 0)
-		env();
-	else if (ft_strncmp("cd", command, ft_strlen("cd")) == 0)
-		g_struct.myenvp = cd(args[1]);
-	else if (ft_strncmp("pwd", command, ft_strlen("pwd")) == 0)
+	ret = 0;
+	if (ft_strncmp("echo", command, ft_strlen(args[0])) == 0)
+		ret = ft_echo(args);
+	else if (ft_strncmp("env", command, ft_strlen(args[0])) == 0)
+		ret = env();
+	else if (ft_strncmp("cd", command, ft_strlen(args[0])) == 0)
+		ret = cd(args[1]);
+	else if (ft_strncmp("pwd", command, ft_strlen(args[0])) == 0)
 	{
-		str = ft_pwd();
-		printf("%s\n", str);
-		free(str);
+		ret = ft_pwd();
 	}
-	else if (ft_strncmp("export", command, ft_strlen("export")) == 0)
-		g_struct.myenvp = export(&(args[1]));
-	else if (ft_strncmp("unset", command, ft_strlen("unset")) == 0)
-		g_struct.myenvp = unset(&(args[0]));
-	return (g_struct.myenvp);
+	else if (ft_strncmp("export", command, ft_strlen(args[0])) == 0)
+		ret = export(&(args[1]));
+	else if (ft_strncmp("unset", command, ft_strlen(args[0])) == 0)
+		ret = unset(&(args[0]));
+	return (ret);
 }

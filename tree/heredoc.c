@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:59:26 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/16 15:30:08 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/23 16:50:23 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ t_heredoc	*make_heredoc(void)
 
 	new_heredoc = (t_heredoc *)malloc(sizeof(t_heredoc));
 	if (new_heredoc == NULL)
-	{
-		perror("Couldn't allocate heredoc");
-		return (NULL);
-	}
+		exit(-1);
 	new_heredoc->delimiter = NULL;
 	pipe(new_heredoc->pipe_fd);
 	return (new_heredoc);

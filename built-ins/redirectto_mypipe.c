@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 04:00:45 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/15 17:41:56 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/23 17:29:21 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	dup_iostream(int **pipe_fd, int command_num, t_tree *node)
 {
-	
 	if (command_num == 0)
 	{
 		close(pipe_fd[0][0]);
@@ -41,11 +40,10 @@ void	dup_iostream(int **pipe_fd, int command_num, t_tree *node)
 
 static int	output_redirection(int fd, t_tree *node)
 {
-	// perror("output redir");
 	if (node->tokentype == O_REDIR)
-		fd = open(node->args[0] /*filename*/, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+		fd = open(node->args[0], O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	else if (node->tokentype == APPEND)
-		fd = open(node->args[0], O_CREAT  | O_WRONLY | O_APPEND, 0666);
+		fd = open(node->args[0], O_CREAT | O_WRONLY | O_APPEND, 0666);
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	return (0);
@@ -54,7 +52,7 @@ static int	output_redirection(int fd, t_tree *node)
 static int	input_redirection(int fd, t_tree *node)
 {
 	if (node->tokentype == I_REDIR)
-		fd = open(node->args[0] /*filename*/, O_CREAT | O_RDONLY, 0666);
+		fd = open(node->args[0], O_CREAT | O_RDONLY, 0666);
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 	return (0);
@@ -62,7 +60,7 @@ static int	input_redirection(int fd, t_tree *node)
 
 void	redirections_handler(t_tree *node)
 {
-	t_tree *aux;
+	t_tree	*aux;
 
 	aux = node;
 	while (aux->right_branch)

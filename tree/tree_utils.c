@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:24:15 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/04/15 17:40:25 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/19 18:36:58 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ t_tree	*find_topof_tree(t_tree *bintree)
 	if (!bintree)
 		return (NULL);
 	while (node->back)
+	{
+		// perror("go back");
 		node = node->back;
+	}
 	return (node);
 }

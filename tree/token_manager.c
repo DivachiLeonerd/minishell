@@ -6,13 +6,14 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:23:47 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/05/18 11:22:38 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/23 17:04:52 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "../built-ins/built-ins.h"
 #include "minishell.h"
+
 int	token_manager(char *token)
 {
 	int		i;
@@ -67,7 +68,8 @@ static void	addtoken_heredoc(char **tokens,
 
 	token = token_updater(tokens, controller);
 	last_node->heredoc = make_heredoc();
-	last_node->heredoc->bytes_stored = get_heredoc_input(last_node->heredoc, token);
+	last_node->heredoc->bytes_stored = get_heredoc_input
+		(last_node->heredoc, token);
 	free(token);
 	return ;
 }
@@ -95,11 +97,11 @@ t_tree	*addtoken_to_tree(char **tokens)
 	tokentype = 0;
 	controller = 0;
 	last_node = NULL;
-	//echo ola  > file1 echo | cat
 	while (tokentype != -1)
 	{
 		token = token_updater(tokens, &controller);
 		tokentype = get_token_type(token);
+		printf("tokentype:%d\n", tokentype);
 		if (((tokentype == BUILTIN || tokentype == EXECUTABLE) && i == 1))
 			tokentype = WORD;
 		else if (NODE_WORTHY)

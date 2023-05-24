@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:19:20 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/18 11:21:25 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:05:12 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../../minishell.h"
 
 // depois temos que usar getcwd() para mudar o prompt
-char	**cd(char *pathname)
+int	cd(char *pathname)
 {
 	int		ret;
 	char	*old_pwd;
@@ -23,25 +23,23 @@ char	**cd(char *pathname)
 	char	*temp;
 	char	*aux;
 
-	ret = 1;
+	errno = 0;
 	old_pwd = getcwd(NULL, 0);
 	if (!old_pwd)
 	{
 		free(old_pwd);
-		return (g_struct.myenvp);
+		return (errno);
 	}
 	if (!pathname)
 	{
 		pathname = ft_strdup("$HOME");
 		pathname = str_expander(pathname);
-	/* 	if (pathname[0] == '~')
-		{
-			ft_strjoin(pathname, "")
-		} */
-		errno = 0;
-		ret = chdir(pathname);
+		chdir(pathname);
 		if (errno != 0)
-			g_struct.chad_exitstatus = errno;
+		{
+			free(old_pwd);
+			return (errno);
+		}
 		free(pathname);
 	}
 	else if (pathname[0] == '~')
@@ -62,24 +60,23 @@ char	**cd(char *pathname)
 	}
 	else
 	{
-		errno = 0;
 		ret = chdir(pathname);
-		if (errno != 0)
-			g_struct.chad_exitstatus = errno;
 	}
-	if (!ret)
+	if (ret == 0)
 	{
 		temp = ft_strjoin("OLDPWD=", old_pwd);
 		free(old_pwd);
-		g_struct.myenvp = export(&temp);
+		export(&temp);
 		free(temp);
 		pwd = getcwd(NULL, 0);
 		temp = ft_strjoin("PWD=", pwd);
 		free(pwd);
-		g_struct.myenvp = export(&temp);
+		export(&temp);
 		free(temp);
+		if (errno != 0)
+			return (errno);
 	}
 	else
 		free(old_pwd);
-	return (g_struct.myenvp);
+	return (errno);
 }

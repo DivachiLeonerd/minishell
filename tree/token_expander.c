@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:22:59 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/05/18 11:20:50 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/23 16:46:21 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*join_tokens(char *s1, char *s2, int i)
 	return (new);
 }
 
-//expands string wrapped in double quotes and with a '$'
+/*expands string wrapped in double quotes and with a '$'*/
 char	*str_expander(char *s)
 {
 	size_t	size;
@@ -40,7 +40,6 @@ char	*str_expander(char *s)
 	temp = NULL;
 	if (!s)
 	{
-		perror("What a grave mistake in str_expander()");
 		g_struct.chad_exitstatus = 69420;
 		return (NULL);
 	}
@@ -57,9 +56,8 @@ char	*str_expander(char *s)
 		i++;
 	if (s[i] == '$')
 	{
-		temp = ft_substr(s, i, size);//token = "PWD"
-		full_name = find_env_full_var(&(temp[1]));//full_name = "PWD=./"
-		//printf("%p\n", *full_name);
+		temp = ft_substr(s, i, size);
+		full_name = find_env_full_var(&(temp[1]));
 		free(temp);
 		if (!full_name)
 		{
@@ -68,7 +66,6 @@ char	*str_expander(char *s)
 		}
 		temp = ft_substr(*full_name, size, ft_strlen(*full_name) - size);
 		free(s);
-		// printf("str_expander():%s\n", temp);
 		return (temp);
 	}
 	return (s);
