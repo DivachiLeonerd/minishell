@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/22 15:52:13 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/23 17:30:06 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	run_processes(t_tree *node)
 	if (node->tokentype == BUILTIN)
 		return (execute_builtin((node->args)[0], node->args));
 	else if (node->tokentype == EXECUTABLE)
-		return(execute_non_builtin((node->args)[0], node->args));
+		return (execute_non_builtin((node->args)[0], node->args));
 	return (0);
 }
 
@@ -69,5 +69,4 @@ void	make_processes(t_tree *bintree)
 	}
 	waitpid(pid, NULL, 0);
 	return ;
-	// printf("main()isn't waiting anymore\n");
 }

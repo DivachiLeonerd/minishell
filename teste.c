@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/22 15:50:25 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/23 17:06:37 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static char	*homedir_subst(char *pwd)
 {
-	char *aux;
+	char	*aux;
 	size_t	size;
-	
+
 	aux = str_expander(ft_strdup("$HOME"));
 	if (ft_strncmp(pwd, aux, ft_strlen(aux)) == 0)
 	{
@@ -55,20 +55,19 @@ char	*print_prompt(int r_flag)
 	}
 	return (aux);
 }
-g_controller g_struct;
+g_controller	g_struct;
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*command_line;
 	t_tree	*bintree;
 	int		i;
-	// int		pid;
 
 	i = 1;
 	(void)argc;
 	(void)argv;
 	g_struct.myenvp = build_envp(envp);
 	command_line = NULL;
-	//returns a empty string, which is different from a NULL
 	while (i)
 	{
 		bintree = NULL;

@@ -6,7 +6,7 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/17 17:12:16 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/23 16:23:59 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	i_dont_know_dude(int tokentype, t_tree *node)
 	}
 }
 
-//this function should be called repeatedly with a different token and tokentype
-//I should add nodes with the tokentype and connect the nodes
-//this is coming from the end of the tree to the beggining
+/*this function should be called repeatedly with a different token and tokentype
+I should add nodes with the tokentype and connect the nodes
+this is coming from the end of the tree to the beggining*/
 t_tree	*add_to_tree(int tokentype, t_tree *last_node)
 {
 	t_tree			*node;
@@ -45,7 +45,6 @@ t_tree	*add_to_tree(int tokentype, t_tree *last_node)
 	if (last_node)
 	{
 		node = redir_cond(last_node, node);
-		// node = heredoc_cond(last_node, node);
 		node = pipes_cond(tokentype, last_node, node);
 	}
 	else
@@ -55,12 +54,12 @@ t_tree	*add_to_tree(int tokentype, t_tree *last_node)
 
 int	check_direction(int direction, t_tree *node)
 {
-	if (direction == LEFT) //left side
+	if (direction == LEFT)
 	{
 		if (node->left_branch != NULL)
 			return (0);
 	}
-	if (direction == RIGHT) //right side
+	if (direction == RIGHT)
 	{
 		if (node->right_branch != NULL)
 			return (0);
@@ -86,12 +85,11 @@ void	free_tree(t_tree *bintree)
 
 	if (!bintree)
 		return ;
-	while (bintree->back != NULL) //tries to find the first position of the tree
+	while (bintree->back != NULL)
 		bintree = bintree->back;
 	node = bintree;
 	while (1)
 	{
-		// printf("we are freeing tree\n");
 		temp = node;
 		while (check_direction(RIGHT, node) == 0)
 			node = node->right_branch;

@@ -6,14 +6,14 @@
 /*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:28:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/19 11:39:26 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/05/23 16:57:50 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFINE_H
 # define DEFINE_H
 
-#include <stdlib.h>
+# include <stdlib.h>
 
 typedef struct s_heredoc
 {
