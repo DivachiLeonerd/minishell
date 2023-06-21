@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../built-ins.h"
+#include "../builtins.h"
 #include "../../minishell.h"
 // int	get_env_fd(char **envp)
 // {
@@ -29,12 +29,12 @@ int	export(char **args)
 	char	**var;
 	char	*new_var;
 	char	**new_env;
-	//variable == "NAME=VALUE"
+
 	errno = 0;
 	new_env = NULL;
 	var = find_env_full_var(args[0]);
 	new_var = ft_strdup(args[0]);
-	if (var == NULL) //if var not found
+	if (var == NULL)
 		g_struct.myenvp = env_realloc(g_struct.myenvp, new_env, 1, args[0]);
 	else
 		g_struct.myenvp = env_realloc(g_struct.myenvp, new_env, 0, args[0]);

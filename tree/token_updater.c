@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "parser.h"
-#include "../built-ins/built-ins.h"
+#include "../built-ins/builtins.h"
 #include "../libft/libft.h"
 
 static int	nquoted_size(char *s)
@@ -56,6 +56,25 @@ static int	get_size(char *s)
 		return (nquoted_size(s));
 }
 
+static char	*sizer(int size, char *token, char *str)
+{
+	if (ft_chrcmp('\'', token))
+	{
+		str = no_mem(ft_substr(token, 1, (size_t)size - 1));
+		if (token[0] != '\'')
+			str = str_expander(str);
+	}
+	else if (ft_chrcmp('$', token))
+	{
+		str = no_mem(ft_substr(token, 0, (size_t)size));
+		if (token[0] != '\'')
+			str = str_expander(str);
+	}
+	else
+		str = no_mem(ft_substr(token, 0, (size_t)size));
+	return (str);
+}
+
 char	*token_updater(char **tokens, int *var)
 {
 	int				size;
@@ -64,23 +83,9 @@ char	*token_updater(char **tokens, int *var)
 
 	token = tokens[*var];
 	size = get_size(token);
+	str = NULL;
 	if (size)
-	{
-		if (ft_chrcmp('\'', token))
-		{
-			str = no_mem(ft_substr(token, 1, (size_t)size - 1));
-			if (token[0] != '\'')
-				str = str_expander(str);
-		}
-		else if (ft_chrcmp('$', token))
-		{
-			str = no_mem(ft_substr(token, 0, (size_t)size));
-			if (token[0] != '\'')
-				str = str_expander(str);
-		}
-		else
-			str = no_mem(ft_substr(token, 0, (size_t)size));
-	}
+		str = sizer(size, token, str);
 	else
 	{
 		free(token);

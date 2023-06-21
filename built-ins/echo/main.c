@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../built-ins.h"
+#include "../builtins.h"
 
 int	main(int argc, char **argv, char **envp)
 {
-	if (ft_echo(argv) == 0)
+	if (ft_echo(argv, 0, 0) == 0)
 		return (0);
 	return (1);
 }

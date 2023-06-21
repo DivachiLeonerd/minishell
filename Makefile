@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/15 15:45:01 by afonso            #+#    #+#              #
-#    Updated: 2023/05/23 10:40:15 by atereso-         ###   ########.fr        #
+#    Updated: 2023/06/21 20:48:34 by buny             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,8 @@ OBJS:= free_all_resources.o run_single_builtin.o
 OBJS_built-in:=
 #OBJS_T :=
 CC := cc
-CFLAGS := -g -Wall -Wextra -Werror  -ggdb -fsanitize=address
-RM := rm -f
+CFLAGS := -g -Wall -Wextra -Werror  -ggdb -fsanitize=address 
+RM := rm -rf
 
 all: ${NAME}
 	printf "Its done\n"
@@ -28,7 +28,7 @@ all: ${NAME}
 ${NAME}: ${OBJS} libbuilt-in.a libtree.a libft.a
 	@${CC} ${CFLAGS} teste.c ${LIB} ${HEADER} ${OBJS} -o ${NAME}
 	mkdir -p Objects
-	@mv *.o ./Objects/
+
 	${MAKE} -s clean
 
 libft.a:
@@ -52,10 +52,11 @@ clean:
 fclean: clean
 	@${RM} minishell
 	@${RM} minitester
+	@${RM} Objects
 	@${RM} *.a
 
 re: fclean test
 	${MAKE} -s clean
 	printf "Its done\n"
 
- .PHONY:all test fclean clean re libtree.a libbuilt-in.a libft.a
+ .PHONY:all test fclean clean re

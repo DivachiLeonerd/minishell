@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error_beta.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 11:23:15 by jbuny-fe          #+#    #+#             */
-/*   Updated: 2023/05/24 18:01:21 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:30:56 by buny             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,16 @@ int	valid_eol(char *line)
 	return (0);
 }
 
-int	syntax_checker(char *line)
+int	syntax_checker(char *line, int i, int j)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
 	while (line[i] == ' ')
 		i++;
+	if (ft_strlen(line) == (size_t)i)
+		return (1);
 	if (line[0] == '>' || line[0] == '<' || line[0] == '|')
 	{
-		printf("STOOPID BEETCH\n");
 		return (1);
 	}
-	//also, the last character cant be <, > or >>
 	while (line[i] && j < 3)
 	{
 		i++;
@@ -57,7 +52,6 @@ int	syntax_checker(char *line)
 			j++;
 		else
 			j = 0;
-		//This is for cases like: "[text] <| [text]", "<|" isn't valid
 		if (j == 2 && line[i] != line[i - 1])
 			return (2);
 	}

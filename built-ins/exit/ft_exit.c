@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../built-ins.h"
+#include "../builtins.h"
 #include "../../define.h"
 #include "../../minishell.h"
 #include <errno.h>

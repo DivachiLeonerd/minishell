@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   teste.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:08:01 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/23 17:06:37 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/06/02 18:22:54 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,50 @@ char	*print_prompt(int r_flag)
 	}
 	return (aux);
 }
-g_controller	g_struct;
+t_controller	g_struct;
+
+static char	*small_main_loop(char **command_line)
+{
+	*command_line = print_prompt(1);
+	if (!(*command_line))
+	{
+		printf("exit\n");
+		exit(0);
+	}
+	if ((*command_line)[0] == '\0')
+		free(*command_line);
+	else
+		return (*command_line);
+	return (NULL);
+}
+t_controller	g_struct;
+
+void	not_so_small_main_loop(int i, char *command_line, t_tree *bintree)
+{
+	while (i)
+	{
+		bintree = NULL;
+		intr_behaviour(&(g_struct.behaviour));
+		while (1)
+		{
+			if (small_main_loop(&command_line) != NULL)
+				break ;
+		}
+		if (ft_strncmp("exit", command_line, 4))
+			add_history(command_line);
+		else
+			i = 0 ;
+		if (i == 1)
+				bintree = parser_init(command_line);
+		if (bintree)
+			make_processes(bintree);
+		free(command_line);
+		command_line = NULL;
+		free_tree(bintree);
+		if (g_struct.chad_exitstatus != 0 && i == 1)
+			printf("status:%s\n", strerror(g_struct.chad_exitstatus));
+	}
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -68,52 +111,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	g_struct.myenvp = build_envp(envp);
 	command_line = NULL;
-	while (i)
-	{
-		bintree = NULL;
-		intr_behaviour(&(g_struct.behaviour));
-		while (1)
-		{
-			command_line = print_prompt(1);
-			if (!command_line)
-			{
-				printf("exit\n");
-				exit(0);
-			}
-			if (command_line[0] == '\0')
-				free(command_line);
-			else
-				break ;
-		}
-		if (ft_strncmp("exit", command_line, 4))
-			add_history(command_line);
-		else
-			i = 0 ;
-		if (i == 1)
-		{
-			//pid = fork();
-			// if (pid == 0)
-			// {
-			// 	nintr_behaviour(&(g_struct.behaviour));
-				bintree = parser_init(command_line);
-			// }
-		}
-		// if (pid)
-		// {
-		// 	g_struct.behaviour.sa_handler = SIG_IGN;
-		// 	sigaction(SIGINT, &(g_struct.behaviour), NULL);
-		// 	waitpid(pid, NULL, 0);
-		// 	free(command_line);
-		// 	continue ;
-		// }
-		if (bintree)
-			make_processes(bintree);
-		free(command_line);
-		command_line = NULL;
-		free_tree(bintree);
-		if (g_struct.chad_exitstatus != 0 && i == 1)
-			printf("status:%s\n", strerror(g_struct.chad_exitstatus));
-	}
+	bintree = NULL;
+	not_so_small_main_loop(i, command_line, bintree);
 	free_matrix(g_struct.myenvp);
 	exit(0);
 	return (0);

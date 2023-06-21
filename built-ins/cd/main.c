@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "built-ins.h"
+#include "builtins.h"
 #include "../minishell.h"
 
 int	main(int argc, char **argv, char **envp)
 {
 	g_struct.myenvp = build_envp(envp);
 	env();
-	cd(argv[1]);
+	cd(argv[1], NULL, NULL, NULL);
 	printf("\n\nnew_PWD:");
 	ft_pwd();
 	printf("\n\nCheck new PWD in env:\n\n");

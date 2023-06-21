@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   tree_building_cond.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 09:48:59 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/23 17:14:39 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/06/02 18:20:45 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-//PIPES
+
 t_tree	*pipes_cond(int tokentype, t_tree *last_node, t_tree *node)
 {
-	if (last_node->tokentype == PIPE && COMMAND)
+	if (last_node->tokentype == PIPE && (node->tokentype == BUILTIN
+			|| node->tokentype == EXECUTABLE))
 	{
 		last_node->right_branch = node;
 		node->back = last_node;
@@ -35,35 +36,30 @@ t_tree	*pipes_cond(int tokentype, t_tree *last_node, t_tree *node)
 	return (node);
 }
 
-//REDIRECTS
 t_tree	*redir_cond(t_tree *last_node, t_tree *node)
 {
-	//if tokentype != REDIR but last token == REDIR
-	if (!REDIR && (last_node->tokentype == I_REDIR
+	if (!(node->tokentype == I_REDIR || node->tokentype == O_REDIR
+			|| node->tokentype == APPEND
+			|| node->tokentype == HEREDOC) && (last_node->tokentype == I_REDIR
 			|| last_node->tokentype == O_REDIR
 			|| last_node->tokentype == APPEND
 			|| last_node->tokentype == HEREDOC))
 	{
-		//go back in the tree until last_node == COMMAND
 		while (!(last_node->tokentype == I_REDIR
 				|| last_node->tokentype == O_REDIR)
 			|| last_node->tokentype == APPEND
 			|| last_node->tokentype == HEREDOC)
 			last_node = last_node->back;
-		//if there's a pipe behind the command, go back
 		if (last_node->back != NULL && last_node->back->tokentype == PIPE)
 			last_node = last_node->back;
-		//return last_node in the pipe or command position
 		return (last_node);
 	}
-	//or tokentype is redir
-	else if (REDIR || node->tokentype == HEREDOC)
+	else if ((node->tokentype == I_REDIR || node->tokentype == O_REDIR
+			|| node->tokentype == APPEND
+			|| node->tokentype == HEREDOC) || node->tokentype == HEREDOC)
 	{
 		last_node->right_branch = node;
 		node->back = last_node;
 	}
-	//return it in the last redir position
 	return (node);
 }
-
-//ETC...

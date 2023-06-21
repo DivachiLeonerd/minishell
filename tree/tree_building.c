@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_building.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:27:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/23 16:23:59 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/06/02 18:16:47 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@ void	i_dont_know_dude(int tokentype, t_tree *node)
 	}
 }
 
-/*this function should be called repeatedly with a different token and tokentype
-I should add nodes with the tokentype and connect the nodes
-this is coming from the end of the tree to the beggining*/
 t_tree	*add_to_tree(int tokentype, t_tree *last_node)
 {
 	t_tree			*node;
@@ -65,50 +62,4 @@ int	check_direction(int direction, t_tree *node)
 			return (0);
 	}
 	return (1);
-}
-
-static void	free_node(t_tree *node)
-{
-	if (node->heredoc)
-		free(node->heredoc->pipe_fd);
-	if (node->args)
-		free_matrix(node->args);
-	free(node);
-	return ;
-}
-
-void	free_tree(t_tree *bintree)
-{
-	t_tree	*node;
-	t_tree	*temp;
-	t_tree	*aux;
-
-	if (!bintree)
-		return ;
-	while (bintree->back != NULL)
-		bintree = bintree->back;
-	node = bintree;
-	while (1)
-	{
-		temp = node;
-		while (check_direction(RIGHT, node) == 0)
-			node = node->right_branch;
-		while (node != temp)
-		{
-			aux = node;
-			node = node->back;
-			free_node(aux);
-			node->right_branch = NULL;
-		}
-		if (check_direction(LEFT, node) == 0)
-		{
-			aux = node;
-			node = node->left_branch;
-			free_node(aux);
-			node->back = NULL;
-		}
-		else
-			return (free_node(node));
-	}
-	return ;
 }

@@ -11,21 +11,12 @@
 /* ************************************************************************** */
 
 #include "parser.h"
-#include "../built-ins/built-ins.h"
+#include "../built-ins/builtins.h"
 #include "../define.h"
 #include "../minishell.h"
 
-int	get_token_type(char *token)
+static int	get_operator(int token_size, char *token)
 {
-	int		token_size;
-	char	*aux;
-
-	aux = NULL;
-	if (!token)
-		return (-1);
-	if (token[0] == '\0')
-		return (-1);
-	token_size = ft_smol_strlen(token);
 	if (token_size == 1)
 	{
 		if (token[0] == '>')
@@ -42,6 +33,24 @@ int	get_token_type(char *token)
 		else if (token[0] == '<' && token[1] == '<')
 			return (HEREDOC);
 	}
+	return (0);
+}
+
+int	get_token_type(char *token)
+{
+	int		token_size;
+	char	*aux;
+	int		is_operator;
+
+	aux = NULL;
+	if (!token)
+		return (-1);
+	if (token[0] == '\0')
+		return (-1);
+	token_size = ft_smol_strlen(token);
+	is_operator = get_operator(token_size, token);
+	if (is_operator)
+		return (is_operator);
 	if (is_builtin(token))
 		return (BUILTIN);
 	else

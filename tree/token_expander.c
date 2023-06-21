@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "parser.h"
-#include "../built-ins/built-ins.h"
+#include "../built-ins/builtins.h"
 #include "../define.h"
 #include "minishell.h"
 
@@ -28,16 +28,33 @@ char	*join_tokens(char *s1, char *s2, int i)
 	return (new);
 }
 
+char	*is_dollarsign(int i, size_t size, char *s)
+{
+	char	*temp;
+	char	**full_name;
+
+	temp = NULL;
+	full_name = NULL;
+	temp = ft_substr(s, i, size);
+	full_name = find_env_full_var(&(temp[1]));
+	free(temp);
+	if (!full_name)
+	{
+		free(s);
+		return (NULL);
+	}
+	temp = ft_substr(*full_name, size, ft_strlen(*full_name) - size);
+	free(s);
+	return (temp);
+}
+
 /*expands string wrapped in double quotes and with a '$'*/
 char	*str_expander(char *s)
 {
 	size_t	size;
-	char	*temp;
-	char	**full_name;
 	int		i;
 
 	i = 0;
-	temp = NULL;
 	if (!s)
 	{
 		g_struct.chad_exitstatus = 69420;
@@ -55,18 +72,6 @@ char	*str_expander(char *s)
 	if (s[0] == '\"')
 		i++;
 	if (s[i] == '$')
-	{
-		temp = ft_substr(s, i, size);
-		full_name = find_env_full_var(&(temp[1]));
-		free(temp);
-		if (!full_name)
-		{
-			free(s);
-			return (NULL);
-		}
-		temp = ft_substr(*full_name, size, ft_strlen(*full_name) - size);
-		free(s);
-		return (temp);
-	}
+		return (is_dollarsign(i, size, s));
 	return (s);
 }

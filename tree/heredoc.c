@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:59:26 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/23 16:50:23 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/06/02 18:16:22 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "../define.h"
 #include <stdint.h>
 
-//Function to initialize pipes through the structs
-//maybe while doing the tree with heredoc nodes
 t_heredoc	*make_heredoc(void)
 {
 	t_heredoc	*new_heredoc;
@@ -57,7 +55,6 @@ ssize_t	get_heredoc_input(t_heredoc *new_heredoc, char *delimiter)
 	return ((ssize_t)ret);
 }
 
-// close pipes
 void	close_heredocs(t_tree *bintree)
 {
 	t_tree	*node;
@@ -82,7 +79,6 @@ void	close_heredocs(t_tree *bintree)
 			close((bintree->heredoc->pipe_fd)[0]);
 		}
 	}
-	//Maybe i also free them along with pipe closure
 	return ;
 }
 

@@ -39,40 +39,48 @@ static size_t	char_counter(char const *s, char c)
 	return (count);
 }
 
+static void	dquote_handler(const char **s, char **str, char **dst, int *i)
+{
+	(*s)++;
+	(*str) = (char *)*s;
+	while (**s && (**s != '\"'))
+		(*s)++;
+	dst[*i] = (char *)malloc(*s - *str + 1);
+	if (!dst)
+		return ;
+	ft_strlcpy(dst[(*i)], *str, *s - *str + 1);
+	(*i) += 1;
+	(*s)++;
+	return ;
+}
+
+void	nondelimiter_handler(char const **s, char **str, char **dst, int *i)
+{
+	*str = (char *)*s;
+	while (**s && **s != ' ')
+		(*s)++;
+	dst[*i] = (char *)malloc(*s - *str + 1);
+	if (!dst[*i])
+		return ;
+	ft_strlcpy(dst[(*i)++], *str, *s - *str + 1);
+}
+
 char	**ft_divide_tokens(char const *s, char c)
 {
 	char	**dst;
 	char	*str;
-	size_t	i;
+	int		i;
 
 	dst = (char **)malloc(sizeof(char *) * (char_counter(s, c) + 1));
 	if (!dst)
-		return (0);
+		return (NULL);
 	i = 0;
 	while (*s)
 	{
 		if (*s == '\"')
-		{
-			s++;
-			str = (char *)s;
-			while (*s && (*s != '\"'))
-				s++;
-			dst[i] = (char *)malloc(s - str + 1);
-			if (!dst)
-				return (0);
-			ft_strlcpy(dst[i++], str, s - str + 1);
-			s++;
-		}
+			dquote_handler(&s, &str, dst, &i);
 		else if (*s != c)
-		{
-			str = (char *)s;
-			while (*s && *s != c)
-				s++;
-			dst[i] = (char *)malloc(s - str + 1);
-			if (!dst)
-				return (0);
-			ft_strlcpy(dst[i++], str, s - str + 1);
-		}
+			nondelimiter_handler(&s, &str, dst, &i);
 		else
 			s++;
 	}

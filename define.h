@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:28:54 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/23 16:57:50 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/06/02 18:17:23 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,7 @@ typedef struct s_tree
 # define BUILTIN 6
 # define EXECUTABLE 7
 # define WORD 8
-# define NODE_WORTHY tokentype != WORD
 # define PROMPT "\033[1;32mPequenaConcha:\033[1;34m"
-# define COMMAND (node->tokentype == BUILTIN || node->tokentype == EXECUTABLE)
-# define REDIR (node->tokentype == I_REDIR || node->tokentype == O_REDIR || node->tokentype == APPEND || node->tokentype == HEREDOC)
-# define SPECIAL_TOKEN (tokentype == PIPE || tokentype == I_REDIR || tokentype == O_REDIR || tokentype == APPEND || tokentype == HEREDOC)
 
 void	free_matrix(char **envp);
 char	*find_command_path(char *command);

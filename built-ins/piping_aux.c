@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piping_aux.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:47:06 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/23 17:30:06 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/06/02 18:14:53 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,29 @@ int	run_processes(t_tree *node)
 	return (0);
 }
 
+static void	single_builtin(int *fd, t_tree *node)
+{
+	fd[1] = dup(STDOUT_FILENO);
+	fd[0] = dup(STDIN_FILENO);
+	g_struct.chad_exitstatus = run_single_builtin(node);
+	dup2(fd[1], STDOUT_FILENO);
+	dup2(fd[0], STDIN_FILENO);
+	return ;
+}
+
 void	make_processes(t_tree *bintree)
 {
-	int		numof_pipes;
-	int		fd1;
-	int		fd0;
+	int		npipes;
+	int		fd[2];
 	int		pid;
 	int		**pipe_fd;
-	t_tree 	*node;
+	t_tree	*node;
 
-	numof_pipes = how_many_pipes(bintree);
+	npipes = how_many_pipes(bintree);
 	node = find_command_node(0, bintree);
-	//check if the one command is a builtin and if it is, just run it
-	if (numof_pipes == 0 && COMMAND)
-	{
-		fd1 = dup(STDOUT_FILENO);
-		fd0 = dup(STDIN_FILENO);
-		g_struct.chad_exitstatus = run_single_builtin(node);
-		dup2(fd1, STDOUT_FILENO);
-		dup2(fd0, STDIN_FILENO);
-		return ;
-	}
+	if (!npipes && (node->tokentype == BUILTIN
+			|| node->tokentype == EXECUTABLE))
+		return (single_builtin(fd, node));
 	pid = fork();
 	if (pid == 0)
 	{
@@ -65,7 +67,6 @@ void	make_processes(t_tree *bintree)
 		pipe_fd[0] = malloc(2 * sizeof(int));
 		pipe_fd[1] = malloc(2 * sizeof(int));
 		multiple_processes(0, bintree, pipe_fd);
-		exit(0);
 	}
 	waitpid(pid, NULL, 0);
 	return ;

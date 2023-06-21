@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   family.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 19:19:45 by atereso-          #+#    #+#             */
-/*   Updated: 2023/05/24 18:29:19 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/06/02 18:35:48 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	make_child(t_tree *node, int **pipe_fd, int command_num, t_tree *bintree)
+static int	make_child(t_tree *node, int **pipe_fd,
+		int command_num, t_tree *bintree)
 {
 	int	pid;
 
 	pid = -2;
-	if ((node->back && node->back->right_branch == node && node->back->back) || command_num == 0)
+	if ((node->back && node->back->right_branch == node && node->back->back)
+		|| command_num == 0)
 	{
 		pipe(pipe_fd[0]);
 		pid = fork();
@@ -36,15 +38,17 @@ static int	make_child(t_tree *node, int **pipe_fd, int command_num, t_tree *bint
 
 static void	ft_child(t_tree *node, int command_num, int **pipe_fd)
 {
-	t_tree *aux;
+	t_tree	*aux;
 	int		ret;
-	//process instructions here
+
 	dup_iostream(pipe_fd, command_num, node);
 	aux = node;
 	while (node->right_branch)
 	{
 		node = node->right_branch;
-		if (REDIR || node->tokentype == APPEND)
+		if ((node->tokentype == I_REDIR || node->tokentype == O_REDIR
+				|| node->tokentype == APPEND || node->tokentype == HEREDOC)
+			|| node->tokentype == APPEND)
 			redirections_handler(node);
 		if (node->tokentype == HEREDOC)
 			heredoc_handler(node->heredoc);
@@ -59,7 +63,7 @@ static void	ft_child(t_tree *node, int command_num, int **pipe_fd)
 static void	ft_parent(int pid, int **pipe_fd)
 {
 	int	error_num;
-	
+
 	close(STDOUT_FILENO);
 	close(STDIN_FILENO);
 	waitpid(pid, &error_num, 0);
@@ -71,17 +75,19 @@ void	multiple_processes(int command_num, t_tree *bintree, int **pipe_fd)
 {
 	int		pid;
 	t_tree	*command_node;
-	
-	command_node = find_command_node(command_num, bintree);	
+
+	command_node = find_command_node(command_num, bintree);
+	pid = -2;
 	if (command_node)
 	{
-		// I have to put these conditions inside a function like: is_forkable()
-		if ((command_node->back && command_node->back->left_branch == command_node) 
-		|| (command_node == command_node->back->right_branch && command_node->back->back))
+		if ((command_node->back && command_node->back->left_branch
+				== command_node)
+			|| (command_node == command_node->back->right_branch
+				&& command_node->back->back))
 			pid = make_child(command_node, pipe_fd, command_num, bintree);
 	}
 	ft_child(command_node, command_num, pipe_fd);
 	if (pid != -2)
 		ft_parent(pid, pipe_fd);
-	return ;
+	exit (0);
 }

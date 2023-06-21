@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "built-ins.h"
+#include "builtins.h"
 #include "../tree/parser.h"
 #include "../minishell.h"
 
@@ -77,7 +77,6 @@ char	**env_realloc(char **envp, char **new_env,
 	else
 		delete_var_from_env(new_env, envp, var);
 	free_matrix(envp);
-	// env(*new_env);
 	envp = NULL;
 	return (new_env);
 }

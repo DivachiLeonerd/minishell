@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 19:19:15 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/21 23:51:15 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/06/02 18:12:44 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # include <termcap.h>
 # include "./libft/libft.h"
 # include "./tree/parser.h"
-# include "./built-ins/built-ins.h"
+# include "./built-ins/builtins.h"
 # include "./built-ins/piping.h"
 # include "define.h"
 
@@ -43,9 +43,9 @@ typedef struct g_controller
 	char				**myenvp;
 	struct sigaction	behaviour;
 	char				*command_line;
-}g_controller;
+}t_controller;
 
-extern g_controller g_struct;
+extern t_controller	g_struct;
 
 char	*print_prompt(int flag);
 void	free_all_resources(int **pipe_fd);

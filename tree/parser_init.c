@@ -21,7 +21,7 @@ t_tree	*parser_init(char *s)
 	char		**tokens;
 
 	bintree = NULL;
-	if (syntax_checker(s) != 0)
+	if (syntax_checker(s, 0, 0) != 0)
 		return (NULL);
 	tokens = ft_divide_tokens(s, ' ');
 	bintree = addtoken_to_tree(tokens);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:00:04 by afonso            #+#    #+#             */
-/*   Updated: 2023/04/14 12:09:32 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/06/02 18:07:58 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 	int		command_num;
 
-	exit_status = 0; // Isto é o "$?, provavelmente será uma global no header file"
+	exit_status = 0;
 	line = 1;
 	while (1)
 	{

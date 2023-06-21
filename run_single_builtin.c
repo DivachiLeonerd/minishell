@@ -28,12 +28,9 @@ int	run_single_builtin(t_tree *bintree)
 			execute_non_builtin(bintree->args[0], bintree->args);
 			return (0);
 		}
-		else
-		{
-			g_struct.behaviour.sa_handler = SIG_IGN;
-			sigaction(SIGINT, &(g_struct.behaviour), NULL);
-			waitpid(pid, NULL, 0);
-		}
+		g_struct.behaviour.sa_handler = SIG_IGN;
+		sigaction(SIGINT, &(g_struct.behaviour), NULL);
+		waitpid(pid, NULL, 0);
 	}
 	if (is_builtin(bintree->args[0]))
 	{

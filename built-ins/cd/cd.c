@@ -3,27 +3,75 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atereso- <atereso-@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: atereso- <atereso-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:19:20 by afonso            #+#    #+#             */
-/*   Updated: 2023/05/22 17:05:12 by atereso-         ###   ########.fr       */
+/*   Updated: 2023/06/02 18:07:25 by atereso-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../built-ins.h"
+#include "../builtins.h"
 #include "../../tree/parser.h"
 #include "../../minishell.h"
 
-// depois temos que usar getcwd() para mudar o prompt
-int	cd(char *pathname)
+int	no_pathname(char *pathname, char *old_pwd)
+{
+	pathname = ft_strdup("$HOME");
+	pathname = str_expander(pathname);
+	chdir(pathname);
+	if (errno != 0)
+	{
+		free(old_pwd);
+		return (errno);
+	}
+	free(pathname);
+	return (errno);
+}
+
+int	pathname_starts_with_til(char *pathname, char *pwd, char *temp, char *aux)
+{
+	int	ret;
+
+	ret = 0;
+	temp = ft_strdup("$HOME");
+	temp = str_expander(temp);
+	aux = ft_strdup(pathname);
+	pwd = ft_substr(aux, 1, ft_strlen(aux) - 1);
+	free(aux);
+	aux = ft_strjoin(temp, pwd);
+	free(temp);
+	errno = 0;
+	ret = chdir(pathname);
+	if (errno != 0)
+		g_struct.chad_exitstatus = errno;
+	free(aux);
+	free(pwd);
+	return (ret);
+}
+
+int	ret_is_zero(char *old_pwd, char *temp, char *pwd)
+{
+	temp = ft_strjoin("OLDPWD=", old_pwd);
+	free(old_pwd);
+	export(&temp);
+	free(temp);
+	pwd = getcwd(NULL, 0);
+	temp = ft_strjoin("PWD=", pwd);
+	free(pwd);
+	export(&temp);
+	free(temp);
+	if (errno != 0)
+		return (errno);
+	return (0);
+}
+
+int	cd(char *pathname, char *pwd, char *temp, char *aux)
 {
 	int		ret;
 	char	*old_pwd;
-	char	*pwd;
-	char	*temp;
-	char	*aux;
 
 	errno = 0;
+	ret = 0;
 	old_pwd = getcwd(NULL, 0);
 	if (!old_pwd)
 	{
@@ -31,51 +79,13 @@ int	cd(char *pathname)
 		return (errno);
 	}
 	if (!pathname)
-	{
-		pathname = ft_strdup("$HOME");
-		pathname = str_expander(pathname);
-		chdir(pathname);
-		if (errno != 0)
-		{
-			free(old_pwd);
-			return (errno);
-		}
-		free(pathname);
-	}
+		no_pathname(pathname, old_pwd);
 	else if (pathname[0] == '~')
-	{
-		temp = ft_strdup("$HOME");
-		temp = str_expander(temp);
-		aux = ft_strdup(pathname);
-		pwd = ft_substr(aux, 1, ft_strlen(aux) - 1);
-		free(aux);
-		aux = ft_strjoin(temp, pwd);
-		free(temp);
-		errno = 0;
-		ret = chdir(pathname);
-		if (errno != 0)
-			g_struct.chad_exitstatus = errno;
-		free(aux);
-		free(pwd);
-	}
+		pathname_starts_with_til(pathname, pwd, temp, aux);
 	else
-	{
 		ret = chdir(pathname);
-	}
 	if (ret == 0)
-	{
-		temp = ft_strjoin("OLDPWD=", old_pwd);
-		free(old_pwd);
-		export(&temp);
-		free(temp);
-		pwd = getcwd(NULL, 0);
-		temp = ft_strjoin("PWD=", pwd);
-		free(pwd);
-		export(&temp);
-		free(temp);
-		if (errno != 0)
-			return (errno);
-	}
+		ret_is_zero(old_pwd, temp, pwd);
 	else
 		free(old_pwd);
 	return (errno);

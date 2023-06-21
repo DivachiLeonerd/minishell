@@ -31,4 +31,3 @@ t_tree	*find_first_command(t_tree *bintree)
 		node = node->left_branch;
 	return (node);
 }
-

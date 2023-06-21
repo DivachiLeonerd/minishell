@@ -37,12 +37,13 @@ int			token_manager(char *token);
 char		*token_updater(char **tokens, int *i);
 int			get_token_type(char *token);
 t_tree		*parser_init(char *s);
-int			syntax_checker(char *line);
+int			syntax_checker(char *line, int i, int j);
 void		*no_mem(void *p);
 char		*str_expander(char *s);
 void		free_tree(t_tree *bintree);
 t_tree		*find_topof_tree(t_tree *bintree);
 void		heredoc_handler(t_heredoc *heredoc);
 int			check_direction(int direction, t_tree *node);
+char		**add_argstoken(char **args, char *token);
 // void		close_heredocs(t_heredoc **all_heredocs);
 #endif

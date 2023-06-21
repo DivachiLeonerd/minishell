@@ -10,14 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "built-ins.h"
+#include "builtins.h"
 #include  "../minishell.h"
 //the purpose of this function will be to receive the binary 
 //tree output and put it in the appropriate functions
 
 int	is_builtin(char *command)
 {
-	// printf("in is_builtin\n");
 	if (ft_strncmp("echo", command, ft_strlen("echo")) == 0
 		|| ft_strncmp("env", command, ft_strlen("env")) == 0
 		|| ft_strncmp("exit", command, ft_strlen("exit")) == 0
@@ -35,15 +34,13 @@ int	execute_builtin(char *command, char **args)
 
 	ret = 0;
 	if (ft_strncmp("echo", command, ft_strlen(args[0])) == 0)
-		ret = ft_echo(args);
+		ret = ft_echo(args, 0, 0);
 	else if (ft_strncmp("env", command, ft_strlen(args[0])) == 0)
 		ret = env();
 	else if (ft_strncmp("cd", command, ft_strlen(args[0])) == 0)
-		ret = cd(args[1]);
+		ret = cd(args[1], NULL, NULL, NULL);
 	else if (ft_strncmp("pwd", command, ft_strlen(args[0])) == 0)
-	{
 		ret = ft_pwd();
-	}
 	else if (ft_strncmp("export", command, ft_strlen(args[0])) == 0)
 		ret = export(&(args[1]));
 	else if (ft_strncmp("unset", command, ft_strlen(args[0])) == 0)
